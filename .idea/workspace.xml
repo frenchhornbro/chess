@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="General setup, overrode toString methods for each class except ChessGame">
-      <change afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/BishopMovesCalculator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/PieceMovesCalculator.java" afterDir="false" />
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="General setup and overrode toString methods for 4 chess classes (forgot to commit this)&#10;Set up BishopMovesCalculator to be able to run">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessMove.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessMove.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPiece.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,13 +114,22 @@
       <option name="project" value="LOCAL" />
       <updated>1705781732909</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="General setup and overrode toString methods for 4 chess classes (forgot to commit this)&#10;Set up BishopMovesCalculator to be able to run">
+      <option name="closed" value="true" />
+      <created>1705809013512</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1705809013512</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add(client) dependency on server for running tests." />
     <MESSAGE value="fix(shared) maven resource reference" />
     <MESSAGE value="General setup, overrode toString methods for each class except ChessGame" />
-    <option name="LAST_COMMIT_MESSAGE" value="General setup, overrode toString methods for each class except ChessGame" />
+    <MESSAGE value="General setup and overrode toString methods for 4 chess classes (forgot to commit this)&#10;Set up BishopMovesCalculator to be able to run" />
+    <option name="LAST_COMMIT_MESSAGE" value="General setup and overrode toString methods for 4 chess classes (forgot to commit this)&#10;Set up BishopMovesCalculator to be able to run" />
   </component>
 </project>
