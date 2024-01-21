@@ -36,4 +36,16 @@ public class ChessPosition {
     public String toString() {
         return "R" + getRow() + "C" + getColumn();
     }
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (o == this) return true;
+        if (this.getClass() != o.getClass()) return false;
+        ChessPosition other = (ChessPosition) o;
+        return (this.getRow() == other.getRow() && this.getColumn() == other.getColumn());
+    }
+    @Override
+    public int hashCode() {
+        return (row*col);
+    }
 }

@@ -12,7 +12,6 @@ public class BishopMovesCalculator implements PieceMovesCalculator {
 
     }
     public Collection<ChessMove> pieceMoves (chess.ChessBoard board, chess.ChessPosition position) {
-        //TODO: Fix R5C4->R6C5 being put in twice   <-- Maybe try fixing equals and hashing methods
         ArrayList<ChessMove> possibleMoves = new ArrayList<>();
         int x = position.getRow();
         int y = position.getColumn();
@@ -34,23 +33,12 @@ public class BishopMovesCalculator implements PieceMovesCalculator {
         i = 0;
         while(cont) {
             i++;
-            if (!validMove(x+i,y-i)) cont = false;
-            else {
-                ChessPosition endPosition = new ChessPosition(x+i, y+i);
-                ChessMove validBishopMove = new ChessMove(startPosition,endPosition);
-                possibleMoves.add(validBishopMove);
-            }
-            //TODO: Don't continue if there's a piece in the way that can be captured
-        }
-        cont = true;
-        i = 0;
-        while(cont) {
-            i++;
             if (!validMove(x-i,y+i)) cont = false;
             else {
-                ChessPosition endPosition = new ChessPosition(x+i, y+i);
+                ChessPosition endPosition = new ChessPosition(x-i, y+i);
                 ChessMove validBishopMove = new ChessMove(startPosition,endPosition);
                 possibleMoves.add(validBishopMove);
+                System.out.println("Added: " + validBishopMove.toString());
             }
             //TODO: Don't continue if there's a piece in the way that can be captured
         }
@@ -60,9 +48,23 @@ public class BishopMovesCalculator implements PieceMovesCalculator {
             i++;
             if (!validMove(x-i,y-i)) cont = false;
             else {
-                ChessPosition endPosition = new ChessPosition(x+i, y+i);
+                ChessPosition endPosition = new ChessPosition(x-i, y-i);
                 ChessMove validBishopMove = new ChessMove(startPosition,endPosition);
                 possibleMoves.add(validBishopMove);
+                System.out.println("Added: " + validBishopMove.toString());
+            }
+            //TODO: Don't continue if there's a piece in the way that can be captured
+        }
+        cont = true;
+        i = 0;
+        while(cont) {
+            i++;
+            if (!validMove(x+i,y-i)) cont = false;
+            else {
+                ChessPosition endPosition = new ChessPosition(x+i, y-i);
+                ChessMove validBishopMove = new ChessMove(startPosition,endPosition);
+                possibleMoves.add(validBishopMove);
+                System.out.println("Added: " + validBishopMove.toString());
             }
             //TODO: Don't continue if there's a piece in the way that can be captured
         }

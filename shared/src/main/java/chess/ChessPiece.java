@@ -73,12 +73,42 @@ public class ChessPiece {
                 throw new RuntimeException("Not implemented");
         }
         return new ArrayList<>();
-        //need to return a collection that contains an array of the adequate moves
-            //first make a calculator that will tell which moves are correct
     }
 
     @Override
     public String toString() {
         return getTeamColor().toString() + " " + getPieceType().toString();
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) return false;
+        if (o == this) return true;
+        if (this.getClass() != o.getClass()) return false;
+        ChessPiece other = (ChessPiece) o;
+        return (this.pieceColor == other.pieceColor && this.type == other.type);
+    }
+    @Override
+    public int hashCode() {
+        switch (this.type.toString()) {
+            case "KING":
+                if (this.pieceColor.toString().equals("WHITE")) return 1;
+                return 2;
+            case "QUEEN":
+                if (this.pieceColor.toString().equals("WHITE")) return 3;
+                return 4;
+            case "BISHOP":
+                if (this.pieceColor.toString().equals("WHITE")) return 5;
+                return 6;
+            case "KNIGHT":
+                if (this.pieceColor.toString().equals("WHITE")) return 7;
+                return 8;
+            case "ROOK":
+                if (this.pieceColor.toString().equals("WHITE")) return 9;
+                return 10;
+            case "PAWN":
+                if (this.pieceColor.toString().equals("WHITE")) return 11;
+                return 12;
+        }
+        return 13;
     }
 }
