@@ -45,15 +45,16 @@ public class ChessBoard {
     @Override
     public String toString() {
         StringBuilder retStr = new StringBuilder();
+        boolean first = true;
         for (int i = 0; i < BOARDSIZE; i++) {
-            retStr.append("[");
             for (int j = 0; j < BOARDSIZE; j++) {
-                retStr.append(squares[i][j].toString());
-                if (j < BOARDSIZE - 1) {
-                    retStr.append(",");
+                if (squares[i][j] != null) {
+                    if (!first) retStr.append("\n");
+                    String addStr = squares[i][j].toString(); // + " at R" + (j+1) + "C" + (i+1);
+                    retStr.append(addStr);
+                    first = false;
                 }
             }
-            retStr.append("]");
         }
         return retStr.toString();
     }
