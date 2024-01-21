@@ -1,5 +1,7 @@
 package chess;
 
+import chess.piecemovescalculators.BishopMovesCalculator;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -53,7 +55,26 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
+        System.out.println(board.toString());
+        System.out.println(myPosition.toString());
+        switch (this.type.toString()) {
+            case "KING":
+                throw new RuntimeException("Not implemented");
+            case "QUEEN":
+                throw new RuntimeException("Not implemented");
+            case "BISHOP":
+                BishopMovesCalculator calculator = new BishopMovesCalculator();
+                return calculator.pieceMoves(board, myPosition);
+            case "KNIGHT":
+                throw new RuntimeException("Not implemented");
+            case "ROOK":
+                throw new RuntimeException("Not implemented");
+            case "PAWN":
+                throw new RuntimeException("Not implemented");
+        }
         return new ArrayList<>();
+        //need to return a collection that contains an array of the adequate moves
+            //first make a calculator that will tell which moves are correct
     }
 
     @Override
