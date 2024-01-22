@@ -59,7 +59,8 @@ public class ChessMove {
         if (o == this) return true;
         if (this.getClass() != o.getClass()) return false;
         ChessMove other = (ChessMove) o;
-        return (this.startPosition == other.getStartPosition() && this.endPosition == other.getEndPosition() && this.promotionPiece.toString().equals(other.getPromotionPiece().toString()));
+        //Do both promotion pieces have to be the same for them to be the same pieces?
+        return (this.startPosition.toString().equals(other.getStartPosition().toString()) && this.endPosition.toString().equals(other.getEndPosition().toString()) /*&& this.promotionPiece.toString().equals(other.getPromotionPiece().toString())*/);
     }
     @Override
     public int hashCode() {

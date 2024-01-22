@@ -55,8 +55,8 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
-        System.out.println(board.toString());
-        System.out.println(myPosition.toString());
+        //System.out.println(board.toString());
+        //System.out.println(myPosition.toString());
         switch (this.type.toString()) {
             case "KING":
                 throw new RuntimeException("Not implemented");
