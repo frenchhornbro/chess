@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Code passes all RookMovesTests">
-      <change afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/QueenMovesCalculator.java" afterDir="false" />
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Code passes all QueenMovesTests">
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/KingMovesCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPiece.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPiece.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/QueenMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/QueenMovesCalculator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/RookMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/RookMovesCalculator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -43,6 +45,13 @@
     "JUnit.BishopMoveTests.bishopCaptureEnemy.executor": "Debug",
     "JUnit.BishopMoveTests.bishopMoveUntilEdge.executor": "Debug",
     "JUnit.BishopMoveTests.executor": "Run",
+    "JUnit.KingMoveTests.executor": "Run",
+    "JUnit.KingMoveTests.kingBlocked.executor": "Debug",
+    "JUnit.KingMoveTests.kingCaptureEnemy.executor": "Debug",
+    "JUnit.KingMoveTests.kingMoveUntilEdge.executor": "Debug",
+    "JUnit.QueenMoveTests.executor": "Run",
+    "JUnit.QueenMoveTests.queenBlocked.executor": "Debug",
+    "JUnit.QueenMoveTests.queenCaptureEnemy.executor": "Debug",
     "JUnit.QueenMoveTests.queenMoveUntilEdge.executor": "Debug",
     "JUnit.RookMoveTests.executor": "Run",
     "JUnit.RookMoveTests.rookBlocked.executor": "Debug",
@@ -61,7 +70,70 @@
     "project.structure.side.proportion": "0.34252873"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.QueenMoveTests">
+  <component name="RunManager" selected="JUnit.KingMoveTests">
+    <configuration name="KingMoveTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shared" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoffTests.chessTests.chessPieceTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoffTests.chessTests.chessPieceTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.chessPieceTests.KingMoveTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KingMoveTests.kingBlocked" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shared" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoffTests.chessTests.chessPieceTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoffTests.chessTests.chessPieceTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.chessPieceTests.KingMoveTests" />
+      <option name="METHOD_NAME" value="kingBlocked" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KingMoveTests.kingCaptureEnemy" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shared" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoffTests.chessTests.chessPieceTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoffTests.chessTests.chessPieceTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.chessPieceTests.KingMoveTests" />
+      <option name="METHOD_NAME" value="kingCaptureEnemy" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="KingMoveTests.kingMoveUntilEdge" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shared" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoffTests.chessTests.chessPieceTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoffTests.chessTests.chessPieceTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.chessPieceTests.KingMoveTests" />
+      <option name="METHOD_NAME" value="kingMoveUntilEdge" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="QueenMoveTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="shared" />
       <extension name="coverage">
@@ -77,76 +149,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="QueenMoveTests.queenBlocked" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shared" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.chessTests.chessPieceTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.chessTests.chessPieceTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.chessPieceTests.QueenMoveTests" />
-      <option name="METHOD_NAME" value="queenBlocked" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="QueenMoveTests.queenCaptureEnemy" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shared" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.chessTests.chessPieceTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.chessTests.chessPieceTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.chessPieceTests.QueenMoveTests" />
-      <option name="METHOD_NAME" value="queenCaptureEnemy" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="QueenMoveTests.queenMoveUntilEdge" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shared" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.chessTests.chessPieceTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.chessTests.chessPieceTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.chessPieceTests.QueenMoveTests" />
-      <option name="METHOD_NAME" value="queenMoveUntilEdge" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="RookMoveTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shared" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.chessTests.chessPieceTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.chessTests.chessPieceTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.chessPieceTests.RookMoveTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.KingMoveTests" />
+        <item itemvalue="JUnit.KingMoveTests.kingBlocked" />
+        <item itemvalue="JUnit.KingMoveTests.kingCaptureEnemy" />
+        <item itemvalue="JUnit.KingMoveTests.kingMoveUntilEdge" />
         <item itemvalue="JUnit.QueenMoveTests" />
-        <item itemvalue="JUnit.QueenMoveTests.queenBlocked" />
-        <item itemvalue="JUnit.QueenMoveTests.queenCaptureEnemy" />
-        <item itemvalue="JUnit.QueenMoveTests.queenMoveUntilEdge" />
-        <item itemvalue="JUnit.RookMoveTests" />
       </list>
     </recent_temporary>
   </component>
@@ -230,7 +239,15 @@
       <option name="project" value="LOCAL" />
       <updated>1705981415805</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Code passes all QueenMovesTests">
+      <option name="closed" value="true" />
+      <created>1705982121939</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1705982121939</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -242,7 +259,8 @@
     <MESSAGE value="Replaced duplicate code with a function in BishopMovesCalculator, passed first test" />
     <MESSAGE value="Code passes all BishopMovesTests" />
     <MESSAGE value="Code passes all RookMovesTests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Code passes all RookMovesTests" />
+    <MESSAGE value="Code passes all QueenMovesTests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Code passes all QueenMovesTests" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

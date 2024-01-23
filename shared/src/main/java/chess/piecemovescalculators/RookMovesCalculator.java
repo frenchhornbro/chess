@@ -41,8 +41,8 @@ public class RookMovesCalculator implements PieceMovesCalculator {
             boolean[] movesValid = validMove(startPos, endPos, board);
             if (!movesValid[0]) cont = false;
             else {
-                ChessMove validBishopMove = new ChessMove(startPos,endPos);
-                possibleMoves.add(validBishopMove);
+                ChessMove validRookMove = new ChessMove(startPos,endPos);
+                possibleMoves.add(validRookMove);
                 if (!movesValid[1]) cont = false;
             }
         }
