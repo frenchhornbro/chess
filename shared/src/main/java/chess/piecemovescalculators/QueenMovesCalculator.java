@@ -7,21 +7,45 @@ import chess.ChessPosition;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class RookMovesCalculator implements PieceMovesCalculator {
+public class QueenMovesCalculator implements PieceMovesCalculator {
     public static int BOARDSIZE = 8;
-    public RookMovesCalculator() {
+    public QueenMovesCalculator() {
 
     }
 
     public Collection<ChessMove> pieceMoves (ChessBoard board, ChessPosition startPosition) {
         ArrayList<ChessMove> possibleMoves = new ArrayList<>();
-        possibleMoves = addMoves(possibleMoves,startPosition, board,true,true);
-        possibleMoves = addMoves(possibleMoves,startPosition, board,true,false);
-        possibleMoves = addMoves(possibleMoves,startPosition, board,false,false);
-        possibleMoves = addMoves(possibleMoves,startPosition, board,false,true);
+        possibleMoves = rookMoves(possibleMoves,startPosition, board,true,true);
+        possibleMoves = rookMoves(possibleMoves,startPosition, board,true,false);
+        possibleMoves = rookMoves(possibleMoves,startPosition, board,false,false);
+        possibleMoves = rookMoves(possibleMoves,startPosition, board,false,true);
+        possibleMoves = bishopMoves(possibleMoves,startPosition, board,true,true);
+        possibleMoves = bishopMoves(possibleMoves,startPosition, board,true,false);
+        possibleMoves = bishopMoves(possibleMoves,startPosition, board,false,false);
+        possibleMoves = bishopMoves(possibleMoves,startPosition, board,false,true);
         return possibleMoves;
     }
-    private ArrayList<ChessMove> addMoves(ArrayList<ChessMove> possibleMoves, ChessPosition startPos, ChessBoard board, boolean isRow, boolean isAdd) {
+    private ArrayList<ChessMove> bishopMoves(ArrayList<ChessMove> possibleMoves, ChessPosition startPos, ChessBoard board, boolean xAdd, boolean yAdd) {
+        int x = startPos.getRow();
+        int y = startPos.getColumn();
+        boolean cont = true;
+        int i = 0;
+        while(cont) {
+            i++;
+            int testX = xAdd? x+i : x-i;
+            int testY = yAdd? y+i : y-i;
+            ChessPosition endPos = new ChessPosition(testX+1, testY+1);
+            boolean[] movesValid = validMove(startPos, endPos, board);
+            if (!movesValid[0]) cont = false;
+            else {
+                ChessMove validBishopMove = new ChessMove(startPos,endPos);
+                possibleMoves.add(validBishopMove);
+                if (!movesValid[1]) cont = false;
+            }
+        }
+        return possibleMoves;
+    }
+    private ArrayList<ChessMove> rookMoves(ArrayList<ChessMove> possibleMoves, ChessPosition startPos, ChessBoard board, boolean isRow, boolean isAdd) {
         int x = startPos.getRow();
         int y = startPos.getColumn();
         boolean cont = true;
