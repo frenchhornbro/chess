@@ -1,6 +1,7 @@
 package chess;
 
 import chess.piecemovescalculators.BishopMovesCalculator;
+import chess.piecemovescalculators.RookMovesCalculator;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -63,12 +64,13 @@ public class ChessPiece {
             case "QUEEN":
                 throw new RuntimeException("Not implemented");
             case "BISHOP":
-                BishopMovesCalculator calculator = new BishopMovesCalculator();
-                return calculator.pieceMoves(board, myPosition);
+                BishopMovesCalculator bishopCalculator = new BishopMovesCalculator();
+                return bishopCalculator.pieceMoves(board, myPosition);
             case "KNIGHT":
                 throw new RuntimeException("Not implemented");
             case "ROOK":
-                throw new RuntimeException("Not implemented");
+                RookMovesCalculator rookCalculator = new RookMovesCalculator();
+                return rookCalculator.pieceMoves(board, myPosition);
             case "PAWN":
                 throw new RuntimeException("Not implemented");
         }
