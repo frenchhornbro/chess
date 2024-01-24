@@ -51,7 +51,8 @@ public class ChessMove {
     //Override the toString method here to be able to get better results
     @Override
     public String toString() {
-        return getStartPosition().toString() + "->" + getEndPosition().toString();
+        if (getPromotionPiece() == null) return getStartPosition().toString() + "->" + getEndPosition().toString();
+        return getStartPosition().toString() + "->" + getEndPosition().toString() + "(" + getPromotionPiece() + ")";
     }
     @Override
     public boolean equals(Object o) {
@@ -59,11 +60,26 @@ public class ChessMove {
         if (o == this) return true;
         if (this.getClass() != o.getClass()) return false;
         ChessMove other = (ChessMove) o;
-        //Do both promotion pieces have to be the same for them to be the same pieces?
-        return (this.startPosition.toString().equals(other.getStartPosition().toString()) && this.endPosition.toString().equals(other.getEndPosition().toString()) /*&& this.promotionPiece.toString().equals(other.getPromotionPiece().toString())*/);
+        if (getPromotionPiece() == null) return (this.startPosition.toString().equals(other.getStartPosition().toString()) && this.endPosition.toString().equals(other.getEndPosition().toString()));
+        return (this.startPosition.toString().equals(other.getStartPosition().toString()) && this.endPosition.toString().equals(other.getEndPosition().toString()) && this.promotionPiece == other.getPromotionPiece());
     }
     @Override
     public int hashCode() {
-        return (startPosition.getRow() * startPosition.getColumn() * endPosition.getRow() * endPosition.getColumn());
+        if (getPromotionPiece() == null) return (startPosition.getRow() * startPosition.getColumn() * endPosition.getRow() * endPosition.getColumn());
+        int promotion = 1;
+        switch (getPromotionPiece().toString()) {
+            case "QUEEN":
+                promotion = 2;
+                break;
+            case "ROOK":
+                promotion = 3;
+                break;
+            case "BISHOP":
+                promotion = 4;
+                break;
+            case "KNIGHT":
+                promotion = 5;
+        }
+        return (startPosition.getRow() * startPosition.getColumn() * endPosition.getRow() * endPosition.getColumn() * promotion);
     }
 }

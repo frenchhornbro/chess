@@ -55,8 +55,6 @@ public class ChessPiece {
      * @return Collection of valid moves
      */
     public Collection<ChessMove> pieceMoves(ChessBoard board, ChessPosition myPosition) {
-        //System.out.println(board.toString());
-        //System.out.println(myPosition.toString());
         switch (this.type.toString()) {
             case "KING":
                 KingMovesCalculator kingCalculator = new KingMovesCalculator();
@@ -74,7 +72,8 @@ public class ChessPiece {
                 RookMovesCalculator rookCalculator = new RookMovesCalculator();
                 return rookCalculator.pieceMoves(board, myPosition);
             case "PAWN":
-                throw new RuntimeException("Not implemented");
+                PawnMovesCalculator pawnCalculator = new PawnMovesCalculator();
+                return pawnCalculator.pieceMoves(board, myPosition);
         }
         return new ArrayList<>();
     }
