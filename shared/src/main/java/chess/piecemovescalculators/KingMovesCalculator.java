@@ -13,19 +13,19 @@ public class KingMovesCalculator implements PieceMovesCalculator {
 
     }
 
-    public Collection<ChessMove> pieceMoves (ChessBoard board, ChessPosition startPosition) {
+    public Collection<ChessMove> pieceMoves (ChessBoard board, ChessPosition startPos) {
         ArrayList<ChessMove> possibleMoves = new ArrayList<>();
         for (int i = 0; i <= 2; i++) {
             for (int j = 0; j <=2; j++) {
                 if (i != 1 || j != 1) {
-                    ChessPosition endPosition = new ChessPosition(startPosition.getRow()+i,startPosition.getColumn()+j);
-                    if (validMove(startPosition, endPosition, board)) possibleMoves.add(new ChessMove(startPosition,endPosition));
+                    ChessPosition endPos = new ChessPosition(startPos.getRow()+i,startPos.getColumn()+j);
+                    if (isValidMove(startPos, endPos, board)) possibleMoves.add(new ChessMove(startPos,endPos));
                 }
             }
         }
         return possibleMoves;
     }
-    private boolean validMove(ChessPosition startPos, ChessPosition endPos, ChessBoard board) {
+    private boolean isValidMove(ChessPosition startPos, ChessPosition endPos, ChessBoard board) {
         if(endPos.getRow() >= 0 && endPos.getColumn() >= 0 && endPos.getRow() < BOARDSIZE && endPos.getColumn() < BOARDSIZE){
             if (board.getPiece(endPos) == null) return true; //This is a blank tile
             if (board.getPiece(endPos).getTeamColor() == board.getPiece(startPos).getTeamColor()) return false; //This is a friendly piece

@@ -13,19 +13,19 @@ public class QueenMovesCalculator implements PieceMovesCalculator {
 
     }
 
-    public Collection<ChessMove> pieceMoves (ChessBoard board, ChessPosition startPosition) {
+    public Collection<ChessMove> pieceMoves (ChessBoard board, ChessPosition startPos) {
         ArrayList<ChessMove> possibleMoves = new ArrayList<>();
-        possibleMoves = rookMoves(possibleMoves,startPosition, board,true,true);
-        possibleMoves = rookMoves(possibleMoves,startPosition, board,true,false);
-        possibleMoves = rookMoves(possibleMoves,startPosition, board,false,false);
-        possibleMoves = rookMoves(possibleMoves,startPosition, board,false,true);
-        possibleMoves = bishopMoves(possibleMoves,startPosition, board,true,true);
-        possibleMoves = bishopMoves(possibleMoves,startPosition, board,true,false);
-        possibleMoves = bishopMoves(possibleMoves,startPosition, board,false,false);
-        possibleMoves = bishopMoves(possibleMoves,startPosition, board,false,true);
+        rookMoves(possibleMoves,startPos, board,true,true);
+        rookMoves(possibleMoves,startPos, board,true,false);
+        rookMoves(possibleMoves,startPos, board,false,false);
+        rookMoves(possibleMoves,startPos, board,false,true);
+        bishopMoves(possibleMoves,startPos, board,true,true);
+        bishopMoves(possibleMoves,startPos, board,true,false);
+        bishopMoves(possibleMoves,startPos, board,false,false);
+        bishopMoves(possibleMoves,startPos, board,false,true);
         return possibleMoves;
     }
-    private ArrayList<ChessMove> bishopMoves(ArrayList<ChessMove> possibleMoves, ChessPosition startPos, ChessBoard board, boolean xAdd, boolean yAdd) {
+    private void bishopMoves(ArrayList<ChessMove> possibleMoves, ChessPosition startPos, ChessBoard board, boolean xAdd, boolean yAdd) {
         int x = startPos.getRow();
         int y = startPos.getColumn();
         boolean cont = true;
@@ -35,7 +35,7 @@ public class QueenMovesCalculator implements PieceMovesCalculator {
             int testX = xAdd? x+i : x-i;
             int testY = yAdd? y+i : y-i;
             ChessPosition endPos = new ChessPosition(testX+1, testY+1);
-            boolean[] movesValid = validMove(startPos, endPos, board);
+            boolean[] movesValid = isValidMove(startPos, endPos, board);
             if (!movesValid[0]) cont = false;
             else {
                 ChessMove validBishopMove = new ChessMove(startPos,endPos);
@@ -43,9 +43,8 @@ public class QueenMovesCalculator implements PieceMovesCalculator {
                 if (!movesValid[1]) cont = false;
             }
         }
-        return possibleMoves;
     }
-    private ArrayList<ChessMove> rookMoves(ArrayList<ChessMove> possibleMoves, ChessPosition startPos, ChessBoard board, boolean isRow, boolean isAdd) {
+    private void rookMoves(ArrayList<ChessMove> possibleMoves, ChessPosition startPos, ChessBoard board, boolean isRow, boolean isAdd) {
         int x = startPos.getRow();
         int y = startPos.getColumn();
         boolean cont = true;
@@ -62,7 +61,7 @@ public class QueenMovesCalculator implements PieceMovesCalculator {
                 testY = isAdd ? y+i : y-i;
             }
             ChessPosition endPos = new ChessPosition(testX+1, testY+1);
-            boolean[] movesValid = validMove(startPos, endPos, board);
+            boolean[] movesValid = isValidMove(startPos, endPos, board);
             if (!movesValid[0]) cont = false;
             else {
                 ChessMove validRookMove = new ChessMove(startPos,endPos);
@@ -70,9 +69,8 @@ public class QueenMovesCalculator implements PieceMovesCalculator {
                 if (!movesValid[1]) cont = false;
             }
         }
-        return possibleMoves;
     }
-    private boolean[] validMove(ChessPosition startPos, ChessPosition endPos, ChessBoard board) {
+    private boolean[] isValidMove(ChessPosition startPos, ChessPosition endPos, ChessBoard board) {
         if(endPos.getRow() >= 0 && endPos.getColumn() >= 0 && endPos.getRow() < BOARDSIZE && endPos.getColumn() < BOARDSIZE){
             //Format of the return arrays: [THIS IS A VALID PLACE TO GO TO, YOU ARE ABLE TO CONTINUE]
             if (board.getPiece(endPos) == null) return new boolean[]{true, true}; //This is a blank tile

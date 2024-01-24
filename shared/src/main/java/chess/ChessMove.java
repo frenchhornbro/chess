@@ -60,25 +60,24 @@ public class ChessMove {
         if (o == this) return true;
         if (this.getClass() != o.getClass()) return false;
         ChessMove other = (ChessMove) o;
-        if (getPromotionPiece() == null) return (this.startPosition.toString().equals(other.getStartPosition().toString()) && this.endPosition.toString().equals(other.getEndPosition().toString()));
-        return (this.startPosition.toString().equals(other.getStartPosition().toString()) && this.endPosition.toString().equals(other.getEndPosition().toString()) && this.promotionPiece == other.getPromotionPiece());
+        return (this.hashCode() == other.hashCode());
     }
     @Override
     public int hashCode() {
-        if (getPromotionPiece() == null) return (startPosition.getRow() * startPosition.getColumn() * endPosition.getRow() * endPosition.getColumn());
-        int promotion = 1;
+        if (getPromotionPiece() == null) return (startPosition.getRow()*3 + startPosition.getColumn()*7 + endPosition.getRow()*11 + endPosition.getColumn()*19);
+        int promotion = 132;
         switch (getPromotionPiece().toString()) {
             case "QUEEN":
-                promotion = 2;
+                promotion = 23;
                 break;
             case "ROOK":
-                promotion = 3;
+                promotion = 37;
                 break;
             case "BISHOP":
-                promotion = 4;
+                promotion = 43;
                 break;
             case "KNIGHT":
-                promotion = 5;
+                promotion = 57;
         }
         return (startPosition.getRow() * startPosition.getColumn() * endPosition.getRow() * endPosition.getColumn() * promotion);
     }

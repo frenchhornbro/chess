@@ -1,7 +1,5 @@
 package chess;
 
-import java.util.Arrays;
-
 /**
  * A chessboard that can hold and rearrange chess pieces.
  * <p>
@@ -18,8 +16,8 @@ public class ChessBoard {
     /**
      * Adds a chess piece to the chessboard
      *
-     * @param position where to add the piece to
-     * @param piece    the piece to add
+     * parameter position where to add the piece to
+     * parameter piece    the piece to add
      */
     public ChessPiece[][] getBoard() {
         return squares;
@@ -52,12 +50,10 @@ public class ChessBoard {
         squares[0][5] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.BISHOP);
         squares[0][6] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.KNIGHT);
         squares[0][7] = new ChessPiece(ChessGame.TeamColor.WHITE, ChessPiece.PieceType.ROOK);
-
         for (int i = 0; i < BOARDSIZE; i++) {
             squares[1][i] = new ChessPiece(ChessGame.TeamColor.WHITE,ChessPiece.PieceType.PAWN);
             squares[6][i] = new ChessPiece(ChessGame.TeamColor.BLACK,ChessPiece.PieceType.PAWN);
         }
-
         squares[7][0] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.ROOK);
         squares[7][1] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.KNIGHT);
         squares[7][2] = new ChessPiece(ChessGame.TeamColor.BLACK, ChessPiece.PieceType.BISHOP);
@@ -92,7 +88,10 @@ public class ChessBoard {
         ChessBoard other = (ChessBoard) o;
         for (int i = 0; i < BOARDSIZE; i++) {
             for (int j = 0; j < BOARDSIZE; j++) {
-                if(!squares[i][j].equals(other.getBoard()[i][j])) return false;
+                if(squares[i][j] == null) {
+                    if (other.getBoard()[i][j] != null) return false;
+                }
+                else if(!squares[i][j].equals(other.getBoard()[i][j])) return false;
             }
         }
         return true;
