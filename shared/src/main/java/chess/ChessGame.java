@@ -19,8 +19,8 @@ public class ChessGame {
     public ChessGame () {
         this.teamTurn = null;
         this.board = null;
-        this.stalemate = isInStalemate(teamTurn);
-        this.checkmate = isInCheckmate(teamTurn);
+        this.stalemate = false;
+        this.checkmate = false;
     }
     public ChessGame(TeamColor turn, ChessBoard newBoard) {
         this.teamTurn = turn;
@@ -86,10 +86,18 @@ public class ChessGame {
          */
         Collection<ChessMove> validMoveCollection = validMoves(move.getStartPosition());
         if (validMoveCollection.contains(move)) {
-            //need to check 2 other conditions
+
         }
 
         throw new RuntimeException("Not implemented");
+    }
+
+    private boolean leavesKingInCheck() {
+        return true;
+    }
+
+    private void changeBoard() {
+
     }
 
     /**
@@ -141,7 +149,19 @@ public class ChessGame {
      * @return True if the specified team is in stalemate, otherwise false
      */
     public boolean isInStalemate(TeamColor teamColor) {
-        throw new RuntimeException("Not implemented");
+        //Get the collection of available moves for every piece for teamColor. If collection.size() == 0, return true
+        Collection<ChessMove> possibleMoves = new ArrayList<>();
+        for (int i = 0; i < BOARDSIZE; i++) {
+            for (int j = 0; j < BOARDSIZE; j++) {
+                ChessPosition currPos = new ChessPosition(i,j);
+                if (board.getPiece(currPos) != null) {
+                    if (board.getPiece(currPos).getTeamColor() == teamColor) {
+                        possibleMoves.addAll(validMoves(currPos));
+                    }
+                }
+            }
+        }
+        return (possibleMoves.isEmpty());
     }
 
     /**
