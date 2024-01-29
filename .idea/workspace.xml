@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Code passes all test for Phase 0">
-      <change afterPath="$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/ChessGameTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/chessExtraCredit/CastlingTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/chessExtraCredit/EnPassantTests.java" afterDir="false" />
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Files set up to begin work on Phase 1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" afterDir="false" />
     </list>
@@ -330,7 +327,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706069014610</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Files set up to begin work on Phase 1">
+      <option name="closed" value="true" />
+      <created>1706554955689</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1706554955689</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -349,7 +354,8 @@
     <MESSAGE value="Code matches desired output of PawnMoveTests but still does not pass" />
     <MESSAGE value="Code passes all PawnMoveTests" />
     <MESSAGE value="Code passes all test for Phase 0" />
-    <option name="LAST_COMMIT_MESSAGE" value="Code passes all test for Phase 0" />
+    <MESSAGE value="Files set up to begin work on Phase 1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Files set up to begin work on Phase 1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

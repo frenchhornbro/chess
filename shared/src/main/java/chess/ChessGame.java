@@ -1,5 +1,6 @@
 package chess;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -9,15 +10,23 @@ import java.util.Collection;
  * signature of the existing methods.
  */
 public class ChessGame {
+    public static int BOARDSIZE = 8;
     private TeamColor teamTurn;
     private ChessBoard board;
+    private boolean stalemate;
+    private boolean checkmate;
 
     public ChessGame () {
         this.teamTurn = null;
+        this.board = null;
+        this.stalemate = isInStalemate(teamTurn);
+        this.checkmate = isInCheckmate(teamTurn);
     }
     public ChessGame(TeamColor turn, ChessBoard newBoard) {
         this.teamTurn = turn;
         this.board = newBoard;
+        this.stalemate = isInStalemate(teamTurn);
+        this.checkmate = isInCheckmate(teamTurn);
     }
 
     /**
@@ -63,10 +72,23 @@ public class ChessGame {
      * @throws InvalidMoveException if move is invalid
      */
     public void makeMove(ChessMove move) throws InvalidMoveException {
-        //TODO: Figure out if this wants me to change what's on the board
-            //TODO: If so, I need to remove the piece at startPos, remove any pieces at endPos, and create a new piece at endPos
+        //Utilize validMoves here (if it's not in the collection returned, if it would leave the king in check, or if it's not that color's turn, throw InvalidMoveException)
+        /*
+        - Is this move in the collection validMoves?
+        - Is it this team's turn?
+        - Will this leave this team's king in check?
+        If Yes, Yes, No, then:
+        - Remove piece at endPos
+        - Create piece from startPos at endPos
+        - Remove piece from startPos
+        Else
+        - throw InvalidMoveException
+         */
+        Collection<ChessMove> validMoveCollection = validMoves(move.getStartPosition());
+        if (validMoveCollection.contains(move)) {
+            //need to check 2 other conditions
+        }
 
-        //TODO: If the move inputted is not valid, throw an exception
         throw new RuntimeException("Not implemented");
     }
 
@@ -77,7 +99,28 @@ public class ChessGame {
      * @return True if the specified team is in check
      */
     public boolean isInCheck(TeamColor teamColor) {
-        throw new RuntimeException("Not implemented");
+        /*
+        For each square on the chessboard:
+        - If that piece is null, proceed
+        - Else, if that piece's team color is not teamColor
+            - Add that piece's validMoves to total collection
+        - (Also maybe check to see where the teamColor king is)
+        If the king's position is in the collection validMoves return true
+        Else return false
+         */
+        ChessPosition kingPos = null;
+        Collection<ChessMove> enemyMoves = new ArrayList<>();
+        for (int i = 0; i < BOARDSIZE; i++) {
+            for (int j = 0; j < BOARDSIZE; j++) {
+                ChessPosition currPos = new ChessPosition(i,j);
+                if (board.getPiece(currPos) != null) {
+                    if (board.getPiece(currPos).getTeamColor() != teamColor) enemyMoves.addAll(validMoves(currPos));
+                    else if (board.getPiece(currPos).getPieceType().toString().equals("KING")) kingPos = new ChessPosition(i,j);
+                }
+            }
+        }
+        for (ChessMove move: enemyMoves) if (move.getEndPosition() == kingPos) return true;
+        return false;
     }
 
     /**
