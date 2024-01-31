@@ -12,6 +12,7 @@ public class ChessPosition {
     private final int col;
 
     public ChessPosition(int row, int col) {
+        //Chess Positions are initialized with board coordinates, but they are read as array coordinates
         this.row = row;
         this.col = col;
     }
@@ -21,7 +22,7 @@ public class ChessPosition {
      * 1 codes for the bottom row
      */
     public int getRow() {
-        return row-1;
+        return (row-1);
     }
 
     /**
@@ -29,7 +30,7 @@ public class ChessPosition {
      * 1 codes for the left row
      */
     public int getColumn() {
-        return col-1;
+        return (col-1);
     }
 
     @Override

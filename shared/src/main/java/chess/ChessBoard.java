@@ -66,11 +66,18 @@ public class ChessBoard {
         for (int i = 0; i < BOARDSIZE; i++) {
             for (int j = 0; j < BOARDSIZE; j++) {
                 if (squares[i][j] != null) {
-                    if (!first) retStr.append("\n");
-                    String addStr = squares[i][j].toString();
-                    retStr.append(addStr);
+                    if (!first) retStr.append(",");
+                    retStr.append(squares[i][j].toString());
+                    retStr.append(" R");
+                    retStr.append(i+1);
+                    retStr.append("C");
+                    retStr.append(j+1);
                     first = false;
                 }
+            }
+            if (!first) {
+                retStr.append("\n");
+                first = true;
             }
         }
         return retStr.toString();

@@ -62,6 +62,7 @@ public class PawnMovesCalculator implements PieceMovesCalculator {
         }
     }
     private boolean isValidAttack(ChessPosition attackPos, ChessPosition startPos, ChessBoard board) {
+        if (attackPos.getColumn() < 0 || attackPos.getColumn() >= BOARDSIZE) return false;
         if (board.getPiece(attackPos) == null) return false;
         if (board.getPiece(attackPos).getTeamColor() == board.getPiece(startPos).getTeamColor()) return false;
         return true;
