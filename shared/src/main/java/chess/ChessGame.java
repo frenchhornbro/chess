@@ -112,7 +112,7 @@ public class ChessGame {
         else teamTurn = TeamColor.WHITE;
         if (kingExists()) {
             if (isInCheck(teamTurn)) {
-                //if (isInCheckmate(teamTurn)) checkmate = true;
+                if (isInCheckmate(teamTurn)) checkmate = true;
             }
             else if (isInStalemate(teamTurn)) stalemate = true;
         }
@@ -139,16 +139,16 @@ public class ChessGame {
     }
     private boolean leavesKingInCheck(ChessMove move) {
         //Run changeBoard. If the king is in check, undo it and return false, otherwise return true.
-        ChessPiece capturedPiece = changeBoard(move);
+        ChessPiece capturedPiece = applyMove(move);
         if (!kingExists()) return false;
         if (isInCheck(teamTurn)) {
-            undoBoard(move, capturedPiece);
+            undoMove(move, capturedPiece);
             return true;
         }
         return false;
     }
 
-    private ChessPiece changeBoard(ChessMove move) {
+    private ChessPiece applyMove(ChessMove move) {
         ChessPosition start = move.getStartPosition();
         ChessPosition end = move.getEndPosition();
         ChessPiece capturedPiece = board.getPiece(end);
@@ -157,7 +157,7 @@ public class ChessGame {
         return capturedPiece;
     }
 
-    private void undoBoard(ChessMove move, ChessPiece capturedPiece) {
+    private void undoMove(ChessMove move, ChessPiece capturedPiece) {
         ChessPosition start = move.getStartPosition();
         ChessPosition end = move.getEndPosition();
         board.addPiece(start, board.getPiece(move.getEndPosition()));
@@ -219,7 +219,26 @@ public class ChessGame {
      * @return True if the specified team is in checkmate
      */
     public boolean isInCheckmate(TeamColor teamColor) {
-        throw new RuntimeException("Not implemented");
+        /*If the teamColor king is in check
+        Then check if any valid teamColor moves will stop the king from being in check
+        If not, the king is in checkmate*/
+        Collection<ChessMove> possibleMoves = new ArrayList<>();
+        if (!isInCheck(teamColor)) return false;
+        for (int i = 1; i <= BOARDSIZE; i++) {
+            for (int j = 1; j <= BOARDSIZE; j++) {
+                ChessPosition currPos = new ChessPosition(i,j);
+                ChessPiece currPiece = board.getPiece(currPos);
+                if (currPiece != null) {
+                    if (currPiece.getTeamColor() == teamColor) {
+                        possibleMoves.addAll(currPiece.pieceMoves(board, currPos));
+                    }
+                }
+            }
+        }
+        for (ChessMove move: possibleMoves) {
+            if (!leavesKingInCheck(move)) return false;
+        }
+        return true;
     }
 
     /**
