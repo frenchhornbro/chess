@@ -107,7 +107,7 @@ public class ChessGame {
         //Then change whose turn it is
         //Check, Checkmate, and Stalemate must be queried for the next team
 
-        /*if (shouldPromote(lastMove)) promote(lastMove);*/
+        if (shouldPromote(lastMove)) promote(lastMove);
         if (teamTurn == TeamColor.WHITE) teamTurn = TeamColor.BLACK;
         else teamTurn = TeamColor.WHITE;
         if (kingExists()) {
@@ -118,22 +118,25 @@ public class ChessGame {
         }
 
     }
-    /*private boolean shouldPromote(ChessMove lastMove) {
+    private boolean shouldPromote(ChessMove lastMove) {
         ChessPiece pieceMoved = board.getPiece(lastMove.getEndPosition());
         if (pieceMoved == null) throw new RuntimeException("Move did not occur");
-        if (!pieceMoved.toString().equals("PAWN")) return false;
+        if (!pieceMoved.getPieceType().toString().equals("PAWN")) return false;
         if (pieceMoved.getTeamColor() == TeamColor.WHITE) {
             return (lastMove.getEndPosition().getRow() == 7);
         }
-        else return (lastMove.getEndPosition().getRow() == 0);
+        else {
+            return (lastMove.getEndPosition().getRow() == 0);
+        }
     }
     private void promote(ChessMove lastMove) {
         ChessPiece pawn = board.getPiece(lastMove.getEndPosition());
         if (pawn == null) throw new RuntimeException("Trying to promote a null piece");
         if (!pawn.getPieceType().toString().equals("PAWN")) throw new RuntimeException("Trying to promote a non-pawn");
-        new ChessPiece(pawn.getTeamColor(), promotionType);
+        if (lastMove.getPromotionPiece() == null) throw new RuntimeException("Given promotion piece is null");
+        board.addPiece(lastMove.getEndPosition(), new ChessPiece(pawn.getTeamColor(), lastMove.getPromotionPiece()));
         deletePiece(pawn);
-    }*/
+    }
     private boolean leavesKingInCheck(ChessMove move) {
         //Run changeBoard. If the king is in check, undo it and return false, otherwise return true.
         ChessPiece capturedPiece = changeBoard(move);
