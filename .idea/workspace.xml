@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Implemented checkmate in ChessGame">
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="All Phase 1 non-extra credit tests pass">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/ChessGameTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/ChessGameTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/test/java/passoffTests/chessTests/chessExtraCredit/EnPassantTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +61,8 @@
     "JUnit.BishopMoveTests.bishopCaptureEnemy.executor": "Debug",
     "JUnit.BishopMoveTests.bishopMoveUntilEdge.executor": "Debug",
     "JUnit.BishopMoveTests.executor": "Run",
+    "JUnit.CastlingTests.castleBlack.executor": "Debug",
+    "JUnit.CastlingTests.castleWhite.executor": "Debug",
     "JUnit.CastlingTests.executor": "Debug",
     "JUnit.ChessBoardTests.defaultGameBoard.executor": "Debug",
     "JUnit.ChessBoardTests.executor": "Run",
@@ -130,7 +132,7 @@
     "project.structure.side.proportion": "0.34252873"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.EnPassantTests">
+  <component name="RunManager" selected="JUnit.passoffTests.chessTests in shared">
     <configuration name="CastlingTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="shared" />
       <extension name="coverage">
@@ -146,7 +148,23 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ChessGameTests$ValidMoveTests.moveIntoCheck" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="CastlingTests.castleBlack" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shared" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoffTests.chessTests.chessExtraCredit.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoffTests.chessTests.chessExtraCredit" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.chessExtraCredit.CastlingTests" />
+      <option name="METHOD_NAME" value="castleBlack" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ChessGameTests$ValidMoveTests.noPutSelfInDanger" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="shared" />
       <extension name="coverage">
         <pattern>
@@ -156,7 +174,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="passoffTests.chessTests.ChessGameTests" />
       <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.ChessGameTests$ValidMoveTests" />
-      <option name="METHOD_NAME" value="moveIntoCheck" />
+      <option name="METHOD_NAME" value="noPutSelfInDanger" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -172,21 +190,6 @@
       </extension>
       <option name="PACKAGE_NAME" value="passoffTests.chessTests" />
       <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.ChessGameTests" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="EnPassantTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shared" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.chessTests.chessExtraCredit.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.chessTests.chessExtraCredit" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.chessTests.chessExtraCredit.EnPassantTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -208,11 +211,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.EnPassantTests" />
-        <item itemvalue="JUnit.CastlingTests" />
         <item itemvalue="JUnit.passoffTests.chessTests in shared" />
+        <item itemvalue="JUnit.ChessGameTests$ValidMoveTests.noPutSelfInDanger" />
         <item itemvalue="JUnit.ChessGameTests" />
-        <item itemvalue="JUnit.ChessGameTests$ValidMoveTests.moveIntoCheck" />
+        <item itemvalue="JUnit.CastlingTests" />
+        <item itemvalue="JUnit.CastlingTests.castleBlack" />
       </list>
     </recent_temporary>
   </component>
@@ -400,7 +403,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706728899398</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="All Phase 1 non-extra credit tests pass">
+      <option name="closed" value="true" />
+      <created>1706910923561</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1706910923561</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -426,7 +437,8 @@
     <MESSAGE value="ChessGame makeMove method implemented (except checkmate and promotion)" />
     <MESSAGE value="Implemented promotion in ChessGame" />
     <MESSAGE value="Implemented checkmate in ChessGame" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented checkmate in ChessGame" />
+    <MESSAGE value="All Phase 1 non-extra credit tests pass" />
+    <option name="LAST_COMMIT_MESSAGE" value="All Phase 1 non-extra credit tests pass" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
