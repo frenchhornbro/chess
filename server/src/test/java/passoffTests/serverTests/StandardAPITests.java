@@ -1,4 +1,4 @@
-package passoffTests.serverTests;
+package java.passoffTests.serverTests;
 
 import chess.ChessGame;
 import org.junit.jupiter.api.*;
@@ -82,8 +82,8 @@ public class StandardAPITests {
         String htmlFromServer = serverFacade.file("/").replaceAll("\r", "");
         Assertions.assertEquals(HttpURLConnection.HTTP_OK, serverFacade.getStatusCode(),
                 "Server response code was not 200 OK");
-        assertNotNull(htmlFromServer, "Server returned an empty file");
-        assertTrue(htmlFromServer.contains("CS 240 Chess Server Web API"));
+        Assertions.assertNotNull(htmlFromServer, "Server returned an empty file");
+        Assertions.assertTrue(htmlFromServer.contains("CS 240 Chess Server Web API"));
     }
 
 
