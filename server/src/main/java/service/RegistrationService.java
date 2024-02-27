@@ -22,6 +22,10 @@ public class RegistrationService {
         }
         catch (DataAccessException exception) {
             throw new ServiceException(exception.getMessage());
+            //TODO: Populate the following errors:
+            //
+            //
+            //
         }
     }
 

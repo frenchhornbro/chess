@@ -1,17 +1,13 @@
 package server;
 
-import chess.ChessGame;
-import com.google.gson.Gson;
 import dataAccess.MemoryAuthDAO;
 import dataAccess.MemoryUserDAO;
-import service.RegistrationService;
+import handler.RegistrationHandler;
 import spark.*;
-
-import java.util.Collection;
 
 public class Server {
 
-    private final RegistrationService regService;
+    private final RegistrationHandler regHandler;
 
     public static void main (String[] args) {
         new Server().run(8080);
@@ -20,16 +16,15 @@ public class Server {
     public Server () {
         MemoryUserDAO memUserDAO = new MemoryUserDAO();
         MemoryAuthDAO memAuthDAO = new MemoryAuthDAO();
-        this.regService = new RegistrationService(memUserDAO, memAuthDAO);
+        this.regHandler = new RegistrationHandler(memUserDAO, memAuthDAO);
     }
 
     public int run(int desiredPort) {
         try {
             Spark.port(desiredPort);
-            createRoutes();
             Spark.staticFiles.location("web");
+            createRoutes();
             Spark.awaitInitialization();
-            //TODO: Register your endpoints and handle exceptions here.
         }
         catch (Exception exception) {
             System.err.println(exception.getMessage());
@@ -38,8 +33,11 @@ public class Server {
     }
 
     private void createRoutes() {
-        Spark.get("/user", (this::register)); //TODO: Maybe change this to be post
-        Spark.get("/test", (req, res) -> "Hello");
+        Spark.post("/user", this.regHandler::register);
+        Spark.get("/test", (req, res) -> "Test worked");
+
+        //To input parameters in the URL:
+        //http://localhost:8080?p1=v1&p2=v2
     }
 
     public void stop() {
@@ -47,26 +45,8 @@ public class Server {
         Spark.awaitStop();
     }
 
-/*
-    private void exceptionHandler(Exception exception, Request req, Response res) {
 
-    }
-*/
 
-    //Request objects are decoded from JSON, Response objects are encoded into JSON
-
-    public Object register(Request req, Response res) throws Exception {
-        //[POST] /user {username, password, email}
-        try {
-            //TODO: Get req from JSON and use this instead of u, p, e
-            String authToken = regService.register("u", "p", "e");
-            //TODO: Figure out how to serialize authToken into a JSON file to be stored in Response
-        }
-        catch (Exception exception) {
-            //TODO: Based on what is specified in the message (or other data), return the appropriate response
-        }
-        throw new RuntimeException("Not implemented yet");
-    }
 
     public Object login() {
         throw new RuntimeException("Not implemented yet");
