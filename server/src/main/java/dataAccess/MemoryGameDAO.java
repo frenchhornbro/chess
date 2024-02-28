@@ -7,7 +7,7 @@ import model.GameData;
 import java.util.HashMap;
 
 public class MemoryGameDAO {
-    private final HashMap<String, GameData> gameDataBase = new HashMap<>();
+    private final HashMap<Integer, GameData> gameDataBase = new HashMap<>();
     private int currGameNum;
 
     public MemoryGameDAO() {
@@ -22,7 +22,25 @@ public class MemoryGameDAO {
         //Users will eventually be set
         //ChessGame and gameID should be set automatically
         int gameID = currGameNum++;
-        return new GameData(gameID, gameName, new ChessGame(null, new ChessBoard()));
+        GameData game = new GameData(gameID, gameName, new ChessGame(null, new ChessBoard()));
+        gameDataBase.put(gameID, game);
+        return game;
+    }
+
+    public GameData getGame(int gameID) {
+        return gameDataBase.get(gameID);
+    }
+
+    public void updateGame(GameData game, String playerColor, String username) throws DataAccessException {
+        if (playerColor.equals("WHITE")){
+        //TODO: Maybe check this is already set and throw an error if it is?
+            game.setWhiteUsername(username);
+        }
+        else if (playerColor.equals("BLACK")) {
+            game.setBlackUsername(username);
+        }
+        else throw new DataAccessException("Error: bad request");
+        //TODO: If getColor is already set, throw error 403
     }
 
     public void delete() {

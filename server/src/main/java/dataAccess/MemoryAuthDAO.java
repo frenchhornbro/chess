@@ -21,8 +21,8 @@ public class MemoryAuthDAO {
         return authDatabase.get(authToken);
     }
 
-    public void deleteAuth() {
-        throw new RuntimeException("Not yet implemented");
+    public void deleteAuth(AuthData authData) {
+        authDatabase.remove(authData.getAuthToken());
     }
 
     public void clear() {

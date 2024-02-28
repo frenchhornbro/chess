@@ -3,10 +3,7 @@ package server;
 import dataAccess.MemoryAuthDAO;
 import dataAccess.MemoryGameDAO;
 import dataAccess.MemoryUserDAO;
-import handler.ClearHandler;
-import handler.CreateGameHandler;
-import handler.LoginHandler;
-import handler.RegistrationHandler;
+import handler.*;
 import spark.*;
 
 public class Server {
@@ -15,6 +12,8 @@ public class Server {
     private final ClearHandler clearHandler;
     private final LoginHandler loginHandler;
     private final CreateGameHandler createGameHandler;
+    private final LogoutHandler logoutHandler;
+    private final JoinGameHandler joinGameHandler;
 
     public static void main (String[] args) {
         new Server().run(8080);
@@ -28,6 +27,8 @@ public class Server {
         this.clearHandler = new ClearHandler(memUserDAO, memAuthDAO, memGameDAO);
         this.loginHandler = new LoginHandler(memUserDAO, memAuthDAO);
         this.createGameHandler = new CreateGameHandler(memGameDAO, memAuthDAO);
+        this.logoutHandler = new LogoutHandler(memAuthDAO);
+        this.joinGameHandler = new JoinGameHandler(memAuthDAO, memGameDAO);
     }
 
     public int run(int desiredPort) {
@@ -46,9 +47,10 @@ public class Server {
     private void createRoutes() {
         Spark.post("/user", this.regHandler::register);
         Spark.post("/session", this.loginHandler::login);
+        Spark.delete("/session", this.logoutHandler::logout);
         Spark.post("/game",this.createGameHandler::createGame);
+        Spark.put("/game", this.joinGameHandler::joinGame);
         Spark.delete("/db", this.clearHandler::clearApplication);
-        Spark.get("/test", (req, res) -> "Test worked");
 
         //To input parameters in the URL:
         //http://localhost:8080?p1=v1&p2=v2
