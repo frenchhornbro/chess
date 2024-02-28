@@ -22,12 +22,12 @@ public class RegistrationService {
             return this.memAuthDAO.createAuth(username);
         }
         catch (DataAccessException exception) {
-            throw new ServiceException(exception.getMessage());
+            throw new ServiceException(exception.getMessage(), "400");
             /*
             TODO: Populate the following errors:
              400 - Error: bad request
-             500 - Error: description
              403 - Error: already taken
+             500 - Error: description
             */
         }
     }

@@ -14,9 +14,10 @@ public class LoginService {
 
     public AuthData login(String username, String password) throws ServiceException {
         if (this.memUserDao.getUser(username) != null) {
+            //TODO: Verify the password
             return this.memAuthDao.createAuth(username);
         }
-        else throw new ServiceException("Error: user does not exist");
+        else throw new ServiceException("Error: user does not exist", "401");
         /*
         TODO: Populate the following errors:
          401 - Error: unauthorized
