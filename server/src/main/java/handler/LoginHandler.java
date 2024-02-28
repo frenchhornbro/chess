@@ -29,13 +29,13 @@ public class LoginHandler {
             response.status(200);
         }
         catch (ServiceException exception) {
-            response.status(Integer.parseInt(exception.getErrorNum()));
-            Responder responder = new Responder(exception.getMessage(), exception.getErrorNum());
+            ErrorCarrier responder = new ErrorCarrier(exception.getMessage(), exception.getErrorNum());
+            response.status(responder.getErrorNum());
             response.body(serial.toJson(responder));
         }
         catch (Exception otherException) {
             response.status(500);
-            Responder responder = new Responder(otherException.getMessage(), "500");
+            ErrorCarrier responder = new ErrorCarrier(otherException.getMessage(), 500);
             response.body(serial.toJson(responder));
         }
         return response.body();
@@ -44,15 +44,5 @@ public class LoginHandler {
          401 - Error: unauthorized
          500 - Error: description
          */
-    }
-
-    private static class Responder {
-        private final String message;
-        private final int errorNum;
-
-        private Responder(String errorMsg, String errorNum) {
-            this.message = errorMsg;
-            this.errorNum = Integer.parseInt(errorNum);
-        }
     }
 }

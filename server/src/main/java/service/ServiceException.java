@@ -1,14 +1,14 @@
 package service;
 
 public class ServiceException extends Exception {
-    private final String errorNum;
+    private final int errorNum;
 
-    public ServiceException(String message, String errorNum) {
+    public ServiceException(String message, int errorNum) {
         super(message);
         this.errorNum = errorNum;
     }
 
-    public String getErrorNum() {
+    public int getErrorNum() {
         return errorNum;
     }
 }

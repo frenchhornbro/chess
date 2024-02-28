@@ -13,12 +13,12 @@ public class MemoryAuthDAO {
     public AuthData createAuth(String username) { //Return an authToken
         String authToken = UUID.randomUUID().toString();
         AuthData newAuth = new AuthData(authToken, username);
-        authDatabase.put(username, newAuth);
+        authDatabase.put(authToken, newAuth);
         return newAuth;
     }
 
-    public AuthData getAuth() {
-        throw new RuntimeException("Not yet implemented");
+    public AuthData getAuth(String authToken) {
+        return authDatabase.get(authToken);
     }
 
     public void deleteAuth() {

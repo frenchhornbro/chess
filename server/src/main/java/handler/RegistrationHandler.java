@@ -23,18 +23,20 @@ public class RegistrationHandler {
         try {
             Map<String,String> credentials = serial.fromJson(request.body(), Map.class);
             AuthData authData = this.regService.register(credentials.get("username"), credentials.get("password"), credentials.get("email"));
-//            response.body(new Gson().toJson(new retObj(credentials.get("username"),authToken)));
             response.body(serial.toJson(authData));
             response.status(200);
         }
         catch (ServiceException exception) {
-            response.status(Integer.parseInt(exception.getErrorNum()));
-            response.body(serial.toJson(exception.getMessage()));
+            ErrorCarrier responder = new ErrorCarrier(exception.getMessage(), exception.getErrorNum());
+            response.status(responder.getErrorNum());
+            response.body(serial.toJson(responder));
         }
         catch (Exception otherException) {
             response.status(500);
-            response.body(serial.toJson(otherException.getMessage()));
+            ErrorCarrier responder = new ErrorCarrier(otherException.getMessage(), 500);
+            response.body(serial.toJson(responder));
         }
+        System.out.println(response.body());
         return response.body();
             /*
             TODO: Populate the following errors:

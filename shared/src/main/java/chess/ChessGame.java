@@ -127,7 +127,8 @@ public class ChessGame {
 
     private void updateTeamConditions(ChessMove lastMove) {
         ChessPiece pieceMoved = board.getPiece(lastMove.getEndPosition());
-        if (pieceMoved == null) throw new RuntimeException("Piece is now null from move " + lastMove);
+//        if (pieceMoved == null) throw new RuntimeException("Piece is now null from move " + lastMove);
+        if (pieceMoved == null) return;
         /*
         TeamColor just finished their turn.
         That means that promotion must be checked if the most recent move was a pawn
@@ -222,7 +223,8 @@ public class ChessGame {
 
     private boolean shouldPromote(ChessMove lastMove) {
         ChessPiece pieceMoved = board.getPiece(lastMove.getEndPosition());
-        if (pieceMoved == null) throw new RuntimeException("Move did not occur");
+//        if (pieceMoved == null) throw new RuntimeException("Move did not occur");
+        if (pieceMoved == null) return false;
         if (!pieceMoved.getPieceType().toString().equals("PAWN")) return false;
         if (pieceMoved.getTeamColor() == TeamColor.WHITE) {
             return (lastMove.getEndPosition().getRow() == 7);
@@ -233,9 +235,9 @@ public class ChessGame {
     }
     private void promote(ChessMove lastMove) {
         ChessPiece pawn = board.getPiece(lastMove.getEndPosition());
-        if (pawn == null) throw new RuntimeException("Trying to promote a null piece");
-        if (!pawn.getPieceType().toString().equals("PAWN")) throw new RuntimeException("Trying to promote a non-pawn");
-        if (lastMove.getPromotionPiece() == null) throw new RuntimeException("Given promotion piece is null");
+        if (pawn == null) return;
+        if (!pawn.getPieceType().toString().equals("PAWN")) return;
+        if (lastMove.getPromotionPiece() == null) return;
         board.addPiece(lastMove.getEndPosition(), new ChessPiece(pawn.getTeamColor(), lastMove.getPromotionPiece()));
         deletePiece(pawn);
     }
@@ -255,12 +257,9 @@ public class ChessGame {
         ChessPosition start = move.getStartPosition();
         ChessPosition end = move.getEndPosition();
         ChessPiece movingPiece = board.getPiece(start);
-        if (movingPiece == null) throw new RuntimeException("Trying to move a piece that doesn't"
-                + " exist with move " + move);
+        if (movingPiece == null) return null;
         ChessPiece capturedPiece = board.getPiece(end);
-        if (capturedPiece != null && capturedPiece.getTeamColor() == teamTurn) {
-            throw new RuntimeException("Trying to capture own piece with move: " + move);
-        }
+        if (capturedPiece != null && capturedPiece.getTeamColor() == teamTurn) return null;
         board.addPiece(end, movingPiece);
         deletePiece(board.getPiece(end));
         board.addPiece(start,null);
@@ -324,7 +323,7 @@ public class ChessGame {
                 }
             }
         }
-        if (kingPos == null) throw new RuntimeException(teamColor + " King cannot be found on the board\n" + board);
+        if (kingPos == null) return false;
         for (ChessMove move: enemyMoves) {
             if (move.getEndPosition().toString().equals(kingPos.toString())) return true;
         }
@@ -386,7 +385,7 @@ public class ChessGame {
         For each possible move, check if that move would put the king in check.
         If a move can be made without putting the king in check, return false;
         Else, return true;*/
-
+        if (teamColor == null) return false;
         Collection<ChessMove> possibleMoves = new ArrayList<>();
         for (int i = 1; i <= BOARDSIZE; i++) {
             for (int j = 1; j <= BOARDSIZE; j++) {

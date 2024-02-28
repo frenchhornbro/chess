@@ -17,9 +17,9 @@ public class LoginService {
             if (this.memUserDao.getUser(username).getPwd().equals(password)) {
                 return this.memAuthDao.createAuth(username);
             }
-            else throw new ServiceException("Error: password is incorrect", "401");
+            else throw new ServiceException("Error: password is incorrect", 401);
         }
-        else throw new ServiceException("Error: user does not exist", "401");
+        else throw new ServiceException("Error: user does not exist", 401);
         /*
         TODO: Populate the following errors:
          401 - Error: unauthorized
