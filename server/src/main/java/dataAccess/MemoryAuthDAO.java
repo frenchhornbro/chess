@@ -24,4 +24,9 @@ public class MemoryAuthDAO {
     public void deleteAuth() {
         throw new RuntimeException("Not yet implemented");
     }
+
+    public void clear() {
+        //TODO: Check if this memory is adequately deallocated
+        authDatabase.clear();
+    }
 }

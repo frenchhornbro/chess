@@ -2,12 +2,14 @@ package server;
 
 import dataAccess.MemoryAuthDAO;
 import dataAccess.MemoryUserDAO;
+import handler.ClearHandler;
 import handler.RegistrationHandler;
 import spark.*;
 
 public class Server {
 
     private final RegistrationHandler regHandler;
+    private final ClearHandler clearHandler;
 
     public static void main (String[] args) {
         new Server().run(8080);
@@ -17,6 +19,7 @@ public class Server {
         MemoryUserDAO memUserDAO = new MemoryUserDAO();
         MemoryAuthDAO memAuthDAO = new MemoryAuthDAO();
         this.regHandler = new RegistrationHandler(memUserDAO, memAuthDAO);
+        this.clearHandler = new ClearHandler(memUserDAO, memAuthDAO);
     }
 
     public int run(int desiredPort) {
@@ -34,6 +37,7 @@ public class Server {
 
     private void createRoutes() {
         Spark.post("/user", this.regHandler::register);
+        Spark.delete("/db", this.clearHandler::clearApplication);
         Spark.get("/test", (req, res) -> "Test worked");
 
         //To input parameters in the URL:
@@ -43,35 +47,5 @@ public class Server {
     public void stop() {
         Spark.stop();
         Spark.awaitStop();
-    }
-
-
-
-
-    public Object login() {
-        throw new RuntimeException("Not implemented yet");
-        //return authToken
-    }
-
-    public Object logout() {
-        throw new RuntimeException("Not implemented yet");
-    }
-
-    public Object listGames() {
-        throw new RuntimeException("Not implemented yet");
-        //return an arraylist or something of games
-    }
-
-    public Object createGame() {
-        throw new RuntimeException("Not implemented yet");
-        //return GameID
-    }
-
-    public Object joinGame() {
-        throw new RuntimeException("Not implemented yet");
-    }
-
-    public Object clear() {
-        throw new RuntimeException("Not implemented yet");
     }
 }

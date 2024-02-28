@@ -27,7 +27,7 @@ public class RegistrationHandler {
             //TODO: Create the response body, including the authToken in it
             res.body(new Gson().toJson(authToken));
             res.status(200);
-            return new Gson().toJson(authToken);
+            return res.body();
         }
         catch (Exception exception) {
             return new Gson().toJson(exception.getMessage());
