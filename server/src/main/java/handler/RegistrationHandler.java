@@ -2,6 +2,7 @@ package handler;
 
 import dataAccess.MemoryAuthDAO;
 import dataAccess.MemoryUserDAO;
+import model.AuthData;
 import service.RegistrationService;
 import com.google.gson.Gson;
 import spark.Request;
@@ -19,23 +20,20 @@ public class RegistrationHandler {
     public Object register(Request req, Response res) throws Exception {
         try {
             Map<String,String> credentials = new Gson().fromJson(req.body(), Map.class);
-            String authToken = regService.register(credentials.get("username"), credentials.get("password"), credentials.get("email"));
-            res.body(new Gson().toJson(new retObj(credentials.get("username"),authToken)));
+            AuthData authData = this.regService.register(credentials.get("username"), credentials.get("password"), credentials.get("email"));
+//            res.body(new Gson().toJson(new retObj(credentials.get("username"),authToken)));
+            res.body(new Gson().toJson(authData));
             res.status(200);
             return res.body();
         }
         catch (Exception exception) {
             return new Gson().toJson(exception.getMessage());
-        }
-    }
-
-    private static class retObj {
-        private final String username;
-        private final String authToken;
-
-        private retObj (String username, String authToken) {
-            this.username = username;
-            this.authToken = authToken;
+            /*
+            TODO: Populate the following errors:
+             400 - Error: bad request
+             500 - Error: description
+             403 - Error: already taken
+            */
         }
     }
 }

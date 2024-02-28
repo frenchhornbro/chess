@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Clear works">
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 3 - passed first test">
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/handler/LoginHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/service/LoginService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryAuthDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryAuthDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/RegistrationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/RegistrationHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/RegistrationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/RegistrationService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,9 +124,10 @@
     "JUnit.RookMoveTests.rookMoveUntilEdge.executor": "Debug",
     "JUnit.StandardAPITests (1).executor": "Run",
     "JUnit.StandardAPITests.executor": "Run",
-    "JUnit.StandardAPITests.loginInvalidUser.executor": "Run",
+    "JUnit.StandardAPITests.loginInvalidUser.executor": "Debug",
     "JUnit.StandardAPITests.staticFiles (1).executor": "Debug",
     "JUnit.StandardAPITests.staticFiles.executor": "Debug",
+    "JUnit.StandardAPITests.successLogin.executor": "Debug",
     "JUnit.StandardAPITests.successRegister.executor": "Run",
     "JUnit.passoffTests.chessTests in shared.executor": "Debug",
     "JUnit.passoffTests.chessTests.chessPieceTests in shared.executor": "Run",
@@ -139,7 +145,12 @@
     "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.StandardAPITests.successLogin">
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="generate" />
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.StandardAPITests.loginInvalidUser">
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="server.Server" />
       <module name="server" />
@@ -164,6 +175,22 @@
       <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
       <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StandardAPITests.loginInvalidUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
+      <option name="METHOD_NAME" value="loginInvalidUser" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -200,29 +227,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StandardAPITests.successRegister" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.serverTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
-      <option name="METHOD_NAME" value="successRegister" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.StandardAPITests.loginInvalidUser" />
         <item itemvalue="JUnit.StandardAPITests.successLogin" />
         <item itemvalue="JUnit.StandardAPITests.staticFiles (1)" />
         <item itemvalue="Application.Server" />
         <item itemvalue="JUnit.StandardAPITests (1)" />
-        <item itemvalue="JUnit.StandardAPITests.successRegister" />
       </list>
     </recent_temporary>
   </component>
@@ -466,12 +477,19 @@
       <option name="project" value="LOCAL" />
       <updated>1709082743781</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="Phase 3 - passed first test">
+      <option name="closed" value="true" />
+      <created>1709084085006</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1709084085006</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="General setup and overrode toString methods for 4 chess classes (forgot to commit this)&#10;Set up BishopMovesCalculator to be able to run" />
     <MESSAGE value="Overrode all equals and hashCode methods, output for Bishop is identical to expected (still doesn't pass)" />
     <MESSAGE value="Replaced duplicate code with a function in BishopMovesCalculator, passed first test" />
     <MESSAGE value="Code passes all BishopMovesTests" />
@@ -496,7 +514,8 @@
     <MESSAGE value="More initial setup, and server can now run" />
     <MESSAGE value="Register - Gson now parses, webpage now loads" />
     <MESSAGE value="Clear works" />
-    <option name="LAST_COMMIT_MESSAGE" value="Clear works" />
+    <MESSAGE value="Phase 3 - passed first test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 3 - passed first test" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

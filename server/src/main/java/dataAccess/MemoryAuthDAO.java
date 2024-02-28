@@ -10,11 +10,11 @@ public class MemoryAuthDAO {
 
     }
 
-    public String createAuth(String username) { //Return an authToken
+    public AuthData createAuth(String username) { //Return an authToken
         String authToken = UUID.randomUUID().toString();
         AuthData newAuth = new AuthData(authToken, username);
         authDatabase.put(username, newAuth);
-        return authToken;
+        return newAuth;
     }
 
     public AuthData getAuth() {
