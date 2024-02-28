@@ -14,8 +14,10 @@ public class LoginService {
 
     public AuthData login(String username, String password) throws ServiceException {
         if (this.memUserDao.getUser(username) != null) {
-            //TODO: Verify the password
-            return this.memAuthDao.createAuth(username);
+            if (this.memUserDao.getUser(username).getPwd().equals(password)) {
+                return this.memAuthDao.createAuth(username);
+            }
+            else throw new ServiceException("Error: password is incorrect", "401");
         }
         else throw new ServiceException("Error: user does not exist", "401");
         /*
