@@ -68,4 +68,21 @@ public class GameData {
     public void setObserver(String observer) {
         this.observers.add(observer);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder retStr = new StringBuilder();
+        retStr.append("Game ID: \"");
+        retStr.append(this.gameID);
+        retStr.append("\" whiteUsername: \"");
+        retStr.append(this.whiteUsername);
+        retStr.append("\" blackUsername: \"");
+        retStr.append(this.blackUsername);
+        retStr.append("\" gameName: \"");
+        retStr.append(this.gameName);
+        retStr.append("\", observers: \"");
+        retStr.append(this.observers);
+        retStr.append("\"");
+        return retStr.toString();
+    }
 }

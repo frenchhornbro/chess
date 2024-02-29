@@ -8,8 +8,7 @@ import service.ListGamesService;
 import service.ServiceException;
 import spark.Request;
 import spark.Response;
-
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ListGamesHandler {
     private final ListGamesService listGamesService;
@@ -22,7 +21,7 @@ public class ListGamesHandler {
         Gson serial = new Gson();
         try {
             String authToken = request.headers("authorization");
-            ArrayList<GameData> games = this.listGamesService.listGames(authToken);
+            HashMap<Integer, GameData> games = this.listGamesService.listGames(authToken);
             GamesStorage gameStorage = new GamesStorage(games);
             response.status(200);
             response.body(serial.toJson(gameStorage));

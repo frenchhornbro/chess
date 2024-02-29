@@ -1,15 +1,18 @@
 package handler;
 
 import model.GameData;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class GamesStorage {
     private final ArrayList<GameStorage> games;
 
-    public GamesStorage(ArrayList<GameData> games) {
+    public GamesStorage(HashMap<Integer, GameData> games) {
         this.games = new ArrayList<>();
-        for (GameData game : games) {
-            this.games.add(new GameStorage(game));
+        for (Map.Entry<Integer, GameData> game : games.entrySet()) {
+            this.games.add(new GameStorage(game.getValue()));
         }
     }
 
@@ -40,9 +43,9 @@ public class GamesStorage {
 
         private GameStorage(GameData game) {
             this.gameID = game.getGameID();
-            this.whiteUsername = (game.getWhiteUsername() == null) ? "" : game.getWhiteUsername();
-            this.blackUsername = (game.getBlackUsername() == null) ? "" : game.getBlackUsername();
-            this.gameName = (game.getGameName() == null) ? "" : game.getGameName();
+            this.whiteUsername = (game.getWhiteUsername() == null) ? null : game.getWhiteUsername();
+            this.blackUsername = (game.getBlackUsername() == null) ? null : game.getBlackUsername();
+            this.gameName = (game.getGameName() == null) ? null : game.getGameName();
         }
     }
 }

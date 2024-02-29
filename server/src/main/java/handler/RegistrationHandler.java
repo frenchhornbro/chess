@@ -37,11 +37,5 @@ public class RegistrationHandler {
             response.body(serial.toJson(responder));
         }
         return response.body();
-            /*
-            TODO: Populate the following errors:
-             400 - Error: bad request
-             403 - Error: already taken
-             500 - Error: description
-            */
     }
 }

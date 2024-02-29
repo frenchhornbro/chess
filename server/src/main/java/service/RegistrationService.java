@@ -30,12 +30,6 @@ public class RegistrationService {
             if (exception.getMessage().equals("Error: bad request")) errorCode = 400;
             else errorCode = 403;
             throw new ServiceException(exception.getMessage(), errorCode);
-            /*
-            TODO: Populate the following errors:
-             400 - Error: bad request
-             403 - Error: already taken
-             500 - Error: description
-            */
         }
     }
 }

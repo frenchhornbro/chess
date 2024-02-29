@@ -19,7 +19,8 @@ public class JoinGameService {
         AuthData authData = this.memAuthDAO.getAuth(authToken);
         if (authData == null) throw new ServiceException("Error: unauthorized", 401);
         GameData game = this.memGameDAO.getGame(gameID);
-        if (game == null) throw new ServiceException("Error: bad request", 400);
+        if (game == null/* || (game.getWhiteUsername() == null && game.getBlackUsername() == null && game.getGame() == null)*/)
+            throw new ServiceException("Error: bad request", 400);
         try {
             this.memGameDAO.updateGame(game, playerColor, authData.getUsername());
         }

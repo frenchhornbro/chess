@@ -5,13 +5,14 @@ import chess.ChessGame;
 import model.GameData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MemoryGameDAO {
-    private final ArrayList<GameData> gameDataBase = new ArrayList<>();
+    private final HashMap<Integer, GameData> gameDataBase = new HashMap<>();
     private int currGameNum;
 
     public MemoryGameDAO() {
-        this.currGameNum = 0;
+        this.currGameNum = 1;
     }
 
     public GameData createGame(String gameName) {
@@ -23,7 +24,8 @@ public class MemoryGameDAO {
         //ChessGame and gameID should be set automatically
         int gameID = currGameNum++;
         GameData game = new GameData(gameID, gameName, new ChessGame(null, new ChessBoard()));
-        gameDataBase.add(game);
+        gameDataBase.put(gameID, game);
+        System.out.println("GAME CREATED: gameID: " + gameID);
         return game;
     }
 
@@ -31,7 +33,7 @@ public class MemoryGameDAO {
         return gameDataBase.get(gameID);
     }
 
-    public ArrayList<GameData> getGames() {
+    public HashMap<Integer, GameData> getGames() {
         return gameDataBase;
     }
 

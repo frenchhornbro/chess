@@ -21,8 +21,10 @@ public class JoinGameHandler {
         Gson serial = new Gson();
         try {
             Map<String, Object> input = serial.fromJson(request.body(), Map.class);
+            System.out.println(input.toString());
             String authToken = request.headers("authorization");
-            String playerColor = input.get("playerColor").toString();
+            String playerColor = "";
+            if (input.get("playerColor") != null) playerColor = input.get("playerColor").toString();
             double gameIDDouble = (double) input.get("gameID");
             int gameID = (int) Math.floor(gameIDDouble);
             this.joinGameService.joinGame(authToken, playerColor, gameID);

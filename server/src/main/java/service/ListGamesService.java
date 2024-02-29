@@ -4,8 +4,7 @@ import dataAccess.MemoryAuthDAO;
 import dataAccess.MemoryGameDAO;
 import model.AuthData;
 import model.GameData;
-
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ListGamesService {
     private final MemoryAuthDAO memAuthDAO;
@@ -16,7 +15,7 @@ public class ListGamesService {
         this.memGameDAO = memGameDAO;
     }
 
-    public ArrayList<GameData> listGames(String authToken) throws ServiceException {
+    public HashMap<Integer, GameData> listGames(String authToken) throws ServiceException {
         AuthData authData = memAuthDAO.getAuth(authToken);
         if (authData == null) throw new ServiceException("Error: unauthorized", 401);
         return memGameDAO.getGames();
