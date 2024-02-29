@@ -19,10 +19,13 @@ public class ClearHandler {
         try {
             this.clearService.clear();
             res.status(200);
-            return "";
+            res.body("{}");
+            return res.body();
         }
         catch(Exception exception) {
-            return new Gson().toJson(exception.getMessage());
+            res.status(500);
+            res.body(new Gson().toJson(exception.getMessage()));
+            return res.body();
         }
     }
 }

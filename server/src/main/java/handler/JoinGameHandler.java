@@ -27,7 +27,8 @@ public class JoinGameHandler {
             int gameID = (int) Math.floor(gameIDDouble);
             this.joinGameService.joinGame(authToken, playerColor, gameID);
             response.status(200);
-            response.body(serial.toJson("{}"));
+
+            response.body("{}");
         }
         catch(ServiceException exception) {
             ErrorCarrier responder = new ErrorCarrier(exception.getMessage(), exception.getErrorNum());

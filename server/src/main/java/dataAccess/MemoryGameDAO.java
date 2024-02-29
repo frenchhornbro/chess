@@ -4,10 +4,10 @@ import chess.ChessBoard;
 import chess.ChessGame;
 import model.GameData;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class MemoryGameDAO {
-    private final HashMap<Integer, GameData> gameDataBase = new HashMap<>();
+    private final ArrayList<GameData> gameDataBase = new ArrayList<>();
     private int currGameNum;
 
     public MemoryGameDAO() {
@@ -23,7 +23,7 @@ public class MemoryGameDAO {
         //ChessGame and gameID should be set automatically
         int gameID = currGameNum++;
         GameData game = new GameData(gameID, gameName, new ChessGame(null, new ChessBoard()));
-        gameDataBase.put(gameID, game);
+        gameDataBase.add(game);
         return game;
     }
 
@@ -31,16 +31,20 @@ public class MemoryGameDAO {
         return gameDataBase.get(gameID);
     }
 
+    public ArrayList<GameData> getGames() {
+        return gameDataBase;
+    }
+
     public void updateGame(GameData game, String playerColor, String username) throws DataAccessException {
         if (playerColor.equals("WHITE")){
-        //TODO: Maybe check this is already set and throw an error if it is?
+            if (game.getWhiteUsername() != null) throw new DataAccessException("Error: already taken");
             game.setWhiteUsername(username);
         }
         else if (playerColor.equals("BLACK")) {
+            if (game.getBlackUsername() != null) throw new DataAccessException("Error: already taken");
             game.setBlackUsername(username);
         }
-        else throw new DataAccessException("Error: bad request");
-        //TODO: If getColor is already set, throw error 403
+        else game.setObserver(username);
     }
 
     public void delete() {

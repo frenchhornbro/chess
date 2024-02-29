@@ -2,7 +2,10 @@ package model;
 
 import chess.ChessGame;
 
+import java.util.HashSet;
+
 public class GameData {
+    private final HashSet<String> observers;
     private int gameID;
     private String whiteUsername;
     private String blackUsername;
@@ -15,6 +18,7 @@ public class GameData {
         this.blackUsername = null;
         this.gameName = gameName;
         this.game = game;
+        this.observers = new HashSet<>();
     }
 
     public int getGameID() {
@@ -37,6 +41,10 @@ public class GameData {
         return game;
     }
 
+    public HashSet<String> getObservers() {
+        return this.observers;
+    }
+
     public void setGameID(int gameID) {
         this.gameID = gameID;
     }
@@ -55,5 +63,9 @@ public class GameData {
 
     public void setGameName(String gameName) {
         this.gameName = gameName;
+    }
+
+    public void setObserver(String observer) {
+        this.observers.add(observer);
     }
 }

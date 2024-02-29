@@ -24,7 +24,9 @@ public class JoinGameService {
             this.memGameDAO.updateGame(game, playerColor, authData.getUsername());
         }
         catch(DataAccessException exception) {
-
+            if (exception.getMessage().equals("Error: already taken")) {
+                throw new ServiceException(exception.getMessage(), 403);
+            }
         }
     }
 }

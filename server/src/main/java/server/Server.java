@@ -14,6 +14,7 @@ public class Server {
     private final CreateGameHandler createGameHandler;
     private final LogoutHandler logoutHandler;
     private final JoinGameHandler joinGameHandler;
+    private final ListGamesHandler listGamesHandler;
 
     public static void main (String[] args) {
         new Server().run(8080);
@@ -29,6 +30,7 @@ public class Server {
         this.createGameHandler = new CreateGameHandler(memGameDAO, memAuthDAO);
         this.logoutHandler = new LogoutHandler(memAuthDAO);
         this.joinGameHandler = new JoinGameHandler(memAuthDAO, memGameDAO);
+        this.listGamesHandler = new ListGamesHandler(memAuthDAO, memGameDAO);
     }
 
     public int run(int desiredPort) {
@@ -48,6 +50,7 @@ public class Server {
         Spark.post("/user", this.regHandler::register);
         Spark.post("/session", this.loginHandler::login);
         Spark.delete("/session", this.logoutHandler::logout);
+        Spark.get("/game", this.listGamesHandler::listGames);
         Spark.post("/game",this.createGameHandler::createGame);
         Spark.put("/game", this.joinGameHandler::joinGame);
         Spark.delete("/db", this.clearHandler::clearApplication);
