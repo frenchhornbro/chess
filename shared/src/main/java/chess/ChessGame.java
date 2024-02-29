@@ -10,7 +10,7 @@ import java.util.Collection;
  * signature of the existing methods.
  */
 public class ChessGame {
-    public static int BOARDSIZE = 8;
+    public final static int BOARDSIZE = 8;
     private TeamColor teamTurn;
     private ChessBoard board;
     private boolean stalemate;

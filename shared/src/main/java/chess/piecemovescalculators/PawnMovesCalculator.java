@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class PawnMovesCalculator implements PieceMovesCalculator {
-    public static int BOARDSIZE = 8;
     public PawnMovesCalculator() {
 
     }

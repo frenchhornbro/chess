@@ -4,29 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 3 - All unit tests passed">
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 3 - Code cleanup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryAuthDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryAuthDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryGameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryGameDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/ClearHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/ClearHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/CreateGameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/CreateGameHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/JoinGameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/JoinGameHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/ListGamesHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/ListGamesHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/LoginHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/LoginHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/LogoutHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/LogoutHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/RegistrationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/RegistrationHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/model/AuthData.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/model/AuthData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/model/GameData.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/model/GameData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/model/UserData.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/model/UserData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/ClearService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/ClearService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/CreateGameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/CreateGameService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/JoinGameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/JoinGameService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/ListGamesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/ListGamesService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/LoginService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/LogoutService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/LogoutService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/RegistrationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/RegistrationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/java/unitTests/ServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/unitTests/ServiceTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/BishopMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/BishopMovesCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/KingMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/KingMovesCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/KnightMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/KnightMovesCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/PawnMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/PawnMovesCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/PieceMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/PieceMovesCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/QueenMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/QueenMovesCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/RookMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/RookMovesCalculator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -579,7 +567,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709184965731</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Phase 3 - Code cleanup">
+      <option name="closed" value="true" />
+      <created>1709187865114</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1709187865114</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -595,7 +591,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Code passes all PawnMoveTests" />
     <MESSAGE value="Code passes all test for Phase 0" />
     <MESSAGE value="Files set up to begin work on Phase 1" />
     <MESSAGE value="Implemented isInCheck method" />
@@ -620,7 +615,8 @@
     <MESSAGE value="Phase 3 - passed test 5" />
     <MESSAGE value="Phase 3 - Passed all tests" />
     <MESSAGE value="Phase 3 - All unit tests passed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 3 - All unit tests passed" />
+    <MESSAGE value="Phase 3 - Code cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 3 - Code cleanup" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

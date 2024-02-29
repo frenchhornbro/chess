@@ -14,7 +14,7 @@ import static chess.ChessPiece.PieceType.PAWN;
  * signature of the existing methods.
  */
 public class ChessBoard {
-    public static int BOARDSIZE = 8;
+    public final static int BOARDSIZE = 8;
     private ChessPiece[][] squares = new ChessPiece[BOARDSIZE][BOARDSIZE];
     public ChessBoard() {
 
