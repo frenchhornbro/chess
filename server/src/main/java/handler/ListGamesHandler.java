@@ -18,11 +18,13 @@ public class ListGamesHandler {
     }
 
     public Object listGames(Request request, Response response) {
+        //Convert the HashMap of all games into GamesStorage (which will store them as an ArrayList) and return that
         Gson serial = new Gson();
         try {
             String authToken = request.headers("authorization");
             HashMap<Integer, GameData> games = this.listGamesService.listGames(authToken);
             GamesStorage gameStorage = new GamesStorage(games);
+
             response.status(200);
             response.body(serial.toJson(gameStorage));
         }

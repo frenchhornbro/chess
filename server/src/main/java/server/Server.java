@@ -47,6 +47,7 @@ public class Server {
     }
 
     private void createRoutes() {
+        //This specifies what method is called based on the HTTP method and path
         Spark.post("/user", this.regHandler::register);
         Spark.post("/session", this.loginHandler::login);
         Spark.delete("/session", this.logoutHandler::logout);
@@ -54,9 +55,6 @@ public class Server {
         Spark.post("/game",this.createGameHandler::createGame);
         Spark.put("/game", this.joinGameHandler::joinGame);
         Spark.delete("/db", this.clearHandler::clearApplication);
-
-        //To input parameters in the URL:
-        //http://localhost:8080?p1=v1&p2=v2
     }
 
     public void stop() {

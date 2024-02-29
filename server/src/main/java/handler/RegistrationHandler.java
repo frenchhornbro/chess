@@ -17,12 +17,13 @@ public class RegistrationHandler {
         this.regService = new RegistrationService(memUserDao, memAuthDao);
     }
 
-    //[POST] /user {username, password, email}
     public Object register(Request request, Response response) {
+        //Add UserData to a database (given nothing is null and the username isn't already taken)
         Gson serial = new Gson();
         try {
             Map<String,String> credentials = serial.fromJson(request.body(), Map.class);
             AuthData authData = this.regService.register(credentials.get("username"), credentials.get("password"), credentials.get("email"));
+
             response.body(serial.toJson(authData));
             response.status(200);
         }

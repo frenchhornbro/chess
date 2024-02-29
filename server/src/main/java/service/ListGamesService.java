@@ -16,6 +16,7 @@ public class ListGamesService {
     }
 
     public HashMap<Integer, GameData> listGames(String authToken) throws ServiceException {
+        //Check that user has a valid authToken and if so return a list of all the games
         AuthData authData = memAuthDAO.getAuth(authToken);
         if (authData == null) throw new ServiceException("Error: unauthorized", 401);
         return memGameDAO.getGames();

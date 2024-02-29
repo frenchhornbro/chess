@@ -16,6 +16,7 @@ public class ClearHandler {
     }
 
     public Object clearApplication(Request req, Response res) {
+        //Clear all data
         try {
             this.clearService.clear();
             res.status(200);

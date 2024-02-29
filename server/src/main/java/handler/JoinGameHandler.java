@@ -7,7 +7,6 @@ import service.JoinGameService;
 import service.ServiceException;
 import spark.Request;
 import spark.Response;
-
 import java.util.Map;
 
 public class JoinGameHandler {
@@ -18,6 +17,7 @@ public class JoinGameHandler {
     }
 
     public Object joinGame(Request request, Response response) {
+        //Add the user as the specified player color (or an observer)
         Gson serial = new Gson();
         try {
             Map<String, Object> input = serial.fromJson(request.body(), Map.class);
@@ -27,8 +27,8 @@ public class JoinGameHandler {
             double gameIDDouble = (double) input.get("gameID");
             int gameID = (int) Math.floor(gameIDDouble);
             this.joinGameService.joinGame(authToken, playerColor, gameID);
-            response.status(200);
 
+            response.status(200);
             response.body("{}");
         }
         catch(ServiceException exception) {
@@ -42,12 +42,5 @@ public class JoinGameHandler {
             response.body(serial.toJson(responder));
         }
         return response.body();
-        /*
-        TODO: Populate the following errors:
-         400 - Error: bad request
-         401 - Error: unauthorized
-         403 - Error: already taken
-         500 - Error: description
-         */
     }
 }

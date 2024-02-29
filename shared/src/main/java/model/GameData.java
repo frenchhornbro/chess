@@ -6,10 +6,10 @@ import java.util.HashSet;
 
 public class GameData {
     private final HashSet<String> observers;
-    private int gameID;
+    private final int gameID;
     private String whiteUsername;
     private String blackUsername;
-    private String gameName;
+    private final String gameName;
     private ChessGame game;
 
     public GameData(int gameID, String gameName, ChessGame game) {
@@ -41,14 +41,6 @@ public class GameData {
         return game;
     }
 
-    public HashSet<String> getObservers() {
-        return this.observers;
-    }
-
-    public void setGameID(int gameID) {
-        this.gameID = gameID;
-    }
-
     public void setWhiteUsername(String username) {
         this.whiteUsername = username;
     }
@@ -59,10 +51,6 @@ public class GameData {
 
     public void setGame(ChessGame game) {
         this.game = game;
-    }
-
-    public void setGameName(String gameName) {
-        this.gameName = gameName;
     }
 
     public void setObserver(String observer) {

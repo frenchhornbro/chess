@@ -26,10 +26,9 @@ public class ServiceTests {
     private final MemoryAuthDAO memoryAuthDAO;
     private final MemoryUserDAO memoryUserDAO;
     public RegistrationService regServ;
-    public AuthData auth;
-    private static String USER = "username";
-    private static String PWD = "password";
-    private static String EMAIL = "email@email.com";
+    private final static String USER = "username";
+    private final static String PWD = "password";
+    private final static String EMAIL = "email@email.com";
     public ServiceTests() {
         this.memoryGameDAO = new MemoryGameDAO();
         this.memoryAuthDAO = new MemoryAuthDAO();
@@ -45,6 +44,7 @@ public class ServiceTests {
 
     @Test
     public void registerSuccess() {
+        //Standard registration
         try {
             AuthData retAuthData = regServ.register(USER, PWD, EMAIL);
             Assertions.assertEquals(USER, retAuthData.getUsername());
@@ -56,6 +56,7 @@ public class ServiceTests {
 
     @Test
     public void registerFail() {
+        //Registering with no inputted password
         try {
             regServ.register(USER, null, EMAIL);
             Assertions.fail();
@@ -68,6 +69,7 @@ public class ServiceTests {
 
     @Test
     public void loginSuccess() {
+        //Standard login
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
             LoginService logServ = new LoginService(memoryUserDAO, memoryAuthDAO);
@@ -81,6 +83,7 @@ public class ServiceTests {
 
     @Test
     public void loginFail() {
+        //Logging in with incorrect password
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
             LoginService logServ = new LoginService(memoryUserDAO, memoryAuthDAO);
@@ -95,6 +98,7 @@ public class ServiceTests {
 
     @Test
     public void logoutSuccess() {
+        //Standard logout
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
             LogoutService logoutService = new LogoutService(memoryAuthDAO);
@@ -108,6 +112,7 @@ public class ServiceTests {
 
     @Test
     public void logoutFail() {
+        //Logging out with invalid authToken
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
             LogoutService logoutService = new LogoutService(memoryAuthDAO);
@@ -122,6 +127,7 @@ public class ServiceTests {
 
     @Test
     public void createGameSuccess() {
+        //Standard game creation
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
             CreateGameService createGameService = new CreateGameService(memoryGameDAO, memoryAuthDAO);
@@ -137,6 +143,7 @@ public class ServiceTests {
 
     @Test
     public void createGameFail() {
+        //Creating a game with invalid authToken
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
             CreateGameService createGameService = new CreateGameService(memoryGameDAO, memoryAuthDAO);
@@ -151,6 +158,7 @@ public class ServiceTests {
 
     @Test
     public void listGamesSuccess() {
+        //Standard game listing
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
             CreateGameService createGameService = new CreateGameService(memoryGameDAO, memoryAuthDAO);
@@ -171,13 +179,14 @@ public class ServiceTests {
 
     @Test
     public void listGamesFail() {
+        //Game listing with invalid authToken
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
             CreateGameService createGameService = new CreateGameService(memoryGameDAO, memoryAuthDAO);
-            GameData game1 = createGameService.createGame("Game1", auth.getAuthToken());
-            GameData game2 = createGameService.createGame("Game2", auth.getAuthToken());
+            createGameService.createGame("Game1", auth.getAuthToken());
+            createGameService.createGame("Game2", auth.getAuthToken());
             ListGamesService listGamesService = new ListGamesService(memoryAuthDAO, memoryGameDAO);
-            HashMap<Integer, GameData> games = listGamesService.listGames(auth.getAuthToken() + "incorrectAuth");
+            listGamesService.listGames(auth.getAuthToken() + "incorrectAuth");
             Assertions.fail();
         }
         catch(ServiceException e) {
@@ -188,6 +197,7 @@ public class ServiceTests {
 
     @Test
     public void joinGameSuccess() {
+        //Standard game joining
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
             CreateGameService createGameService = new CreateGameService(memoryGameDAO, memoryAuthDAO);
@@ -203,6 +213,7 @@ public class ServiceTests {
 
     @Test
     public void joinGameFail() {
+        //Joining game with a playerColor that is already taken
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
             CreateGameService createGameService = new CreateGameService(memoryGameDAO, memoryAuthDAO);
@@ -222,6 +233,7 @@ public class ServiceTests {
 
     @Test
     public void clearSuccess() {
+        //Clear
         try {
             CreateGameService createGameService = new CreateGameService(memoryGameDAO, memoryAuthDAO);
             AuthData auth = regServ.register(USER, PWD, EMAIL);

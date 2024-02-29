@@ -10,7 +10,7 @@ public class MemoryAuthDAO {
 
     }
 
-    public AuthData createAuth(String username) { //Return an authToken
+    public AuthData createAuth(String username) {
         String authToken = UUID.randomUUID().toString();
         AuthData newAuth = new AuthData(authToken, username);
         authDatabase.put(authToken, newAuth);
@@ -26,7 +26,6 @@ public class MemoryAuthDAO {
     }
 
     public void clear() {
-        //TODO: Check if this memory is adequately deallocated
         authDatabase.clear();
     }
 }

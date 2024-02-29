@@ -15,10 +15,12 @@ public class LogoutHandler {
     }
 
     public Object logout(Request request, Response response) {
+        // Verify authToken is correct and delete authData
         Gson serial = new Gson();
         try {
             String authToken = request.headers("authorization");
             this.logoutService.logout(authToken);
+
             response.status(200);
             response.body("{}");
         }

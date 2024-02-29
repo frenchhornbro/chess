@@ -16,6 +16,7 @@ public class ClearService {
     }
 
     public void clear() {
+        //Clear all data
         this.memUserDAO.clear();
         this.memAuthDAO.clear();
         this.memGameDAO.clear();

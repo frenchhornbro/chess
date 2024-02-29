@@ -19,7 +19,8 @@ public class LoginHandler {
         this.loginService = new LoginService(memUserDao, memAuthDao);
     }
 
-    public Object login(Request request, Response response) throws Exception {
+    public Object login(Request request, Response response) {
+        // Verify the credentials and return authData
         Gson serial = new Gson();
         try {
             Map<String,String> credentials = serial.fromJson(request.body(), Map.class);

@@ -15,6 +15,8 @@ public class RegistrationService {
     }
 
     public AuthData register(String username, String password, String email) throws ServiceException { //Should return an authToken
+        //Check that username, pwd, and email are valid inputs and that the username is not already taken
+        //If these conditions are met, return authData
         try {
             if (username == null || password == null || email == null)
                 throw new DataAccessException("Error: bad request");
@@ -26,9 +28,7 @@ public class RegistrationService {
             return this.memAuthDAO.createAuth(username);
         }
         catch (DataAccessException exception) {
-            int errorCode;
-            if (exception.getMessage().equals("Error: bad request")) errorCode = 400;
-            else errorCode = 403;
+            int errorCode = (exception.getMessage().equals("Error: bad request")) ? 400 : 403;
             throw new ServiceException(exception.getMessage(), errorCode);
         }
     }
