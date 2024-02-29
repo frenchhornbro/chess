@@ -36,7 +36,6 @@ public class ListGamesHandler {
             ErrorCarrier responder = new ErrorCarrier(otherException.getMessage(), 500);
             response.body(serial.toJson(responder));
         }
-        System.out.println(response.body());
         return response.body();
     }
 }

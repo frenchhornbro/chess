@@ -21,7 +21,6 @@ public class JoinGameHandler {
         Gson serial = new Gson();
         try {
             Map<String, Object> input = serial.fromJson(request.body(), Map.class);
-            System.out.println(input.toString());
             String authToken = request.headers("authorization");
             String playerColor = "";
             if (input.get("playerColor") != null) playerColor = input.get("playerColor").toString();

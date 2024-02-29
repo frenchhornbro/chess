@@ -16,17 +16,11 @@ public class CreateGameService {
 
     public GameData createGame(String gameName, String authToken) throws ServiceException {
         //Check whether the authToken is in the database
+        if (gameName == null || authToken == null) throw new ServiceException("Error: bad request", 400);
         AuthData authData = this.memAuthDao.getAuth(authToken);
         if (authData != null) {
-            GameData game = this.memGameDao.createGame(gameName);
-            return game;
+            return this.memGameDao.createGame(gameName);
         }
         else throw new ServiceException("Error: unauthorized", 401);
     }
-    /*
-      TODO: Populate the following errors:
-       400 - Error: bad request
-       401 - Error: unauthorized
-       500 - Error: description
-       */
 }

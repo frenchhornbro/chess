@@ -33,10 +33,5 @@ public class LogoutHandler {
             response.body(serial.toJson(responder));
         }
         return response.body();
-        /*
-        TODO: Populate the following errors:
-          401 - Error: unauthorized
-          500 - Error: description
-         */
     }
 }

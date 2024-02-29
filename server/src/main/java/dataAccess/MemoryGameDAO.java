@@ -25,7 +25,6 @@ public class MemoryGameDAO {
         int gameID = currGameNum++;
         GameData game = new GameData(gameID, gameName, new ChessGame(null, new ChessBoard()));
         gameDataBase.put(gameID, game);
-        System.out.println("GAME CREATED: gameID: " + gameID);
         return game;
     }
 
@@ -47,10 +46,6 @@ public class MemoryGameDAO {
             game.setBlackUsername(username);
         }
         else game.setObserver(username);
-    }
-
-    public void delete() {
-        throw new RuntimeException("Not implemented yet");
     }
     public void clear() {
         gameDataBase.clear();

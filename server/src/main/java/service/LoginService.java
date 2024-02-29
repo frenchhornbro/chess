@@ -20,10 +20,5 @@ public class LoginService {
             else throw new ServiceException("Error: password is incorrect", 401);
         }
         else throw new ServiceException("Error: user does not exist", 401);
-        /*
-        TODO: Populate the following errors:
-         401 - Error: unauthorized
-         500 - Error: description
-         */
     }
 }
