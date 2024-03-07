@@ -5,34 +5,54 @@ import java.util.HashMap;
 import java.util.UUID;
 import java.sql.*;
 
-public class SQLAuthDAO {
+import static java.sql.Types.NULL;
+
+public class SQLAuthDAO extends SQLDAO {
     private final HashMap<String, AuthData> authDatabase = new HashMap<>();
     //TODO: ^^^ Get rid of this
-    public SQLAuthDAO() {
-        //TODO: Figure out how to do this from pet shop
-        String connectionURL = "jdbc:sqlserver://localhost:3306?user=root&password=USw9SNs!kp%cei";
-        Connection connection = null;
-        // Are we supposed to get this ^^^ in Database Manager...
+    public SQLAuthDAO() throws Exception {
 
-        //TODO: Perhaps create the databases in code rather than manually?
     }
 
-    public AuthData createAuth(String username) {
-        String authToken = UUID.randomUUID().toString();
-        AuthData newAuth = new AuthData(authToken, username);
-        authDatabase.put(authToken, newAuth);
-        //TODO: Replace this with a SQL command: insert into authData("username", "authToken");
-        return newAuth;
+    //Create an authToken and return it
+    public String createAuth(String username) throws DataAccessException {
+        try {
+            String authToken = UUID.randomUUID().toString();
+            String createStatement = "insert into authData (username, authToken) values (?, ?);";
+            int id = updateDB(createStatement, username, authToken);
+            return authToken;
+        }
+        catch (Exception ex) {
+            throw new DataAccessException(ex.getMessage());
+            //TODO: Check if the Register Service is doing its codes the right way
+        }
     }
 
-    public AuthData getAuth(String authToken) {
-        return authDatabase.get(authToken);
+    //Return an authToken if it exists
+    public String getAuth(String authToken) throws DataAccessException {
+        try (var conn = DatabaseManager.getConnection()) {
+            String getStatement = "select authToken from authData where authToken = ?";
+            try (var prepState = conn.prepareStatement(getStatement)) {
+                prepState.setString(1, authToken);
+                try (var response = prepState.executeQuery()) {
+                    if (response.next()) {
+                        return response.getString(1); //return the authToken
+                    }
+                }
+            }
+        }
+        catch (Exception ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
+        return null;
     }
 
+    //Delete an authToken
     public void deleteAuth(AuthData authData) {
         authDatabase.remove(authData.getAuthToken());
     }
 
+    //Clear all authTokens
     public void clear() {
         authDatabase.clear();
     }

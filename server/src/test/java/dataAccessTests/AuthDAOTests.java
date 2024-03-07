@@ -1,23 +1,17 @@
 package dataAccessTests;
 
 import dataAccess.SQLAuthDAO;
-import dataAccess.SQLGameDAO;
-import dataAccess.SQLUserDAO;
 import org.junit.jupiter.api.*;
 import passoffTests.testClasses.TestException;
 import server.Server;
 
-public class DataAccessTests {
+public class AuthDAOTests {
     private static Server server;
     private final SQLAuthDAO sqlAuthDAO;
-    private final SQLUserDAO sqlUserDAO;
-    private final SQLGameDAO sqlGameDAO;
 
-    public DataAccessTests() {
+    public AuthDAOTests() {
         server = new Server();
-        this.sqlUserDAO = server.getSqlUserDAO();
         this.sqlAuthDAO = server.getSQLAuthDAO();
-        this.sqlGameDAO = server.getSqlGameDAO();
     }
 
     @BeforeAll
@@ -28,8 +22,7 @@ public class DataAccessTests {
     }
 
     @Test
-    public void memoryAuthCreateSuccess() throws TestException {
-        // Add data, assert that it was added
+    public void sqlAuthCreateSuccess() throws Exception {
         sqlAuthDAO.createAuth("newUsername");
         stopServer();
         startServer();
@@ -37,29 +30,29 @@ public class DataAccessTests {
     }
 
     @Test
-    public void memoryAuthCreateFail() throws TestException {
+    public void sqlAuthCreateFail() throws TestException {
 
     }
 
     @Test
-    public void memoryAuthGetSuccess() throws TestException {
+    public void sqlAuthGetSuccess() throws TestException {
 
     }
 
     @Test
-    public void memoryAuthGetFail() throws TestException {
+    public void sqlAuthGetFail() throws TestException {
 
     }
     @Test
-    public void memoryAuthDeleteSuccess() throws TestException {
+    public void sqlAuthDeleteSuccess() throws TestException {
 
     }
     @Test
-    public void memoryAuthDeleteFail() throws TestException {
+    public void sqlAuthDeleteFail() throws TestException {
 
     }
     @Test
-    public void memoryAuthClearSuccess() throws TestException {
+    public void sqlAuthClearSuccess() throws TestException {
 
     }
 

@@ -22,17 +22,22 @@ import dataAccess.*;
 import java.util.HashMap;
 
 public class ServiceTests {
-    private final SQLGameDAO SQLGameDAO;
-    private final SQLAuthDAO SQLAuthDAO;
-    private final SQLUserDAO SQLUserDAO;
+    private SQLGameDAO SQLGameDAO;
+    private SQLAuthDAO SQLAuthDAO;
+    private SQLUserDAO SQLUserDAO;
     public RegistrationService regServ;
     private final static String USER = "username";
     private final static String PWD = "password";
     private final static String EMAIL = "email@email.com";
     public ServiceTests() {
-        this.SQLGameDAO = new SQLGameDAO();
-        this.SQLAuthDAO = new SQLAuthDAO();
-        this.SQLUserDAO = new SQLUserDAO();
+        try {
+            this.SQLGameDAO = new SQLGameDAO();
+            this.SQLAuthDAO = new SQLAuthDAO();
+            this.SQLUserDAO = new SQLUserDAO();
+        }
+        catch (Throwable ex) {
+            Assertions.fail(ex.getMessage());
+        }
     }
 
     @BeforeEach

@@ -13,8 +13,8 @@ import java.util.Map;
 public class RegistrationHandler {
     private final RegistrationService regService;
 
-    public RegistrationHandler(SQLUserDAO memUserDao, SQLAuthDAO memAuthDao) {
-        this.regService = new RegistrationService(memUserDao, memAuthDao);
+    public RegistrationHandler(SQLUserDAO sqlUserDAO, SQLAuthDAO sqlAuthDAO) {
+        this.regService = new RegistrationService(sqlUserDAO, sqlAuthDAO);
     }
 
     public Object register(Request request, Response response) {
@@ -22,9 +22,10 @@ public class RegistrationHandler {
         Gson serial = new Gson();
         try {
             Map<String,String> credentials = serial.fromJson(request.body(), Map.class);
-            AuthData authData = this.regService.register(credentials.get("username"), credentials.get("password"), credentials.get("email"));
+            String authToken = this.regService.register(credentials.get("username"), credentials.get("password"), credentials.get("email"));
 
-            response.body(serial.toJson(authData));
+            //TODO: Make sure we're not getting new errors with trying to JSONify a String
+            response.body(serial.toJson(authToken));
             response.status(200);
         }
         catch (ServiceException exception) {
