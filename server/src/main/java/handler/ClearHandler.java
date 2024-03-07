@@ -1,17 +1,17 @@
 package handler;
 
 import com.google.gson.Gson;
-import dataAccess.MemoryGameDAO;
+import dataAccess.SQLGameDAO;
 import service.ClearService;
 import spark.Request;
 import spark.Response;
-import dataAccess.MemoryAuthDAO;
-import dataAccess.MemoryUserDAO;
+import dataAccess.SQLAuthDAO;
+import dataAccess.SQLUserDAO;
 
 public class ClearHandler {
     private final ClearService clearService;
 
-    public ClearHandler(MemoryUserDAO memUserDao, MemoryAuthDAO memAuthDao, MemoryGameDAO memGameDAO) {
+    public ClearHandler(SQLUserDAO memUserDao, SQLAuthDAO memAuthDao, SQLGameDAO memGameDAO) {
         this.clearService = new ClearService(memUserDao, memAuthDao, memGameDAO);
     }
 

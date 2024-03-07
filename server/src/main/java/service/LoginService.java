@@ -1,13 +1,13 @@
 package service;
 
-import dataAccess.MemoryAuthDAO;
-import dataAccess.MemoryUserDAO;
+import dataAccess.SQLAuthDAO;
+import dataAccess.SQLUserDAO;
 import model.AuthData;
 
 public class LoginService {
-    private final MemoryUserDAO memUserDao;
-    private final MemoryAuthDAO memAuthDao;
-    public LoginService(MemoryUserDAO memUserDao, MemoryAuthDAO memAuthDao) {
+    private final SQLUserDAO memUserDao;
+    private final SQLAuthDAO memAuthDao;
+    public LoginService(SQLUserDAO memUserDao, SQLAuthDAO memAuthDao) {
         this.memUserDao = memUserDao;
         this.memAuthDao = memAuthDao;
     }

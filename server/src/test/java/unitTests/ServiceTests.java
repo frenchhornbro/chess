@@ -22,24 +22,24 @@ import dataAccess.*;
 import java.util.HashMap;
 
 public class ServiceTests {
-    private final MemoryGameDAO memoryGameDAO;
-    private final MemoryAuthDAO memoryAuthDAO;
-    private final MemoryUserDAO memoryUserDAO;
+    private final SQLGameDAO SQLGameDAO;
+    private final SQLAuthDAO SQLAuthDAO;
+    private final SQLUserDAO SQLUserDAO;
     public RegistrationService regServ;
     private final static String USER = "username";
     private final static String PWD = "password";
     private final static String EMAIL = "email@email.com";
     public ServiceTests() {
-        this.memoryGameDAO = new MemoryGameDAO();
-        this.memoryAuthDAO = new MemoryAuthDAO();
-        this.memoryUserDAO = new MemoryUserDAO();
+        this.SQLGameDAO = new SQLGameDAO();
+        this.SQLAuthDAO = new SQLAuthDAO();
+        this.SQLUserDAO = new SQLUserDAO();
     }
 
     @BeforeEach
     public void clear() throws TestException {
-        ClearService clearService = new ClearService(memoryUserDAO, memoryAuthDAO, memoryGameDAO);
+        ClearService clearService = new ClearService(SQLUserDAO, SQLAuthDAO, SQLGameDAO);
         clearService.clear();
-        regServ = new RegistrationService(memoryUserDAO,memoryAuthDAO);
+        regServ = new RegistrationService(SQLUserDAO, SQLAuthDAO);
     }
 
     @Test
@@ -72,7 +72,7 @@ public class ServiceTests {
         //Standard login
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
-            LoginService logServ = new LoginService(memoryUserDAO, memoryAuthDAO);
+            LoginService logServ = new LoginService(SQLUserDAO, SQLAuthDAO);
             AuthData newAuth = logServ.login(USER, PWD);
             Assertions.assertEquals(newAuth.getUsername(), auth.getUsername());
         }
@@ -86,7 +86,7 @@ public class ServiceTests {
         //Logging in with incorrect password
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
-            LoginService logServ = new LoginService(memoryUserDAO, memoryAuthDAO);
+            LoginService logServ = new LoginService(SQLUserDAO, SQLAuthDAO);
             AuthData newAuth = logServ.login(USER, "incorrectPassword");
             Assertions.assertEquals(newAuth.getUsername(), auth.getUsername());
         }
@@ -101,7 +101,7 @@ public class ServiceTests {
         //Standard logout
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
-            LogoutService logoutService = new LogoutService(memoryAuthDAO);
+            LogoutService logoutService = new LogoutService(SQLAuthDAO);
             logoutService.logout(auth.getAuthToken());
             Assertions.assertTrue(true);
         }
@@ -115,7 +115,7 @@ public class ServiceTests {
         //Logging out with invalid authToken
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
-            LogoutService logoutService = new LogoutService(memoryAuthDAO);
+            LogoutService logoutService = new LogoutService(SQLAuthDAO);
             logoutService.logout(auth.getAuthToken() + "incorrectAuth");
             Assertions.fail();
         }
@@ -130,7 +130,7 @@ public class ServiceTests {
         //Standard game creation
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
-            CreateGameService createGameService = new CreateGameService(memoryGameDAO, memoryAuthDAO);
+            CreateGameService createGameService = new CreateGameService(SQLGameDAO, SQLAuthDAO);
             GameData game = createGameService.createGame("MyGame", auth.getAuthToken());
             Assertions.assertEquals("MyGame", game.getGameName());
             Assertions.assertNull(game.getWhiteUsername());
@@ -146,7 +146,7 @@ public class ServiceTests {
         //Creating a game with invalid authToken
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
-            CreateGameService createGameService = new CreateGameService(memoryGameDAO, memoryAuthDAO);
+            CreateGameService createGameService = new CreateGameService(SQLGameDAO, SQLAuthDAO);
             createGameService.createGame("MyGame", auth.getAuthToken() + "incorrectAuth");
             Assertions.fail();
         }
@@ -161,10 +161,10 @@ public class ServiceTests {
         //Standard game listing
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
-            CreateGameService createGameService = new CreateGameService(memoryGameDAO, memoryAuthDAO);
+            CreateGameService createGameService = new CreateGameService(SQLGameDAO, SQLAuthDAO);
             GameData game1 = createGameService.createGame("Game1", auth.getAuthToken());
             GameData game2 = createGameService.createGame("Game2", auth.getAuthToken());
-            ListGamesService listGamesService = new ListGamesService(memoryAuthDAO, memoryGameDAO);
+            ListGamesService listGamesService = new ListGamesService(SQLAuthDAO, SQLGameDAO);
             HashMap<Integer, GameData> games = listGamesService.listGames(auth.getAuthToken());
 
             Assertions.assertEquals("Game1", games.get(game1.getGameID()).getGameName());
@@ -182,10 +182,10 @@ public class ServiceTests {
         //Game listing with invalid authToken
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
-            CreateGameService createGameService = new CreateGameService(memoryGameDAO, memoryAuthDAO);
+            CreateGameService createGameService = new CreateGameService(SQLGameDAO, SQLAuthDAO);
             createGameService.createGame("Game1", auth.getAuthToken());
             createGameService.createGame("Game2", auth.getAuthToken());
-            ListGamesService listGamesService = new ListGamesService(memoryAuthDAO, memoryGameDAO);
+            ListGamesService listGamesService = new ListGamesService(SQLAuthDAO, SQLGameDAO);
             listGamesService.listGames(auth.getAuthToken() + "incorrectAuth");
             Assertions.fail();
         }
@@ -200,9 +200,9 @@ public class ServiceTests {
         //Standard game joining
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
-            CreateGameService createGameService = new CreateGameService(memoryGameDAO, memoryAuthDAO);
+            CreateGameService createGameService = new CreateGameService(SQLGameDAO, SQLAuthDAO);
             GameData game = createGameService.createGame("MyGame", auth.getAuthToken());
-            JoinGameService joinGameService = new JoinGameService(memoryAuthDAO, memoryGameDAO);
+            JoinGameService joinGameService = new JoinGameService(SQLAuthDAO, SQLGameDAO);
             joinGameService.joinGame(auth.getAuthToken(), "WHITE", game.getGameID());
             Assertions.assertTrue(true);
         }
@@ -216,9 +216,9 @@ public class ServiceTests {
         //Joining game with a playerColor that is already taken
         try {
             AuthData auth = regServ.register(USER, PWD, EMAIL);
-            CreateGameService createGameService = new CreateGameService(memoryGameDAO, memoryAuthDAO);
+            CreateGameService createGameService = new CreateGameService(SQLGameDAO, SQLAuthDAO);
             GameData game = createGameService.createGame("MyGame", auth.getAuthToken());
-            JoinGameService joinGameService = new JoinGameService(memoryAuthDAO, memoryGameDAO);
+            JoinGameService joinGameService = new JoinGameService(SQLAuthDAO, SQLGameDAO);
             joinGameService.joinGame(auth.getAuthToken(), "WHITE", game.getGameID());
 
             AuthData newAuth = regServ.register("otherUser", PWD, EMAIL);
@@ -235,20 +235,20 @@ public class ServiceTests {
     public void clearSuccess() {
         //Clear
         try {
-            CreateGameService createGameService = new CreateGameService(memoryGameDAO, memoryAuthDAO);
+            CreateGameService createGameService = new CreateGameService(SQLGameDAO, SQLAuthDAO);
             AuthData auth = regServ.register(USER, PWD, EMAIL);
             AuthData newAuth = regServ.register("newUser", PWD, EMAIL);
             GameData game1 = createGameService.createGame("Game1", auth.getAuthToken());
             GameData game2 = createGameService.createGame("Game2", newAuth.getAuthToken());
 
-            ClearService newClear = new ClearService(memoryUserDAO, memoryAuthDAO, memoryGameDAO);
+            ClearService newClear = new ClearService(SQLUserDAO, SQLAuthDAO, SQLGameDAO);
             newClear.clear();
-            Assertions.assertNull(memoryUserDAO.getUser(USER));
-            Assertions.assertNull(memoryUserDAO.getUser("newUser"));
-            Assertions.assertNull(memoryAuthDAO.getAuth(auth.getAuthToken()));
-            Assertions.assertNull(memoryAuthDAO.getAuth(newAuth.getAuthToken()));
-            Assertions.assertNull(memoryGameDAO.getGame(game1.getGameID()));
-            Assertions.assertNull(memoryGameDAO.getGame(game2.getGameID()));
+            Assertions.assertNull(SQLUserDAO.getUser(USER));
+            Assertions.assertNull(SQLUserDAO.getUser("newUser"));
+            Assertions.assertNull(SQLAuthDAO.getAuth(auth.getAuthToken()));
+            Assertions.assertNull(SQLAuthDAO.getAuth(newAuth.getAuthToken()));
+            Assertions.assertNull(SQLGameDAO.getGame(game1.getGameID()));
+            Assertions.assertNull(SQLGameDAO.getGame(game2.getGameID()));
         }
         catch(Exception e) {
             Assertions.fail();

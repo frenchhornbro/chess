@@ -2,9 +2,9 @@ package dataAccess;
 import model.UserData;
 import java.util.HashMap;
 
-public class MemoryUserDAO {
+public class SQLUserDAO {
     private final HashMap<String, UserData> userDatabase = new HashMap<>();
-    public MemoryUserDAO() {
+    public SQLUserDAO() {
 
     }
 

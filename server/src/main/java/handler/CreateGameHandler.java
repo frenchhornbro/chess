@@ -1,8 +1,8 @@
 package handler;
 
 import com.google.gson.Gson;
-import dataAccess.MemoryAuthDAO;
-import dataAccess.MemoryGameDAO;
+import dataAccess.SQLAuthDAO;
+import dataAccess.SQLGameDAO;
 import model.GameData;
 import service.CreateGameService;
 import service.ServiceException;
@@ -13,7 +13,7 @@ import java.util.Map;
 public class CreateGameHandler {
     private final CreateGameService createGameService;
 
-    public CreateGameHandler(MemoryGameDAO memGameDao, MemoryAuthDAO memAuthDao) {
+    public CreateGameHandler(SQLGameDAO memGameDao, SQLAuthDAO memAuthDao) {
         this.createGameService = new CreateGameService(memGameDao, memAuthDao);
     }
 

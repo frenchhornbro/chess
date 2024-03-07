@@ -1,8 +1,6 @@
 package server;
 
-import dataAccess.MemoryAuthDAO;
-import dataAccess.MemoryGameDAO;
-import dataAccess.MemoryUserDAO;
+import dataAccess.*;
 import handler.*;
 import spark.*;
 
@@ -15,22 +13,25 @@ public class Server {
     private final LogoutHandler logoutHandler;
     private final JoinGameHandler joinGameHandler;
     private final ListGamesHandler listGamesHandler;
+    private final SQLAuthDAO sqlAuthDAO;
+    private final SQLGameDAO sqlGameDAO;
+    private final SQLUserDAO sqlUserDAO;
 
     public static void main (String[] args) {
         new Server().run(8080);
     }
 
     public Server () {
-        MemoryUserDAO memUserDAO = new MemoryUserDAO();
-        MemoryAuthDAO memAuthDAO = new MemoryAuthDAO();
-        MemoryGameDAO memGameDAO = new MemoryGameDAO();
-        this.regHandler = new RegistrationHandler(memUserDAO, memAuthDAO);
-        this.clearHandler = new ClearHandler(memUserDAO, memAuthDAO, memGameDAO);
-        this.loginHandler = new LoginHandler(memUserDAO, memAuthDAO);
-        this.createGameHandler = new CreateGameHandler(memGameDAO, memAuthDAO);
-        this.logoutHandler = new LogoutHandler(memAuthDAO);
-        this.joinGameHandler = new JoinGameHandler(memAuthDAO, memGameDAO);
-        this.listGamesHandler = new ListGamesHandler(memAuthDAO, memGameDAO);
+        this.sqlUserDAO = new SQLUserDAO();
+        this.sqlAuthDAO = new SQLAuthDAO();
+        this.sqlGameDAO = new SQLGameDAO();
+        this.regHandler = new RegistrationHandler(sqlUserDAO, sqlAuthDAO);
+        this.clearHandler = new ClearHandler(sqlUserDAO, sqlAuthDAO, sqlGameDAO);
+        this.loginHandler = new LoginHandler(sqlUserDAO, sqlAuthDAO);
+        this.createGameHandler = new CreateGameHandler(sqlGameDAO, sqlAuthDAO);
+        this.logoutHandler = new LogoutHandler(sqlAuthDAO);
+        this.joinGameHandler = new JoinGameHandler(sqlAuthDAO, sqlGameDAO);
+        this.listGamesHandler = new ListGamesHandler(sqlAuthDAO, sqlGameDAO);
     }
 
     public int run(int desiredPort) {
@@ -55,6 +56,18 @@ public class Server {
         Spark.post("/game",this.createGameHandler::createGame);
         Spark.put("/game", this.joinGameHandler::joinGame);
         Spark.delete("/db", this.clearHandler::clearApplication);
+    }
+
+    public SQLUserDAO getSqlUserDAO() {
+        return this.sqlUserDAO;
+    }
+
+    public SQLAuthDAO getSQLAuthDAO() {
+        return this.sqlAuthDAO;
+    }
+
+    public SQLGameDAO getSqlGameDAO() {
+        return this.sqlGameDAO;
     }
 
     public void stop() {

@@ -1,7 +1,7 @@
 package handler;
 
 import com.google.gson.Gson;
-import dataAccess.MemoryAuthDAO;
+import dataAccess.SQLAuthDAO;
 import service.LogoutService;
 import service.ServiceException;
 import spark.Request;
@@ -10,7 +10,7 @@ import spark.Response;
 public class LogoutHandler {
     private final LogoutService logoutService;
 
-    public LogoutHandler(MemoryAuthDAO memAuthDAO) {
+    public LogoutHandler(SQLAuthDAO memAuthDAO) {
         this.logoutService = new LogoutService(memAuthDAO);
     }
 

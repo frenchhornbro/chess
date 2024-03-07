@@ -6,8 +6,8 @@ import service.LoginService;
 import service.ServiceException;
 import spark.Response;
 import spark.Request;
-import dataAccess.MemoryAuthDAO;
-import dataAccess.MemoryUserDAO;
+import dataAccess.SQLAuthDAO;
+import dataAccess.SQLUserDAO;
 
 import java.util.Map;
 
@@ -15,7 +15,7 @@ public class LoginHandler {
 
     private final LoginService loginService;
 
-    public LoginHandler(MemoryUserDAO memUserDao, MemoryAuthDAO memAuthDao) {
+    public LoginHandler(SQLUserDAO memUserDao, SQLAuthDAO memAuthDao) {
         this.loginService = new LoginService(memUserDao, memAuthDao);
     }
 

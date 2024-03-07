@@ -1,8 +1,8 @@
 package handler;
 
 import com.google.gson.Gson;
-import dataAccess.MemoryAuthDAO;
-import dataAccess.MemoryGameDAO;
+import dataAccess.SQLAuthDAO;
+import dataAccess.SQLGameDAO;
 import service.JoinGameService;
 import service.ServiceException;
 import spark.Request;
@@ -12,7 +12,7 @@ import java.util.Map;
 public class JoinGameHandler {
     private final JoinGameService joinGameService;
 
-    public JoinGameHandler(MemoryAuthDAO memAuthDAO, MemoryGameDAO memGameDAO) {
+    public JoinGameHandler(SQLAuthDAO memAuthDAO, SQLGameDAO memGameDAO) {
         this.joinGameService = new JoinGameService(memAuthDAO, memGameDAO);
     }
 

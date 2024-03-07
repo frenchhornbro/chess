@@ -2,14 +2,14 @@ package service;
 import model.AuthData;
 import model.UserData;
 import dataAccess.DataAccessException;
-import dataAccess.MemoryAuthDAO;
-import dataAccess.MemoryUserDAO;
+import dataAccess.SQLAuthDAO;
+import dataAccess.SQLUserDAO;
 
 public class RegistrationService {
-    private final MemoryUserDAO memUserDAO;
-    private final MemoryAuthDAO memAuthDAO;
+    private final SQLUserDAO memUserDAO;
+    private final SQLAuthDAO memAuthDAO;
 
-    public RegistrationService(MemoryUserDAO memUserDAO, MemoryAuthDAO memAuthDAO) {
+    public RegistrationService(SQLUserDAO memUserDAO, SQLAuthDAO memAuthDAO) {
         this.memUserDAO = memUserDAO;
         this.memAuthDAO = memAuthDAO;
     }

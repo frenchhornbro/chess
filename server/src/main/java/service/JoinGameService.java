@@ -1,16 +1,16 @@
 package service;
 
 import dataAccess.DataAccessException;
-import dataAccess.MemoryAuthDAO;
-import dataAccess.MemoryGameDAO;
+import dataAccess.SQLAuthDAO;
+import dataAccess.SQLGameDAO;
 import model.AuthData;
 import model.GameData;
 
 public class JoinGameService {
-    private final MemoryAuthDAO memAuthDAO;
-    private final MemoryGameDAO memGameDAO;
+    private final SQLAuthDAO memAuthDAO;
+    private final SQLGameDAO memGameDAO;
 
-    public JoinGameService(MemoryAuthDAO memAuthDAO, MemoryGameDAO memGameDAO) {
+    public JoinGameService(SQLAuthDAO memAuthDAO, SQLGameDAO memGameDAO) {
         this.memAuthDAO = memAuthDAO;
         this.memGameDAO = memGameDAO;
     }

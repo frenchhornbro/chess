@@ -1,12 +1,12 @@
 package service;
 
-import dataAccess.MemoryAuthDAO;
+import dataAccess.SQLAuthDAO;
 import model.AuthData;
 
 public class LogoutService {
-    private final MemoryAuthDAO memAuthDao;
+    private final SQLAuthDAO memAuthDao;
 
-    public LogoutService(MemoryAuthDAO memAuthDao) {
+    public LogoutService(SQLAuthDAO memAuthDao) {
         this.memAuthDao = memAuthDao;
     }
 

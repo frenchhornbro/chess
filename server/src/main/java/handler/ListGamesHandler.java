@@ -1,8 +1,8 @@
 package handler;
 
 import com.google.gson.Gson;
-import dataAccess.MemoryAuthDAO;
-import dataAccess.MemoryGameDAO;
+import dataAccess.SQLAuthDAO;
+import dataAccess.SQLGameDAO;
 import model.GameData;
 import service.ListGamesService;
 import service.ServiceException;
@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class ListGamesHandler {
     private final ListGamesService listGamesService;
 
-    public ListGamesHandler(MemoryAuthDAO memAuthDAO, MemoryGameDAO memGameDAO) {
+    public ListGamesHandler(SQLAuthDAO memAuthDAO, SQLGameDAO memGameDAO) {
         this.listGamesService = new ListGamesService(memAuthDAO, memGameDAO);
     }
 

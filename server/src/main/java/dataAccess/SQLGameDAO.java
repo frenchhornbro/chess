@@ -6,11 +6,11 @@ import model.GameData;
 
 import java.util.HashMap;
 
-public class MemoryGameDAO {
+public class SQLGameDAO {
     private final HashMap<Integer, GameData> gameDataBase = new HashMap<>();
     private int currGameNum;
 
-    public MemoryGameDAO() {
+    public SQLGameDAO() {
         this.currGameNum = 1;
     }
 

@@ -1,7 +1,7 @@
 package handler;
 
-import dataAccess.MemoryAuthDAO;
-import dataAccess.MemoryUserDAO;
+import dataAccess.SQLAuthDAO;
+import dataAccess.SQLUserDAO;
 import model.AuthData;
 import service.RegistrationService;
 import com.google.gson.Gson;
@@ -13,7 +13,7 @@ import java.util.Map;
 public class RegistrationHandler {
     private final RegistrationService regService;
 
-    public RegistrationHandler(MemoryUserDAO memUserDao, MemoryAuthDAO memAuthDao) {
+    public RegistrationHandler(SQLUserDAO memUserDao, SQLAuthDAO memAuthDao) {
         this.regService = new RegistrationService(memUserDao, memAuthDao);
     }
 

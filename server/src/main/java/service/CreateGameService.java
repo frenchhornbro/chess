@@ -1,15 +1,15 @@
 package service;
 
-import dataAccess.MemoryAuthDAO;
-import dataAccess.MemoryGameDAO;
+import dataAccess.SQLAuthDAO;
+import dataAccess.SQLGameDAO;
 import model.AuthData;
 import model.GameData;
 
 public class CreateGameService {
-    private final MemoryAuthDAO memAuthDao;
-    private final MemoryGameDAO memGameDao;
+    private final SQLAuthDAO memAuthDao;
+    private final SQLGameDAO memGameDao;
 
-    public CreateGameService(MemoryGameDAO memGameDao, MemoryAuthDAO memAuthDao) {
+    public CreateGameService(SQLGameDAO memGameDao, SQLAuthDAO memAuthDao) {
         this.memGameDao = memGameDao;
         this.memAuthDao = memAuthDao;
     }

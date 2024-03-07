@@ -1,16 +1,16 @@
 package service;
 
-import dataAccess.MemoryAuthDAO;
-import dataAccess.MemoryGameDAO;
+import dataAccess.SQLAuthDAO;
+import dataAccess.SQLGameDAO;
 import model.AuthData;
 import model.GameData;
 import java.util.HashMap;
 
 public class ListGamesService {
-    private final MemoryAuthDAO memAuthDAO;
-    private final MemoryGameDAO memGameDAO;
+    private final SQLAuthDAO memAuthDAO;
+    private final SQLGameDAO memGameDAO;
 
-    public ListGamesService(MemoryAuthDAO memAuthDAO, MemoryGameDAO memGameDAO) {
+    public ListGamesService(SQLAuthDAO memAuthDAO, SQLGameDAO memGameDAO) {
         this.memAuthDAO = memAuthDAO;
         this.memGameDAO = memGameDAO;
     }

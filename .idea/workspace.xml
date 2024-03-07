@@ -4,12 +4,29 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 3 - Matched naming convention">
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/DatabaseManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/main/resources/db.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/server/src/test/java/passoffTests/serverTests/PersistenceTests.java" afterDir="false" />
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 4 - Imported starter files">
+      <change afterPath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/DataAccessTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryAuthDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLAuthDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryGameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/MemoryUserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLUserDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/ClearHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/ClearHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/CreateGameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/CreateGameHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/JoinGameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/JoinGameHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/ListGamesHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/ListGamesHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/LoginHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/LoginHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/LogoutHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/LogoutHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/RegistrationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/RegistrationHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/ClearService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/ClearService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/CreateGameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/CreateGameService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/JoinGameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/JoinGameService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/ListGamesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/ListGamesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/LoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/LogoutService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/LogoutService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/RegistrationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/RegistrationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/resources/db.properties" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/resources/db.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/java/unitTests/ServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/unitTests/ServiceTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +113,7 @@
     "JUnit.ChessPositionTests.executor": "Run",
     "JUnit.ChessPositionTests.hashSetTest.executor": "Debug",
     "JUnit.ChessPositionTests.hashTest.executor": "Debug",
+    "JUnit.DataAccessTests.memoryAuthCreateSuccess.executor": "Debug",
     "JUnit.EnPassantTests.executor": "Debug",
     "JUnit.KingMoveTests.executor": "Run",
     "JUnit.KingMoveTests.kingBlocked.executor": "Debug",
@@ -117,6 +135,7 @@
     "JUnit.PawnMoveTests.pawnMiddleOfBoardWhite.executor": "Debug",
     "JUnit.PawnMoveTests.pawnPromotionCapture.executor": "Debug",
     "JUnit.PawnMoveTests.pawnPromotionWhite.executor": "Debug",
+    "JUnit.PersistenceTests.persistenceTest.executor": "Debug",
     "JUnit.QueenMoveTests.executor": "Run",
     "JUnit.QueenMoveTests.queenBlocked.executor": "Debug",
     "JUnit.QueenMoveTests.queenCaptureEnemy.executor": "Debug",
@@ -183,7 +202,7 @@
       <command value="git add ." />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in shared">
+  <component name="RunManager" selected="JUnit.DataAccessTests.memoryAuthCreateSuccess">
     <configuration name="All in server" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <option name="PACKAGE_NAME" value="" />
@@ -196,6 +215,38 @@
       <module name="shared" />
       <option name="PACKAGE_NAME" value="" />
       <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DataAccessTests.memoryAuthCreateSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dataAccessTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dataAccessTests" />
+      <option name="MAIN_CLASS_NAME" value="dataAccessTests.DataAccessTests" />
+      <option name="METHOD_NAME" value="memoryAuthCreateSuccess" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PersistenceTests.persistenceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.PersistenceTests" />
+      <option name="METHOD_NAME" value="persistenceTest" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -215,45 +266,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServiceTests.clearSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="unitTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="unitTests" />
-      <option name="MAIN_CLASS_NAME" value="unitTests.ServiceTests" />
-      <option name="METHOD_NAME" value="clearSuccess" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ServiceTests.joinGameFail" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="unitTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="unitTests" />
-      <option name="MAIN_CLASS_NAME" value="unitTests.ServiceTests" />
-      <option name="METHOD_NAME" value="joinGameFail" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.DataAccessTests.memoryAuthCreateSuccess" />
+        <item itemvalue="JUnit.PersistenceTests.persistenceTest" />
         <item itemvalue="JUnit.All in shared" />
         <item itemvalue="JUnit.All in server" />
         <item itemvalue="JUnit.ServiceTests" />
-        <item itemvalue="JUnit.ServiceTests.clearSuccess" />
-        <item itemvalue="JUnit.ServiceTests.joinGameFail" />
       </list>
     </recent_temporary>
   </component>
@@ -585,7 +604,15 @@
       <option name="project" value="LOCAL" />
       <updated>1709188220160</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Phase 4 - Imported starter files">
+      <option name="closed" value="true" />
+      <created>1709686169567</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1709686169567</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -601,7 +628,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Files set up to begin work on Phase 1" />
     <MESSAGE value="Implemented isInCheck method" />
     <MESSAGE value="Implemented isInStalemate method" />
     <MESSAGE value="Cleaned up code in ChessBoard" />
@@ -626,7 +652,8 @@
     <MESSAGE value="Phase 3 - All unit tests passed" />
     <MESSAGE value="Phase 3 - Code cleanup" />
     <MESSAGE value="Phase 3 - Matched naming convention" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 3 - Matched naming convention" />
+    <MESSAGE value="Phase 4 - Imported starter files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 4 - Imported starter files" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
