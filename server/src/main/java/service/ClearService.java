@@ -9,10 +9,10 @@ public class ClearService {
     private final SQLAuthDAO memAuthDAO;
     private final SQLGameDAO memGameDAO;
 
-    public ClearService(SQLUserDAO memUserDao, SQLAuthDAO memAuthDao, SQLGameDAO memGameDao) {
-        this.memUserDAO = memUserDao;
-        this.memAuthDAO = memAuthDao;
-        this.memGameDAO = memGameDao;
+    public ClearService() throws Exception {
+        this.memUserDAO = new SQLUserDAO();
+        this.memAuthDAO = new SQLAuthDAO();
+        this.memGameDAO = new SQLGameDAO();
     }
 
     public void clear() {

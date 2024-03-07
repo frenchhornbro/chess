@@ -1,19 +1,25 @@
 package service;
 
+import dataAccess.DataAccessException;
 import dataAccess.SQLAuthDAO;
-import model.AuthData;
 
 public class LogoutService {
     private final SQLAuthDAO memAuthDao;
 
-    public LogoutService(SQLAuthDAO memAuthDao) {
-        this.memAuthDao = memAuthDao;
+    public LogoutService() throws Exception {
+        this.memAuthDao = new SQLAuthDAO();
     }
 
     public void logout(String authToken) throws ServiceException {
         //Check if authToken is correct, and if so log out
-        AuthData authData = this.memAuthDao.getAuth(authToken);
-        if (authData == null) throw new ServiceException("Error: unauthorized", 401);
-        this.memAuthDao.deleteAuth(authData);
+        try {
+            String storedAuthToken = this.memAuthDao.getAuth(authToken);
+            if (storedAuthToken == null) throw new ServiceException("Error: unauthorized", 401);
+//            this.memAuthDao.deleteAuth(storedAuthToken);
+            //TODO: Uncomment this
+        }
+        catch (DataAccessException ex) {
+            throw new ServiceException(ex.getMessage(), 500);
+        }
     }
 }

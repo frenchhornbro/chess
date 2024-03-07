@@ -1,6 +1,4 @@
 package service;
-import model.AuthData;
-import model.UserData;
 import dataAccess.DataAccessException;
 import dataAccess.SQLAuthDAO;
 import dataAccess.SQLUserDAO;
@@ -9,9 +7,9 @@ public class RegistrationService {
     private final SQLUserDAO memUserDAO;
     private final SQLAuthDAO memAuthDAO;
 
-    public RegistrationService(SQLUserDAO memUserDAO, SQLAuthDAO memAuthDAO) {
-        this.memUserDAO = memUserDAO;
-        this.memAuthDAO = memAuthDAO;
+    public RegistrationService() throws Exception {
+        this.memUserDAO = new SQLUserDAO();
+        this.memAuthDAO = new SQLAuthDAO();
     }
 
     public String register(String username, String password, String email) throws ServiceException { //Should return an authToken
@@ -29,7 +27,6 @@ public class RegistrationService {
 
             int id = this.memUserDAO.createUser(username, password, email);
             return this.memAuthDAO.createAuth(username);
-            //TODO: Make this return a String with the authToken, will require a getAuth call
         }
         catch (DataAccessException exception) {
             int errorCode = (exception.getMessage().equals("Error: bad request")) ? 400 : 403;

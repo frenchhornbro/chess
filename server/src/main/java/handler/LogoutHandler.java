@@ -1,25 +1,19 @@
 package handler;
 
 import com.google.gson.Gson;
-import dataAccess.SQLAuthDAO;
 import service.LogoutService;
 import service.ServiceException;
 import spark.Request;
 import spark.Response;
 
 public class LogoutHandler {
-    private final LogoutService logoutService;
-
-    public LogoutHandler(SQLAuthDAO memAuthDAO) {
-        this.logoutService = new LogoutService(memAuthDAO);
-    }
-
     public Object logout(Request request, Response response) {
         // Verify authToken is correct and delete authData
         Gson serial = new Gson();
         try {
             String authToken = request.headers("authorization");
-            this.logoutService.logout(authToken);
+            LogoutService logoutService= new LogoutService();
+            logoutService.logout(authToken);
 
             response.status(200);
             response.body("{}");

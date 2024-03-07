@@ -9,9 +9,8 @@ public class AuthDAOTests {
     private static Server server;
     private final SQLAuthDAO sqlAuthDAO;
 
-    public AuthDAOTests() {
-        server = new Server();
-        this.sqlAuthDAO = server.getSQLAuthDAO();
+    public AuthDAOTests() throws Exception {
+        this.sqlAuthDAO = new SQLAuthDAO();
     }
 
     @BeforeAll

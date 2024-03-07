@@ -1,6 +1,5 @@
 package server;
 
-import dataAccess.*;
 import handler.*;
 import spark.*;
 
@@ -13,27 +12,20 @@ public class Server {
     private LogoutHandler logoutHandler;
     private JoinGameHandler joinGameHandler;
     private ListGamesHandler listGamesHandler;
-    private SQLAuthDAO sqlAuthDAO;
-    private SQLGameDAO sqlGameDAO;
-    private SQLUserDAO sqlUserDAO;
 
     public static void main (String[] args) {
         new Server().run(8080);
     }
 
     public Server () {
-        //TODO: Eventually get rid of these. The services can make their own DAOs.
         try {
-            this.sqlUserDAO = new SQLUserDAO();
-            this.sqlAuthDAO = new SQLAuthDAO();
-            this.sqlGameDAO = new SQLGameDAO();
-            this.regHandler = new RegistrationHandler(sqlUserDAO, sqlAuthDAO);
-            this.clearHandler = new ClearHandler(sqlUserDAO, sqlAuthDAO, sqlGameDAO);
-            this.loginHandler = new LoginHandler(sqlUserDAO, sqlAuthDAO);
-            this.createGameHandler = new CreateGameHandler(sqlGameDAO, sqlAuthDAO);
-            this.logoutHandler = new LogoutHandler(sqlAuthDAO);
-            this.joinGameHandler = new JoinGameHandler(sqlAuthDAO, sqlGameDAO);
-            this.listGamesHandler = new ListGamesHandler(sqlAuthDAO, sqlGameDAO);
+            this.regHandler = new RegistrationHandler();
+            this.clearHandler = new ClearHandler();
+            this.loginHandler = new LoginHandler();
+            this.createGameHandler = new CreateGameHandler();
+            this.logoutHandler = new LogoutHandler();
+            this.joinGameHandler = new JoinGameHandler();
+            this.listGamesHandler = new ListGamesHandler();
         }
         catch (Throwable ex) {
             System.out.println("Error: Can't start server\n" + ex.getMessage());
@@ -62,18 +54,6 @@ public class Server {
         Spark.post("/game",this.createGameHandler::createGame);
         Spark.put("/game", this.joinGameHandler::joinGame);
         Spark.delete("/db", this.clearHandler::clearApplication);
-    }
-
-    public SQLUserDAO getSqlUserDAO() {
-        return this.sqlUserDAO;
-    }
-
-    public SQLAuthDAO getSQLAuthDAO() {
-        return this.sqlAuthDAO;
-    }
-
-    public SQLGameDAO getSqlGameDAO() {
-        return this.sqlGameDAO;
     }
 
     public void stop() {

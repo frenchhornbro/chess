@@ -1,32 +1,24 @@
 package handler;
 
 import com.google.gson.Gson;
-import model.AuthData;
 import service.LoginService;
 import service.ServiceException;
 import spark.Response;
 import spark.Request;
-import dataAccess.SQLAuthDAO;
-import dataAccess.SQLUserDAO;
 
 import java.util.Map;
 
 public class LoginHandler {
-
-    private final LoginService loginService;
-
-    public LoginHandler(SQLUserDAO memUserDao, SQLAuthDAO memAuthDao) {
-        this.loginService = new LoginService(memUserDao, memAuthDao);
-    }
-
     public Object login(Request request, Response response) {
         // Verify the credentials and return authData
         Gson serial = new Gson();
         try {
             Map<String,String> credentials = serial.fromJson(request.body(), Map.class);
-            AuthData authData = this.loginService.login(credentials.get("username"), credentials.get("password"));
+            LoginService loginService = new LoginService();
+            String authToken = loginService.login(credentials.get("username"), credentials.get("password"));
 
-            response.body(serial.toJson(authData));
+            //TODO: Make sure JSONifying this String doesn't throw an error
+            response.body(serial.toJson(authToken));
             response.status(200);
         }
         catch (ServiceException exception) {

@@ -1,8 +1,6 @@
 package handler;
 
 import com.google.gson.Gson;
-import dataAccess.SQLAuthDAO;
-import dataAccess.SQLGameDAO;
 import model.GameData;
 import service.CreateGameService;
 import service.ServiceException;
@@ -11,12 +9,6 @@ import spark.Response;
 import java.util.Map;
 
 public class CreateGameHandler {
-    private final CreateGameService createGameService;
-
-    public CreateGameHandler(SQLGameDAO memGameDao, SQLAuthDAO memAuthDao) {
-        this.createGameService = new CreateGameService(memGameDao, memAuthDao);
-    }
-
     public Object createGame(Request request, Response response) {
         //Create a new game and return the gameID
         Gson serial = new Gson();
@@ -24,7 +16,8 @@ public class CreateGameHandler {
             Map<String, String> body = serial.fromJson(request.body(), Map.class);
             String gameName = body.get("gameName");
             String authToken = request.headers("authorization");
-            GameData game = this.createGameService.createGame(gameName, authToken);
+            CreateGameService createGameService = new CreateGameService();
+            GameData game = createGameService.createGame(gameName, authToken);
             GameID gameID = new GameID(game.getGameID());
 
             response.status(200);

@@ -9,9 +9,8 @@ public class UserDAOTests {
     private static Server server;
     private final SQLUserDAO sqlUserDAO;
 
-    public UserDAOTests() {
-        server = new Server();
-        this.sqlUserDAO = server.getSqlUserDAO();
+    public UserDAOTests() throws Exception {
+        this.sqlUserDAO = new SQLUserDAO();
     }
 
     @BeforeAll
