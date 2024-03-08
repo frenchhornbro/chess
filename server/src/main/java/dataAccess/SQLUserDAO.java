@@ -25,6 +25,7 @@ public class SQLUserDAO extends SQLDAO {
     }
 
     //Return the encoded password of the user in the database
+    //TODO: Add this to SQLDAO as getData (they're basically identical)
     public String getUser(String username) throws DataAccessException {
         try (var conn = DatabaseManager.getConnection()) {
             String getStatement = "select password from userData where username=?";

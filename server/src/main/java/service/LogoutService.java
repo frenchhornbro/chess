@@ -15,8 +15,7 @@ public class LogoutService {
         try {
             String storedAuthToken = this.memAuthDao.getAuth(authToken);
             if (storedAuthToken == null) throw new ServiceException("Error: unauthorized", 401);
-//            this.memAuthDao.deleteAuth(storedAuthToken);
-            //TODO: Uncomment this
+            this.memAuthDao.deleteAuth(storedAuthToken);
         }
         catch (DataAccessException ex) {
             throw new ServiceException(ex.getMessage(), 500);

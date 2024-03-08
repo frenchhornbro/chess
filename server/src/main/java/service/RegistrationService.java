@@ -16,11 +16,10 @@ public class RegistrationService {
         //Check that username, pwd, and email are valid inputs and that the username is not already taken
         //If these conditions are met, return authData
         try {
-            //TODO: See if all these if statements are necessary
             if (username == null || password == null || email == null)
-                throw new DataAccessException("Error: bad request");
+                throw new ServiceException("Error: bad request", 400);
             if (username.isEmpty() || password.isEmpty() || email.isEmpty())
-                throw new DataAccessException("Error: bad request");
+                throw new ServiceException("Error: bad request", 400);
             String user = this.memUserDAO.getUser(username);
             if (user != null) throw new DataAccessException("Error: already taken");
             //TODO: ^^^ This if statement may be superseded by a SQLException
@@ -29,8 +28,7 @@ public class RegistrationService {
             return this.memAuthDAO.createAuth(username);
         }
         catch (DataAccessException exception) {
-            int errorCode = (exception.getMessage().equals("Error: bad request")) ? 400 : 403;
-            throw new ServiceException(exception.getMessage(), errorCode);
+            throw new ServiceException(exception.getMessage(), 403);
         }
     }
 }

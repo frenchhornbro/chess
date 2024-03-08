@@ -9,35 +9,40 @@ import static java.sql.Types.NULL;
 
 public class SQLDAO {
     public SQLDAO() throws Exception {
+        DatabaseManager.createDatabase();
         configureDatabase();
     }
 
     //Create tables if they don't exist
-    private final String[] createStatements = {
+    private final String[] createStatements = {//TODO: Consider doing BEGIN TRANSACTION and COMMIT TRANSACTION
             """
-            create database if not exists chess;
-            use chess;
-            create table if not exists userData(
-            id integer not null auto_increment,
-            username varchar(256) not null,
-            password varchar(256) not null,
-            email varchar(256) not null,
-            primary key(id)
+            CREATE TABLE IF NOT EXISTS userData(
+                id INTEGER NOT NULL AUTO_INCREMENT,
+                username VARCHAR(256) NOT NULL,
+                password VARCHAR(256) NOT NULL,
+                email VARCHAR(256) NOT NULL,
+                UNIQUE(username),
+                PRIMARY KEY(id)
             );
-            create table if not exists authData(
-            id integer not null auto_increment,
-            username varchar(128) not null,
-            password varchar(128) not null,
-            email varchar(128) not null,
-            primary key(id)
+            """,
+            """
+            CREATE TABLE IF NOT EXISTS authData(
+                id INTEGER NOT NULL AUTO_INCREMENT,
+                username VARCHAR(256) NOT NULL,
+                authToken VARCHAR(36) NOT NULL,
+                UNIQUE(username),
+                PRIMARY KEY(id)
             );
-            create table if not exists gameData(
-            id integer not null auto_increment,
-            gameID int not null,
-            gameName varChar(128) not null,
-            whiteUsername varchar(256),
-            blackUsername varchar(256),
-            chessGame text
+            """,
+            """
+            CREATE TABLE IF NOT EXISTS gameData(
+                id INTEGER NOT NULL AUTO_INCREMENT,
+                gameID INT NOT NULL,
+                gameName VARCHAR(128) NOT NULL,
+                whiteUsername VARCHAR(256),
+                blackUsername VARCHAR(256),
+                chessGame TEXT NOT NULL,
+                PRIMARY KEY(id)
             );
             """
     };

@@ -3,13 +3,8 @@ import model.AuthData;
 
 import java.util.HashMap;
 import java.util.UUID;
-import java.sql.*;
-
-import static java.sql.Types.NULL;
 
 public class SQLAuthDAO extends SQLDAO {
-    private final HashMap<String, AuthData> authDatabase = new HashMap<>();
-    //TODO: ^^^ Get rid of this
     public SQLAuthDAO() throws Exception {
 
     }
@@ -19,7 +14,7 @@ public class SQLAuthDAO extends SQLDAO {
         try {
             String authToken = UUID.randomUUID().toString();
             String createStatement = "insert into authData (username, authToken) values (?, ?);";
-            int id = updateDB(createStatement, username, authToken);
+            updateDB(createStatement, username, authToken);
             return authToken;
         }
         catch (Exception ex) {
@@ -48,12 +43,19 @@ public class SQLAuthDAO extends SQLDAO {
     }
 
     //Delete an authToken
-    public void deleteAuth(AuthData authData) {
-        authDatabase.remove(authData.getAuthToken());
+    public void deleteAuth(String authToken) throws DataAccessException {
+        try {
+            String deleteStatement = "DELETE FROM authData WHERE authToken=?";
+            updateDB(deleteStatement, authToken);
+        }
+        catch (Exception ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
     }
 
     //Clear all authTokens
-    public void clear() {
-        authDatabase.clear();
+    public void clear() throws Exception {
+        String clearStatement = "DELETE FROM authData";
+        updateDB(clearStatement);
     }
 }

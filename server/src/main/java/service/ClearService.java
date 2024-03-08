@@ -15,7 +15,7 @@ public class ClearService {
         this.memGameDAO = new SQLGameDAO();
     }
 
-    public void clear() {
+    public void clear() throws Exception {
         //Clear all data
         this.memUserDAO.clear();
         this.memAuthDAO.clear();
