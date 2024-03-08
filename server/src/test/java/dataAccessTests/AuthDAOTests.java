@@ -3,7 +3,6 @@ package dataAccessTests;
 import dataAccess.DataAccessException;
 import dataAccess.SQLAuthDAO;
 import org.junit.jupiter.api.*;
-import passoffTests.testClasses.TestException;
 
 public class AuthDAOTests extends DAOTests {
     private final SQLAuthDAO sqlAuthDAO;
@@ -76,7 +75,22 @@ public class AuthDAOTests extends DAOTests {
     }
     @Test
     public void sqlAuthClearSuccess() throws Exception {
-        //Set a bunch of authData, then clear and query that they aren't there
+        //Create authData
+        String[] usernames = {"userOne", "userDos", "userTrois"};
+        String[] authTokens = {"", "", ""};
+        for (int i = 0; i < usernames.length; i++) {
+            authTokens[i] = sqlAuthDAO.createAuth(usernames[i]);
+        }
+
+        //The authData is there
+        for (String auth : authTokens) {
+            Assertions.assertNotNull(sqlAuthDAO.getAuth(auth));
+        }
+
+        //Clearing removes all authData
         sqlAuthDAO.clear();
+        for (String auth : authTokens) {
+            Assertions.assertNull(sqlAuthDAO.getAuth(auth));
+        }
     }
 }

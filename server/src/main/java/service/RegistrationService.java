@@ -22,7 +22,6 @@ public class RegistrationService {
                 throw new ServiceException("Error: bad request", 400);
             String user = this.memUserDAO.getUser(username);
             if (user != null) throw new DataAccessException("Error: already taken");
-            //TODO: ^^^ This if statement may be superseded by a SQLException
 
             int id = this.memUserDAO.createUser(username, password, email);
             return this.memAuthDAO.createAuth(username);

@@ -1,7 +1,4 @@
 package dataAccess;
-import model.AuthData;
-
-import java.util.HashMap;
 import java.util.UUID;
 
 public class SQLAuthDAO extends SQLDAO {
@@ -25,21 +22,13 @@ public class SQLAuthDAO extends SQLDAO {
 
     //Return an authToken if it exists
     public String getAuth(String authToken) throws DataAccessException {
-        try (var conn = DatabaseManager.getConnection()) {
+        try {
             String getStatement = "select authToken from authData where authToken = ?";
-            try (var prepState = conn.prepareStatement(getStatement)) {
-                prepState.setString(1, authToken);
-                try (var response = prepState.executeQuery()) {
-                    if (response.next()) {
-                        return response.getString(1); //return the authToken
-                    }
-                }
-            }
+            return queryDB(getStatement, authToken);
         }
         catch (Exception ex) {
             throw new DataAccessException(ex.getMessage());
         }
-        return null;
     }
 
     //Delete an authToken

@@ -17,7 +17,7 @@ public class DAOTests {
         getConnectionMethod.setAccessible(true);
 
         Object obj = clazz.getDeclaredConstructor().newInstance();
-        try (Connection conn = (Connection) getConnectionMethod.invoke(obj);) {
+        try (Connection conn = (Connection) getConnectionMethod.invoke(obj)) {
             try (var prepState = conn.prepareStatement(queryStatement)) {
                 for (int i = 0; i < params.length; i++) {
                     var param = params[i];
@@ -40,7 +40,7 @@ public class DAOTests {
         getConnectionMethod.setAccessible(true);
 
         Object obj = clazz.getDeclaredConstructor().newInstance();
-        try (Connection conn = (Connection) getConnectionMethod.invoke(obj);) {
+        try (Connection conn = (Connection) getConnectionMethod.invoke(obj)) {
             try (var prepState = conn.prepareStatement(statement, Statement.RETURN_GENERATED_KEYS)) {
                 for (int i = 0; i < params.length; i++) {
                     var param = params[i];
