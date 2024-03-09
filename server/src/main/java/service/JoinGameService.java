@@ -20,10 +20,9 @@ public class JoinGameService {
         try {
             String storedAuthToken = this.memAuthDAO.getAuth(authToken);
             if (storedAuthToken == null) throw new ServiceException("Error: unauthorized", 401);
-            GameData game = this.memGameDAO.getGame(gameID);
-            if (game == null) throw new ServiceException("Error: bad request", 400);
-//            this.memGameDAO.updateGame(game, playerColor, storedAuthToken.getUsername());
-            //TODO: ^^^^ Uncomment this
+
+            if (this.memGameDAO.gameIsNull(gameID)) throw new ServiceException("Error: bad request", 400);
+            this.memGameDAO.updateGame(gameID, playerColor, storedAuthToken);
         }
         catch(DataAccessException exception) {
             if (exception.getMessage().equals("Error: already taken")) {

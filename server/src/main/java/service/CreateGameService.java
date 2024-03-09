@@ -14,8 +14,8 @@ public class CreateGameService {
         this.memAuthDao = new SQLAuthDAO();
     }
 
-    public GameData createGame(String gameName, String authToken) throws ServiceException {
-        //Check whether the authToken is in the database and return it if it is
+    public int createGame(String gameName, String authToken) throws ServiceException {
+        //Check whether the authToken is in the database and return gameID if it is
         try {
             if (gameName == null || authToken == null) throw new ServiceException("Error: bad request", 400);
             String storedAuthToken = this.memAuthDao.getAuth(authToken);

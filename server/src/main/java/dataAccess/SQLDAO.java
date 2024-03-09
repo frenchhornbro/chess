@@ -17,32 +17,49 @@ public class SQLDAO {
     private final String[] createStatements = {//TODO: Consider doing BEGIN TRANSACTION and COMMIT TRANSACTION
             """
             CREATE TABLE IF NOT EXISTS userData(
-                id INTEGER NOT NULL AUTO_INCREMENT,
-                username VARCHAR(256) NOT NULL,
+                username VARCHAR(256) NOT NULL PRIMARY KEY,
                 password VARCHAR(256) NOT NULL,
-                email VARCHAR(256) NOT NULL,
-                UNIQUE(username),
-                PRIMARY KEY(id)
+                email VARCHAR(256) NOT NULL
             );
             """,
             """
             CREATE TABLE IF NOT EXISTS authData(
-                id INTEGER NOT NULL AUTO_INCREMENT,
-                username VARCHAR(256) NOT NULL,
-                authToken VARCHAR(36) NOT NULL,
-                UNIQUE(username),
-                PRIMARY KEY(id)
+                username VARCHAR(256) NOT NULL PRIMARY KEY,
+                authToken VARCHAR(36) NOT NULL
             );
             """,
             """
             CREATE TABLE IF NOT EXISTS gameData(
-                id INTEGER NOT NULL AUTO_INCREMENT,
-                gameID INT NOT NULL,
+                gameID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
                 gameName VARCHAR(128) NOT NULL,
                 whiteUsername VARCHAR(256),
-                blackUsername VARCHAR(256),
-                chessGame TEXT NOT NULL,
-                PRIMARY KEY(id)
+                blackUsername VARCHAR(256)
+            );
+            """,
+            """
+            CREATE TABLE IF NOT EXISTS observers(
+                gameID INT NOT NULL PRIMARY KEY,
+                username VARCHAR(256)
+            );
+            """,
+            """
+            CREATE TABLE IF NOT EXISTS chessGame(
+                gameID INTEGER NOT NULL PRIMARY KEY,
+                teamTurn CHAR(5),
+                stalemate TINYINT NOT NULL,
+                checkmate TINYINT NOT NULL,
+                wKingRookMoved TINYINT NOT NULL,
+                wQueenRookMoved TINYINT NOT NULL,
+                wKingMoved TINYINT NOT NULL,
+                bKingRookMoved TINYINT NOT NULL,
+                bQueenRookMoved TINYINT NOT NULL,
+                bKingMoved TINYINT NOT NULL
+            );
+            """,
+            """
+            CREATE TABLE IF NOT EXISTS chessBoard(
+                gameID INTEGER NOT NULL PRIMARY KEY,
+                board TEXT NOT NULL
             );
             """
     };

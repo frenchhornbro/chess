@@ -17,8 +17,9 @@ public class CreateGameHandler {
             String gameName = body.get("gameName");
             String authToken = request.headers("authorization");
             CreateGameService createGameService = new CreateGameService();
-            GameData game = createGameService.createGame(gameName, authToken);
-            GameID gameID = new GameID(game.getGameID());
+            int gameID = createGameService.createGame(gameName, authToken);
+//            GameID gameID = new GameID(game.getGameID());
+            //TODO: ^^^ This may be a way we can get around JSON issues!
 
             response.status(200);
             response.body(serial.toJson(gameID));

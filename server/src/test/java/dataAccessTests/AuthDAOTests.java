@@ -22,7 +22,7 @@ public class AuthDAOTests extends DAOTests {
         String username = "Robert'); DROP TABLE authData;";
         String authToken = sqlAuthDAO.createAuth(username);
         //Data is still there
-        String queryStatement = "select `authToken` from authData where username = ?";
+        String queryStatement = "select authToken from authData where username = ?";
         Assertions.assertEquals(authToken, performQuery(queryStatement, username), "AuthTokens are different");
     }
 

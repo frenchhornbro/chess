@@ -38,11 +38,58 @@ public class ChessGame {
         this.blackKingHasMoved = false;
     }
 
+    public ChessGame(TeamColor turn, ChessBoard newBoard, boolean stalemate, boolean checkmate,
+                     boolean wKingRookMoved, boolean wQueenRookMoved, boolean wKingMoved,
+                     boolean bKingRookMoved, boolean bQueenRookMoved, boolean bKingMoved) {
+        this.teamTurn = turn;
+        this.board = newBoard;
+        this.stalemate = stalemate;
+        this.checkmate = checkmate;
+        this.whiteKingsideRookHasMoved = wKingRookMoved;
+        this.whiteQueensideRookHasMoved = wQueenRookMoved;
+        this.whiteKingHasMoved = wKingMoved;
+        this.blackKingsideRookHasMoved = bKingRookMoved;
+        this.blackQueensideRookHasMoved = bQueenRookMoved;
+        this.blackKingHasMoved = bKingMoved;
+    }
+
     /**
      * @return Which team's turn it is
      */
     public TeamColor getTeamTurn() {
         return teamTurn;
+    }
+
+    public int getStalemate() {
+        return (stalemate) ? 1 : 0;
+    }
+
+    public int getCheckmate() {
+        return (checkmate) ? 1 : 0;
+    }
+
+    public int getWKingRookMoved() {
+        return (whiteKingsideRookHasMoved) ? 1 : 0;
+    }
+
+    public int getWQueenRookMoved() {
+        return (whiteQueensideRookHasMoved) ? 1 : 0;
+    }
+
+    public int getWKingMoved() {
+        return (whiteKingHasMoved) ? 1 : 0;
+    }
+
+    public int getBKingRookMoved() {
+        return (blackKingsideRookHasMoved) ? 1 : 0;
+    }
+
+    public int getBQueenRookMoved() {
+        return (blackQueensideRookHasMoved) ? 1 : 0;
+    }
+
+    public int getBKingMoved() {
+        return (blackKingHasMoved) ? 1 : 0;
     }
 
     /**
@@ -456,5 +503,31 @@ public class ChessGame {
 
     private void deletePiece(ChessPiece piece) {
         piece = null;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder retStr = new StringBuilder();
+        retStr.append("Team turn: ");
+        retStr.append(this.teamTurn);
+        retStr.append(", Stalemate: ");
+        retStr.append(this.stalemate);
+        retStr.append(", Checkmate: ");
+        retStr.append(this.checkmate);
+        retStr.append(", White kingside rook has moved: ");
+        retStr.append(whiteKingsideRookHasMoved);
+        retStr.append(", White queenside rook has moved: ");
+        retStr.append(whiteQueensideRookHasMoved);
+        retStr.append(", White king has moved: ");
+        retStr.append(this.whiteKingHasMoved);
+        retStr.append(", Black kingside rook has moved: ");
+        retStr.append(blackKingsideRookHasMoved);
+        retStr.append(", Black queenside rook has moved: ");
+        retStr.append(blackQueensideRookHasMoved);
+        retStr.append(", Black king has moved: ");
+        retStr.append(this.blackKingHasMoved);
+        retStr.append(", ChessBoard: ");
+        retStr.append((this.board == null) ? "null" : this.board.toString());
+        return retStr.toString();
     }
 }

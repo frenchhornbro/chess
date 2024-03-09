@@ -20,6 +20,10 @@ public class ChessBoard {
 
     }
 
+    public ChessBoard(boolean newGame) {
+        if (newGame) resetBoard();
+    }
+
     /**
      * Adds a chess piece to the chessboard
      *
