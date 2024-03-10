@@ -11,10 +11,10 @@ public class SQLUserDAO extends SQLDAO {
     }
 
     //Create a user and return the ID
-    public int createUser(String username, String password, String email) throws DataAccessException {
+    public void createUser(String username, String password, String email) throws DataAccessException {
         try {
             String createStatement = "insert into userdata (username, password, email) values (?, ?, ?);";
-            return updateDB(createStatement, username, password, email);
+            updateDB(createStatement, username, password, email);
         }
         catch (Exception ex) {
             throw new DataAccessException(ex.getMessage());

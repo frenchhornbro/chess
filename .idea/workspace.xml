@@ -4,18 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 4 - All UserDAO unit tests passed">
-      <change afterPath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/GameDAOTests.java" afterDir="false" />
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 4 - SQLGameDao updateGame works">
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/dataStorage/GameStorage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/dataStorage/GamesStorage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLAuthDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLAuthDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLUserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLUserDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/CreateGameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/CreateGameHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/GamesStorage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/ListGamesHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/ListGamesHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/LoginHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/LoginHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/RegistrationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/RegistrationHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/service/CreateGameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/CreateGameService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/service/JoinGameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/JoinGameService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/ListGamesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/ListGamesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/LoginService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/LoginService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/LogoutService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/LogoutService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/RegistrationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/RegistrationService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/AuthDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/AuthDAOTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/GameDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/GameDAOTests.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/test/java/unitTests/ServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/unitTests/ServiceTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,6 +125,13 @@
     "JUnit.EnPassantTests.executor": "Debug",
     "JUnit.GameDAOTests.createGameFailure.executor": "Debug",
     "JUnit.GameDAOTests.createGameSuccess.executor": "Run",
+    "JUnit.GameDAOTests.executor": "Run",
+    "JUnit.GameDAOTests.gameIsNullFailure.executor": "Run",
+    "JUnit.GameDAOTests.gameIsNullSuccess.executor": "Run",
+    "JUnit.GameDAOTests.getGamesNegative.executor": "Run",
+    "JUnit.GameDAOTests.getGamesSuccess.executor": "Run",
+    "JUnit.GameDAOTests.updateGameFailure.executor": "Run",
+    "JUnit.GameDAOTests.updateGameSuccess.executor": "Run",
     "JUnit.KingMoveTests.executor": "Run",
     "JUnit.KingMoveTests.kingBlocked.executor": "Debug",
     "JUnit.KingMoveTests.kingCaptureEnemy.executor": "Debug",
@@ -135,6 +152,7 @@
     "JUnit.PawnMoveTests.pawnMiddleOfBoardWhite.executor": "Debug",
     "JUnit.PawnMoveTests.pawnPromotionCapture.executor": "Debug",
     "JUnit.PawnMoveTests.pawnPromotionWhite.executor": "Debug",
+    "JUnit.PersistenceTests.executor": "Run",
     "JUnit.PersistenceTests.persistenceTest.executor": "Run",
     "JUnit.QueenMoveTests.executor": "Run",
     "JUnit.QueenMoveTests.queenBlocked.executor": "Debug",
@@ -145,14 +163,18 @@
     "JUnit.RookMoveTests.rookCaptureEnemy.executor": "Debug",
     "JUnit.RookMoveTests.rookMoveUntilEdge.executor": "Debug",
     "JUnit.ServiceTests.clearSuccess.executor": "Run",
+    "JUnit.ServiceTests.createGameFail.executor": "Run",
+    "JUnit.ServiceTests.createGameSuccess.executor": "Run",
     "JUnit.ServiceTests.executor": "Run",
     "JUnit.ServiceTests.joinGameFail.executor": "Run",
     "JUnit.ServiceTests.joinGameSuccess.executor": "Run",
     "JUnit.ServiceTests.listGamesFail.executor": "Run",
     "JUnit.ServiceTests.listGamesSuccess.executor": "Run",
+    "JUnit.ServiceTests.loginFail.executor": "Run",
     "JUnit.ServiceTests.loginSuccess.executor": "Run",
+    "JUnit.ServiceTests.logoutSuccess.executor": "Run",
     "JUnit.ServiceTests.registerFail.executor": "Run",
-    "JUnit.ServiceTests.registerSuccess.executor": "Debug",
+    "JUnit.ServiceTests.registerSuccess.executor": "Run",
     "JUnit.StandardAPITests (1).executor": "Run",
     "JUnit.StandardAPITests.badAuthCreate.executor": "Run",
     "JUnit.StandardAPITests.badAuthJoin.executor": "Run",
@@ -162,12 +184,13 @@
     "JUnit.StandardAPITests.failLogout.executor": "Run",
     "JUnit.StandardAPITests.gamesList.executor": "Run",
     "JUnit.StandardAPITests.goodWatch.executor": "Debug",
-    "JUnit.StandardAPITests.loginInvalidUser.executor": "Debug",
+    "JUnit.StandardAPITests.loginInvalidUser.executor": "Run",
     "JUnit.StandardAPITests.loginWrongPassword.executor": "Debug",
+    "JUnit.StandardAPITests.manyWatch.executor": "Run",
     "JUnit.StandardAPITests.registerTwice.executor": "Debug",
     "JUnit.StandardAPITests.staticFiles (1).executor": "Debug",
-    "JUnit.StandardAPITests.staticFiles.executor": "Debug",
-    "JUnit.StandardAPITests.successLogin.executor": "Run",
+    "JUnit.StandardAPITests.staticFiles.executor": "Run",
+    "JUnit.StandardAPITests.successLogin.executor": "Debug",
     "JUnit.StandardAPITests.successLogout.executor": "Run",
     "JUnit.StandardAPITests.successRegister.executor": "Debug",
     "JUnit.StandardAPITests.uniqueAuthorizationTokens.executor": "Debug",
@@ -209,84 +232,92 @@
       <command value="git add ." />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in shared">
-    <configuration name="All in shared" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shared" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
+  <component name="RunManager" selected="JUnit.PersistenceTests">
+    <configuration name="PersistenceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.PersistenceTests" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="AuthDAOTests.sqlAuthCreateSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="StandardAPITests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="dataAccessTests.*" />
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="dataAccessTests" />
-      <option name="MAIN_CLASS_NAME" value="dataAccessTests.AuthDAOTests" />
-      <option name="METHOD_NAME" value="sqlAuthCreateSuccess" />
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StandardAPITests.loginInvalidUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
+      <option name="METHOD_NAME" value="loginInvalidUser" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameDAOTests.createGameFailure" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="StandardAPITests.manyWatch" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="dataAccessTests.*" />
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="dataAccessTests" />
-      <option name="MAIN_CLASS_NAME" value="dataAccessTests.GameDAOTests" />
-      <option name="METHOD_NAME" value="createGameFailure" />
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
+      <option name="METHOD_NAME" value="manyWatch" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameDAOTests.createGameSuccess" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="StandardAPITests.uniqueAuthorizationTokens" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="dataAccessTests.*" />
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="dataAccessTests" />
-      <option name="MAIN_CLASS_NAME" value="dataAccessTests.GameDAOTests" />
-      <option name="METHOD_NAME" value="createGameSuccess" />
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
+      <option name="METHOD_NAME" value="uniqueAuthorizationTokens" />
       <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="passoffTests in shared" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shared" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests" />
-      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.All in shared" />
-        <item itemvalue="JUnit.GameDAOTests.createGameSuccess" />
-        <item itemvalue="JUnit.GameDAOTests.createGameFailure" />
-        <item itemvalue="JUnit.passoffTests in shared" />
-        <item itemvalue="JUnit.AuthDAOTests.sqlAuthCreateSuccess" />
+        <item itemvalue="JUnit.PersistenceTests" />
+        <item itemvalue="JUnit.StandardAPITests.uniqueAuthorizationTokens" />
+        <item itemvalue="JUnit.StandardAPITests" />
+        <item itemvalue="JUnit.StandardAPITests.loginInvalidUser" />
+        <item itemvalue="JUnit.StandardAPITests.manyWatch" />
       </list>
     </recent_temporary>
   </component>
@@ -666,7 +697,23 @@
       <option name="project" value="LOCAL" />
       <updated>1709877414084</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="Phase 4 - SQLGameDao createGame works">
+      <option name="closed" value="true" />
+      <created>1710028494688</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1710028494689</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Phase 4 - SQLGameDao updateGame works">
+      <option name="closed" value="true" />
+      <created>1710030959538</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1710030959538</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -682,8 +729,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Implemented checkmate in ChessGame" />
-    <MESSAGE value="All Phase 1 non-extra credit tests pass" />
     <MESSAGE value="Castling Implemented" />
     <MESSAGE value="Imported starter code for Phase 3" />
     <MESSAGE value="Finished initial setup for Phase 3" />
@@ -707,7 +752,35 @@
     <MESSAGE value="Phase 4 - DAOs now stored in services" />
     <MESSAGE value="Phase 4 - All AuthDAO unit tests passed" />
     <MESSAGE value="Phase 4 - All UserDAO unit tests passed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 4 - All UserDAO unit tests passed" />
+    <MESSAGE value="Phase 4 - SQLGameDao createGame works" />
+    <MESSAGE value="Phase 4 - SQLGameDao updateGame works" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 4 - SQLGameDao updateGame works" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/main/java/service/LoginService.java</url>
+          <line>22</line>
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/main/java/service/LoginService.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/main/java/service/LoginService.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/server/src/main/java/service/LoginService.java</url>
+          <line>17</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

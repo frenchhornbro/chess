@@ -4,6 +4,7 @@ import chess.ChessGame;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import static java.sql.Types.NULL;
 
@@ -75,6 +76,7 @@ public class SQLDAO {
         }
     }
 
+    //Query the DB for one element
     protected String queryDB(String statement, Object... params) throws Exception {
         try (var conn = DatabaseManager.getConnection()) {
             try (var prepState = conn.prepareStatement(statement)) {
@@ -97,7 +99,31 @@ public class SQLDAO {
         return null;
     }
 
-    //Send updates to the SQL Database
+    //Queries the DB for multiple elements
+    protected ArrayList<String> queryArrayDB(String statement, Object... params) throws Exception {
+        try (var conn = DatabaseManager.getConnection()) {
+            try (var prepState = conn.prepareStatement(statement)) {
+                for (int i = 0; i < params.length; i++) {
+                    var param = params[i];
+                    switch (param) {
+                        case String p -> prepState.setString(i + 1, p);
+                        case Integer p -> prepState.setInt(i + 1, p);
+                        case ChessGame p -> prepState.setString(i + 1, p.toString());
+                        case null, default -> prepState.setNull(i + 1, NULL);
+                    }
+                }
+                try (var response = prepState.executeQuery()) {
+                    ArrayList<String> retList = new ArrayList<>();
+                    while (response.next()) {
+                        retList.add(response.getString(1)); //append to the array
+                    }
+                    return retList;
+                }
+            }
+        }
+    }
+
+        //Send updates to the SQL Database
     protected int updateDB(String statement, Object... params) throws Exception {
         try (var conn = DatabaseManager.getConnection()) {
             try (var prepState = conn.prepareStatement(statement, Statement.RETURN_GENERATED_KEYS)) {

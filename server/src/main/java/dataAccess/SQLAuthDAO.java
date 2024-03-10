@@ -32,10 +32,12 @@ public class SQLAuthDAO extends SQLDAO {
     }
 
     //Delete an authToken
-    public void deleteAuth(String authToken) throws DataAccessException {
+    public void deleteAuth(String authOrUser, boolean isAuth) throws DataAccessException {
         try {
-            String deleteStatement = "DELETE FROM authData WHERE authToken=?";
-            updateDB(deleteStatement, authToken);
+            String deleteStatement = "DELETE FROM authData WHERE";
+            if (isAuth) deleteStatement += " authToken=?";
+            else deleteStatement += " username=?";
+            updateDB(deleteStatement, authOrUser);
         }
         catch (Exception ex) {
             throw new DataAccessException(ex.getMessage());

@@ -62,7 +62,7 @@ public class AuthDAOTests extends DAOTests {
         String authToken = sqlAuthDAO.createAuth(username);
 
         //Delete authData
-        sqlAuthDAO.deleteAuth(authToken);
+        sqlAuthDAO.deleteAuth(authToken, true);
 
         //Getting authData returns null
         Assertions.assertNull(sqlAuthDAO.getAuth(authToken));
@@ -71,7 +71,7 @@ public class AuthDAOTests extends DAOTests {
     //TODO: Figure out how one would fail a delete test
     public void sqlAuthDeleteFail() throws Exception {
         //Delete an authToken that doesn't exist
-        sqlAuthDAO.deleteAuth("nonexistentAuthToken");
+        sqlAuthDAO.deleteAuth("nonexistentAuthToken", true);
     }
     @Test
     public void sqlAuthClearSuccess() throws Exception {

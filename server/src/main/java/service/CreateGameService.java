@@ -3,23 +3,22 @@ package service;
 import dataAccess.DataAccessException;
 import dataAccess.SQLAuthDAO;
 import dataAccess.SQLGameDAO;
-import model.GameData;
 
 public class CreateGameService {
-    private final SQLAuthDAO memAuthDao;
-    private final SQLGameDAO memGameDao;
+    private final SQLAuthDAO sqlAuthDAO;
+    private final SQLGameDAO sqlGameDao;
 
     public CreateGameService() throws Exception {
-        this.memGameDao = new SQLGameDAO();
-        this.memAuthDao = new SQLAuthDAO();
+        this.sqlGameDao = new SQLGameDAO();
+        this.sqlAuthDAO = new SQLAuthDAO();
     }
 
     public int createGame(String gameName, String authToken) throws ServiceException {
         //Check whether the authToken is in the database and return gameID if it is
         try {
             if (gameName == null || authToken == null) throw new ServiceException("Error: bad request", 400);
-            String storedAuthToken = this.memAuthDao.getAuth(authToken);
-            if (storedAuthToken != null) return this.memGameDao.createGame(gameName);
+            String storedAuthToken = this.sqlAuthDAO.getAuth(authToken);
+            if (storedAuthToken != null) return this.sqlGameDao.createGame(gameName);
             else throw new ServiceException("Error: unauthorized", 401);
         }
         catch (DataAccessException ex) {

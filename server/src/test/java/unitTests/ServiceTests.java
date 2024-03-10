@@ -10,57 +10,52 @@ really there, or that a function throws an error when it should. Write a positiv
 The service unit tests must directly call the methods on your service classes. They should not use the HTTP server pass off
  test code that is provided with the starter code.
  */
-import model.AuthData;
-import model.GameData;
+import dataAccessTests.DAOTests;
+import dataStorage.GamesStorage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import passoffTests.testClasses.TestException;
 import service.*;
 import dataAccess.*;
 
-import java.util.HashMap;
-
-public class ServiceTests {
-    private SQLGameDAO SQLGameDAO;
-    private SQLAuthDAO SQLAuthDAO;
-    private SQLUserDAO SQLUserDAO;
+public class ServiceTests extends DAOTests {
+    private final SQLGameDAO sqlGameDAO;
+    private final SQLAuthDAO sqlAuthDAO;
+    private final SQLUserDAO sqlUserDAO;
     public RegistrationService regServ;
     private final static String USER = "username";
     private final static String PWD = "password";
     private final static String EMAIL = "email@email.com";
-    public ServiceTests() {
-        try {
-            this.SQLGameDAO = new SQLGameDAO();
-            this.SQLAuthDAO = new SQLAuthDAO();
-            this.SQLUserDAO = new SQLUserDAO();
-        }
-        catch (Throwable ex) {
-            Assertions.fail(ex.getMessage());
-        }
+    public ServiceTests() throws Exception {
+        this.sqlGameDAO = new SQLGameDAO();
+        this.sqlAuthDAO = new SQLAuthDAO();
+        this.sqlUserDAO = new SQLUserDAO();
     }
 
     @BeforeEach
-    public void clear() throws TestException {
-        ClearService clearService = new ClearService(SQLUserDAO, SQLAuthDAO, SQLGameDAO);
+    public void clear() throws Exception {
+        ClearService clearService = new ClearService();
         clearService.clear();
-        regServ = new RegistrationService(SQLUserDAO, SQLAuthDAO);
+        regServ = new RegistrationService();
+        sqlUserDAO.clear();
+        sqlAuthDAO.clear();
+        sqlGameDAO.clear();
     }
 
     @Test
-    public void registerSuccess() {
+    public void registerPositive() throws Exception {
         //Standard registration
-        try {
-            AuthData retAuthData = regServ.register(USER, PWD, EMAIL);
-            Assertions.assertEquals(USER, retAuthData.getUsername());
-        }
-        catch(Exception e) {
-            Assertions.fail();
-        }
+        String authToken = regServ.register(USER, PWD, EMAIL);
+        String query = "SELECT authToken FROM authData WHERE username=?";
+        Assertions.assertEquals(authToken, performQuery(query, USER));
+        query = "SELECT password FROM userData WHERE username=?";
+        Assertions.assertEquals(PWD, performQuery(query, USER));
+        query = "SELECT email FROM userData WHERE username=?";
+        Assertions.assertEquals(EMAIL, performQuery(query, USER));
     }
 
     @Test
-    public void registerFail() {
+    public void registerNegative() {
         //Registering with no inputted password
         try {
             regServ.register(USER, null, EMAIL);
@@ -73,27 +68,23 @@ public class ServiceTests {
     }
 
     @Test
-    public void loginSuccess() {
+    public void loginPositive() throws Exception {
         //Standard login
-        try {
-            AuthData auth = regServ.register(USER, PWD, EMAIL);
-            LoginService logServ = new LoginService(SQLUserDAO, SQLAuthDAO);
-            AuthData newAuth = logServ.login(USER, PWD);
-            Assertions.assertEquals(newAuth.getUsername(), auth.getUsername());
-        }
-        catch(Exception e) {
-            Assertions.fail();
-        }
+        regServ.register(USER, PWD, EMAIL);
+        LoginService logServ = new LoginService();
+        String newAuthToken = logServ.login(USER, PWD);
+        String query = "SELECT username FROM authData WHERE authToken=?";
+        Assertions.assertEquals(USER, performQuery(query, newAuthToken));
     }
 
     @Test
-    public void loginFail() {
+    public void loginNegative() throws Exception {
         //Logging in with incorrect password
         try {
-            AuthData auth = regServ.register(USER, PWD, EMAIL);
-            LoginService logServ = new LoginService(SQLUserDAO, SQLAuthDAO);
-            AuthData newAuth = logServ.login(USER, "incorrectPassword");
-            Assertions.assertEquals(newAuth.getUsername(), auth.getUsername());
+            regServ.register(USER, PWD, EMAIL);
+            LoginService logServ = new LoginService();
+            logServ.login(USER, "incorrectPassword");
+            Assertions.fail();
         }
         catch(ServiceException e) {
             Assertions.assertEquals("Error: password is incorrect", e.getMessage());
@@ -102,26 +93,20 @@ public class ServiceTests {
     }
 
     @Test
-    public void logoutSuccess() {
+    public void logoutPositive() throws Exception {
         //Standard logout
-        try {
-            AuthData auth = regServ.register(USER, PWD, EMAIL);
-            LogoutService logoutService = new LogoutService(SQLAuthDAO);
-            logoutService.logout(auth.getAuthToken());
-            Assertions.assertTrue(true);
-        }
-        catch(Exception e) {
-            Assertions.fail();
-        }
+        String authToken = regServ.register(USER, PWD, EMAIL);
+        LogoutService logoutService = new LogoutService();
+        Assertions.assertDoesNotThrow(() -> logoutService.logout(authToken));
     }
 
     @Test
-    public void logoutFail() {
+    public void logoutNegative() throws Exception {
         //Logging out with invalid authToken
         try {
-            AuthData auth = regServ.register(USER, PWD, EMAIL);
-            LogoutService logoutService = new LogoutService(SQLAuthDAO);
-            logoutService.logout(auth.getAuthToken() + "incorrectAuth");
+            String authToken = regServ.register(USER, PWD, EMAIL);
+            LogoutService logoutService = new LogoutService();
+            logoutService.logout(authToken + "incorrectAuth");
             Assertions.fail();
         }
         catch(ServiceException e) {
@@ -131,28 +116,28 @@ public class ServiceTests {
     }
 
     @Test
-    public void createGameSuccess() {
+    public void createGamePositive() throws Exception {
         //Standard game creation
-        try {
-            AuthData auth = regServ.register(USER, PWD, EMAIL);
-            CreateGameService createGameService = new CreateGameService(SQLGameDAO, SQLAuthDAO);
-            GameData game = createGameService.createGame("MyGame", auth.getAuthToken());
-            Assertions.assertEquals("MyGame", game.getGameName());
-            Assertions.assertNull(game.getWhiteUsername());
-            Assertions.assertNull(game.getBlackUsername());
-        }
-        catch(Exception e) {
-            Assertions.fail();
-        }
+        String authToken = regServ.register(USER, PWD, EMAIL);
+        CreateGameService createGameService = new CreateGameService();
+        String gameName = "MyGame";
+        int gameID = createGameService.createGame(gameName, authToken);
+        String gameIDString = Integer.toString(gameID);
+        String query = "SELECT gameName FROM gameData WHERE gameID=?";
+        Assertions.assertEquals(gameName, performQuery(query, gameIDString));
+        query = "SELECT whiteUsername FROM gameData WHERE gameID=?";
+        Assertions.assertNull(performQuery(query, gameIDString));
+        query = "SELECT blackUsername FROM gameData WHERE gameID=?";
+        Assertions.assertNull(performQuery(query, gameIDString));
     }
 
     @Test
-    public void createGameFail() {
+    public void createGameNegative() throws Exception {
         //Creating a game with invalid authToken
         try {
-            AuthData auth = regServ.register(USER, PWD, EMAIL);
-            CreateGameService createGameService = new CreateGameService(SQLGameDAO, SQLAuthDAO);
-            createGameService.createGame("MyGame", auth.getAuthToken() + "incorrectAuth");
+            String authToken = regServ.register(USER, PWD, EMAIL);
+            CreateGameService createGameService = new CreateGameService();
+            createGameService.createGame("MyGame", authToken + "incorrectAuth");
             Assertions.fail();
         }
         catch(ServiceException e) {
@@ -162,36 +147,35 @@ public class ServiceTests {
     }
 
     @Test
-    public void listGamesSuccess() {
+    public void listGamesPositive() throws Exception {
         //Standard game listing
-        try {
-            AuthData auth = regServ.register(USER, PWD, EMAIL);
-            CreateGameService createGameService = new CreateGameService(SQLGameDAO, SQLAuthDAO);
-            GameData game1 = createGameService.createGame("Game1", auth.getAuthToken());
-            GameData game2 = createGameService.createGame("Game2", auth.getAuthToken());
-            ListGamesService listGamesService = new ListGamesService(SQLAuthDAO, SQLGameDAO);
-            HashMap<Integer, GameData> games = listGamesService.listGames(auth.getAuthToken());
+        String authToken = regServ.register(USER, PWD, EMAIL);
+        CreateGameService createGameService = new CreateGameService();
+        int gameID1 = createGameService.createGame("Game1", authToken);
+        int gameID2 = createGameService.createGame("Game2", authToken);
+        ListGamesService listGamesService = new ListGamesService();
 
-            Assertions.assertEquals("Game1", games.get(game1.getGameID()).getGameName());
-            Assertions.assertEquals(game1.getGameID(), games.get(game1.getGameID()).getGameID());
-            Assertions.assertEquals("Game2", games.get(game2.getGameID()).getGameName());
-            Assertions.assertEquals(game2.getGameID(), games.get(game2.getGameID()).getGameID());
-        }
-        catch(Exception e) {
-            Assertions.fail();
-        }
+        GamesStorage games = listGamesService.listGames(authToken);
+        Assertions.assertEquals("Game1", games.getGames().get(0).getGameName());
+        Assertions.assertEquals(gameID1, games.getGames().get(0).getGameID());
+        Assertions.assertNull(games.getGames().get(0).getWhiteUsername());
+        Assertions.assertNull(games.getGames().get(0).getBlackUsername());
+        Assertions.assertEquals("Game2", games.getGames().get(1).getGameName());
+        Assertions.assertEquals(gameID2, games.getGames().get(1).getGameID());
+        Assertions.assertNull(games.getGames().get(1).getWhiteUsername());
+        Assertions.assertNull(games.getGames().get(1).getBlackUsername());
     }
 
     @Test
-    public void listGamesFail() {
+    public void listGamesNegative() throws Exception {
         //Game listing with invalid authToken
         try {
-            AuthData auth = regServ.register(USER, PWD, EMAIL);
-            CreateGameService createGameService = new CreateGameService(SQLGameDAO, SQLAuthDAO);
-            createGameService.createGame("Game1", auth.getAuthToken());
-            createGameService.createGame("Game2", auth.getAuthToken());
-            ListGamesService listGamesService = new ListGamesService(SQLAuthDAO, SQLGameDAO);
-            listGamesService.listGames(auth.getAuthToken() + "incorrectAuth");
+            String authToken = regServ.register(USER, PWD, EMAIL);
+            CreateGameService createGameService = new CreateGameService();
+            createGameService.createGame("Game1", authToken);
+            createGameService.createGame("Game2", authToken);
+            ListGamesService listGamesService = new ListGamesService();
+            listGamesService.listGames(authToken + "incorrectAuth");
             Assertions.fail();
         }
         catch(ServiceException e) {
@@ -201,33 +185,30 @@ public class ServiceTests {
     }
 
     @Test
-    public void joinGameSuccess() {
+    public void joinGamePositive() throws Exception {
         //Standard game joining
-        try {
-            AuthData auth = regServ.register(USER, PWD, EMAIL);
-            CreateGameService createGameService = new CreateGameService(SQLGameDAO, SQLAuthDAO);
-            GameData game = createGameService.createGame("MyGame", auth.getAuthToken());
-            JoinGameService joinGameService = new JoinGameService(SQLAuthDAO, SQLGameDAO);
-            joinGameService.joinGame(auth.getAuthToken(), "WHITE", game.getGameID());
-            Assertions.assertTrue(true);
-        }
-        catch(Exception e) {
-            Assertions.fail();
-        }
+        String authToken = regServ.register(USER, PWD, EMAIL);
+        CreateGameService createGameService = new CreateGameService();
+        int gameID = createGameService.createGame("MyGame", authToken);
+        String gameIDString = Integer.toString(gameID);
+        JoinGameService joinGameService = new JoinGameService();
+        Assertions.assertDoesNotThrow(() -> joinGameService.joinGame(authToken, "WHITE", gameID));
+        String query = "SELECT whiteUsername FROM gameData WHERE gameID=?";
+        Assertions.assertEquals(USER, performQuery(query, gameIDString));
     }
 
     @Test
-    public void joinGameFail() {
+    public void joinGameNegative() throws Exception {
         //Joining game with a playerColor that is already taken
         try {
-            AuthData auth = regServ.register(USER, PWD, EMAIL);
-            CreateGameService createGameService = new CreateGameService(SQLGameDAO, SQLAuthDAO);
-            GameData game = createGameService.createGame("MyGame", auth.getAuthToken());
-            JoinGameService joinGameService = new JoinGameService(SQLAuthDAO, SQLGameDAO);
-            joinGameService.joinGame(auth.getAuthToken(), "WHITE", game.getGameID());
+            String authToken = regServ.register(USER, PWD, EMAIL);
+            CreateGameService createGameService = new CreateGameService();
+            int gameID = createGameService.createGame("MyGame", authToken);
+            JoinGameService joinGameService = new JoinGameService();
+            Assertions.assertDoesNotThrow(() -> joinGameService.joinGame(authToken, "WHITE", gameID));
 
-            AuthData newAuth = regServ.register("otherUser", PWD, EMAIL);
-            joinGameService.joinGame(newAuth.getAuthToken(), "WHITE", game.getGameID());
+            String newAuthToken = regServ.register("otherUser", PWD, EMAIL);
+            joinGameService.joinGame(newAuthToken, "WHITE", gameID);
             Assertions.fail();
         }
         catch(ServiceException e) {
@@ -237,27 +218,23 @@ public class ServiceTests {
     }
 
     @Test
-    public void clearSuccess() {
+    public void clearPositive() throws Exception {
         //Clear
-        try {
-            CreateGameService createGameService = new CreateGameService(SQLGameDAO, SQLAuthDAO);
-            AuthData auth = regServ.register(USER, PWD, EMAIL);
-            AuthData newAuth = regServ.register("newUser", PWD, EMAIL);
-            GameData game1 = createGameService.createGame("Game1", auth.getAuthToken());
-            GameData game2 = createGameService.createGame("Game2", newAuth.getAuthToken());
+        CreateGameService createGameService = new CreateGameService();
+        String authToken = regServ.register(USER, PWD, EMAIL);
+        String newAuthToken = regServ.register("newUser", PWD, EMAIL);
+        int gameID1 = createGameService.createGame("Game1", authToken);
+        int gameID2 = createGameService.createGame("Game2", newAuthToken);
 
-            ClearService newClear = new ClearService(SQLUserDAO, SQLAuthDAO, SQLGameDAO);
-            newClear.clear();
-            Assertions.assertNull(SQLUserDAO.getUser(USER));
-            Assertions.assertNull(SQLUserDAO.getUser("newUser"));
-            Assertions.assertNull(SQLAuthDAO.getAuth(auth.getAuthToken()));
-            Assertions.assertNull(SQLAuthDAO.getAuth(newAuth.getAuthToken()));
-            Assertions.assertNull(SQLGameDAO.getGame(game1.getGameID()));
-            Assertions.assertNull(SQLGameDAO.getGame(game2.getGameID()));
-        }
-        catch(Exception e) {
-            Assertions.fail();
-        }
+        ClearService newClear = new ClearService();
+        newClear.clear();
+        Assertions.assertNull(sqlUserDAO.getUser(USER));
+        Assertions.assertNull(sqlUserDAO.getUser("newUser"));
+        Assertions.assertNull(sqlAuthDAO.getAuth(authToken));
+        Assertions.assertNull(sqlAuthDAO.getAuth(newAuthToken));
+        String query = "SELECT gameName FROM gameData WHERE gameID=?";
+        Assertions.assertEquals("Not found", performQuery(query, Integer.toString(gameID1)));
+        Assertions.assertEquals("Not found", performQuery(query, Integer.toString(gameID2)));
     }
 
 }

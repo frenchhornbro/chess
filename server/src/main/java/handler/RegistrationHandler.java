@@ -15,9 +15,9 @@ public class RegistrationHandler {
             Map<String,String> credentials = serial.fromJson(request.body(), Map.class);
             RegistrationService registrationService = new RegistrationService();
             String authToken = registrationService.register(credentials.get("username"), credentials.get("password"), credentials.get("email"));
+            UserAuth userAuthStorage = new UserAuth(credentials.get("username"), authToken);
 
-            //TODO: Make sure we're not getting new errors with trying to JSONify a String
-            response.body(serial.toJson(authToken));
+            response.body(serial.toJson(userAuthStorage));
             response.status(200);
         }
         catch (ServiceException exception) {
@@ -32,4 +32,6 @@ public class RegistrationHandler {
         }
         return response.body();
     }
+
+    private record UserAuth(String username, String authToken) {}
 }

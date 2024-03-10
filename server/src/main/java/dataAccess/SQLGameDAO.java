@@ -2,12 +2,12 @@ package dataAccess;
 
 import chess.ChessBoard;
 import chess.ChessGame;
-import model.GameData;
+import dataStorage.GameStorage;
+import dataStorage.GamesStorage;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 public class SQLGameDAO extends SQLDAO {
-    private final HashMap<Integer, GameData> gameDataBase = new HashMap<>();
 
     public SQLGameDAO() throws Exception {
 
@@ -65,8 +65,28 @@ public class SQLGameDAO extends SQLDAO {
         }
     }
 
-    public HashMap<Integer, GameData> getGames() {
-        return gameDataBase;
+    public GamesStorage getGames() throws DataAccessException {
+        //Get all the gameData, pack it into a GamesStorage Object, and return that
+        try {
+            String getGameIDsStatement = "SELECT gameID FROM gameData";
+            ArrayList<String> gameIDs = queryArrayDB(getGameIDsStatement);
+
+            ArrayList<GameStorage> games = new ArrayList<>();
+            for (String gameID : gameIDs) {
+                String getWhiteUserNameStatement = "SELECT whiteUsername FROM gameData WHERE gameID=?";
+                String whiteUsername = queryDB(getWhiteUserNameStatement, gameID);
+                String getBlackUserNameStatement = "SELECT blackUsername FROM gameData WHERE gameID=?";
+                String blackUsername = queryDB(getBlackUserNameStatement, gameID);
+                String getGameNameStatement = "SELECT gameName FROM gameData WHERE gameID=?";
+                String gameName = queryDB(getGameNameStatement, gameID);
+                GameStorage gameStorage = new GameStorage(Integer.parseInt(gameID), whiteUsername, blackUsername, gameName);
+                games.add(gameStorage);
+            }
+            return new GamesStorage(games);
+        }
+        catch (Exception ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
     }
 
     public void updateGame(int gameID, String playerColor, String authToken) throws DataAccessException {

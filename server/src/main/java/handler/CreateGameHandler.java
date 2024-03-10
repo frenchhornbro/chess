@@ -18,11 +18,10 @@ public class CreateGameHandler {
             String authToken = request.headers("authorization");
             CreateGameService createGameService = new CreateGameService();
             int gameID = createGameService.createGame(gameName, authToken);
-//            GameID gameID = new GameID(game.getGameID());
-            //TODO: ^^^ This may be a way we can get around JSON issues!
+            GameID gameIDStorage = new GameID(gameID);
 
             response.status(200);
-            response.body(serial.toJson(gameID));
+            response.body(serial.toJson(gameIDStorage));
         }
         catch (ServiceException exception) {
             ErrorCarrier responder = new ErrorCarrier(exception.getMessage(), exception.getErrorNum());
@@ -37,11 +36,5 @@ public class CreateGameHandler {
         return response.body();
     }
 
-    private class GameID {
-        private final int gameID;
-
-        public GameID(int gameID) {
-            this.gameID = gameID;
-        }
-    }
+    private record GameID(int gameID) {}
 }

@@ -1,25 +1,23 @@
 package handler;
 
 import com.google.gson.Gson;
-import model.GameData;
+import dataStorage.GamesStorage;
 import service.ListGamesService;
 import service.ServiceException;
 import spark.Request;
 import spark.Response;
-import java.util.HashMap;
 
 public class ListGamesHandler {
     public Object listGames(Request request, Response response) {
-        //Convert the HashMap of all games into GamesStorage (which will store them as an ArrayList) and return that
+        //Return a GamesStorage object
         Gson serial = new Gson();
         try {
             String authToken = request.headers("authorization");
             ListGamesService listGamesService = new ListGamesService();
-            HashMap<Integer, GameData> games = listGamesService.listGames(authToken);
-            GamesStorage gameStorage = new GamesStorage(games);
+            GamesStorage games = listGamesService.listGames(authToken);
 
             response.status(200);
-            response.body(serial.toJson(gameStorage));
+            response.body(serial.toJson(games));
         }
         catch(ServiceException exception) {
             ErrorCarrier responder = new ErrorCarrier(exception.getMessage(), exception.getErrorNum());

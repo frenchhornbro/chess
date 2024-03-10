@@ -3,24 +3,24 @@ package service;
 import dataAccess.DataAccessException;
 import dataAccess.SQLAuthDAO;
 import dataAccess.SQLGameDAO;
-import model.GameData;
-import java.util.HashMap;
+import dataStorage.GamesStorage;
 
 public class ListGamesService {
-    private final SQLAuthDAO memAuthDAO;
-    private final SQLGameDAO memGameDAO;
+    private final SQLAuthDAO sqlAuthDAO;
+    private final SQLGameDAO sqlGameDAO;
 
     public ListGamesService() throws Exception {
-        this.memAuthDAO = new SQLAuthDAO();
-        this.memGameDAO = new SQLGameDAO();
+        this.sqlAuthDAO = new SQLAuthDAO();
+        this.sqlGameDAO = new SQLGameDAO();
     }
 
-    public HashMap<Integer, GameData> listGames(String authToken) throws ServiceException {
+    public GamesStorage listGames(String authToken) throws ServiceException {
         //Check that user has a valid authToken and if so return a list of all the games
+        //Game data to be listed: gameID, whiteUsername, blackUsername, gameName
         try {
-            String storedAuthToken = memAuthDAO.getAuth(authToken);
+            String storedAuthToken = sqlAuthDAO.getAuth(authToken);
             if (storedAuthToken == null) throw new ServiceException("Error: unauthorized", 401);
-            return memGameDAO.getGames();
+            return sqlGameDAO.getGames();
         }
         catch (DataAccessException ex) {
             throw new ServiceException(ex.getMessage(), 500); //TODO: Make sure 500 is the correct number

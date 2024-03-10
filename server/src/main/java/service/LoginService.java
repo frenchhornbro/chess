@@ -5,23 +5,28 @@ import dataAccess.SQLAuthDAO;
 import dataAccess.SQLUserDAO;
 
 public class LoginService {
-    private final SQLUserDAO memUserDao;
-    private final SQLAuthDAO memAuthDao;
+    private final SQLUserDAO sqlUserDao;
+    private final SQLAuthDAO sqlAuthDao;
     public LoginService() throws Exception {
-        this.memUserDao = new SQLUserDAO();
-        this.memAuthDao = new SQLAuthDAO();
+        this.sqlUserDao = new SQLUserDAO();
+        this.sqlAuthDao = new SQLAuthDAO();
     }
 
-    //If username and password are correct, then return an authToken
+    //If username and password are correct, return an authToken
     public String login(String username, String password) throws ServiceException {
         try {
-            String pwd = this.memUserDao.getUser(username);
-            //TODO: If the user is null or not in the DB, a SQLException or DataAccessException would be thrown, right?
-            if (!pwd.equals(password)) throw new ServiceException("Error: password is incorrect", 401);
-            return this.memAuthDao.createAuth(username);
+            String pwd = this.sqlUserDao.getUser(username);
+            if (pwd == null) {
+                throw new ServiceException("Error: user does not exist", 401);
+            }
+            if (!pwd.equals(password)) {
+                throw new ServiceException("Error: password is incorrect", 401);
+            }
+            //TODO: Consider no longer deleting old auths and instead storing them in a separate table
+            this.sqlAuthDao.deleteAuth(username, false);
+            return this.sqlAuthDao.createAuth(username);
         }
         catch (DataAccessException ex) {
-            //TODO: Make sure 401 is the correct error here
             throw new ServiceException(ex.getMessage(), 401);
         }
     }

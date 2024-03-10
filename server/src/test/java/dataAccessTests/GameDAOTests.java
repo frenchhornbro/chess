@@ -5,7 +5,6 @@ import chess.ChessGame;
 import dataAccess.DataAccessException;
 import dataAccess.SQLAuthDAO;
 import dataAccess.SQLGameDAO;
-import dataAccess.SQLUserDAO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,7 @@ public class GameDAOTests extends DAOTests {
     }
 
     @Test
-    public void createGameSuccess() throws Exception {
+    public void createGamePositive() throws Exception {
         //Create game
         String gameName = "myGame";
         int gameID = sqlGameDAO.createGame(gameName);
@@ -78,13 +77,13 @@ public class GameDAOTests extends DAOTests {
     }
 
     @Test
-    public void createGameFailure() throws Exception {
+    public void createGameNegative() throws Exception {
         //TODO: How do we fail this???
-
+        Assertions.fail();
     }
 
     @Test
-    public void updateGameSuccess() throws Exception {
+    public void updateGamePositive() throws Exception {
         //Create auths for two players
         String user1 = "username";
         String authToken1 = sqlAuthDAO.createAuth(user1);
@@ -108,7 +107,7 @@ public class GameDAOTests extends DAOTests {
     }
 
     @Test
-    public void updateGameFailure() throws Exception {
+    public void updateGameNegative() throws Exception {
         //Create auths for four players
         String authToken1 = sqlAuthDAO.createAuth("userOne");
         String authToken2 = sqlAuthDAO.createAuth("userTwo");
@@ -131,7 +130,33 @@ public class GameDAOTests extends DAOTests {
     }
 
     @Test
-    public void sqlGameClearSuccess() throws Exception {
+    public void gameIsNullPositive() throws Exception {
+        Assertions.assertTrue(sqlGameDAO.gameIsNull(-987654321));
+    }
 
+    @Test
+    public void gameIsNullNegative() throws Exception {
+        int gameID = sqlGameDAO.createGame("Too lazy to come up with a good name");
+        Assertions.assertFalse(sqlGameDAO.gameIsNull(gameID));
+    }
+
+    @Test
+    public void getGamesPositive() throws Exception {
+        //Create multiple games
+        Assertions.assertDoesNotThrow(() -> sqlGameDAO.createGame("Game 1"));
+        Assertions.assertDoesNotThrow(() -> sqlGameDAO.createGame("Game 2"));
+        Assertions.assertDoesNotThrow(() -> sqlGameDAO.createGame("Game 3"));
+        Assertions.assertDoesNotThrow(sqlGameDAO::getGames);
+    }
+
+    @Test
+    public void getGamesNegative() throws Exception {
+        //When no games are added, a blank array is returned
+        Assertions.assertEquals("{}", sqlGameDAO.getGames().toString());
+    }
+
+    @Test
+    public void sqlGameClearPositive() throws Exception {
+        Assertions.fail();
     }
 }

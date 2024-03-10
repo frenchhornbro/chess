@@ -3,26 +3,25 @@ package service;
 import dataAccess.DataAccessException;
 import dataAccess.SQLAuthDAO;
 import dataAccess.SQLGameDAO;
-import model.GameData;
 
 public class JoinGameService {
-    private final SQLAuthDAO memAuthDAO;
-    private final SQLGameDAO memGameDAO;
+    private final SQLAuthDAO sqlAuthDAO;
+    private final SQLGameDAO sqlGameDAO;
 
     public JoinGameService() throws Exception {
-        this.memAuthDAO = new SQLAuthDAO();
-        this.memGameDAO = new SQLGameDAO();
+        this.sqlAuthDAO = new SQLAuthDAO();
+        this.sqlGameDAO = new SQLGameDAO();
     }
 
     public void joinGame(String authToken, String playerColor, int gameID) throws ServiceException {
         //Check if user has a valid authToken, if game exists, and if the color is already allocated
         //If all these conditions pass, add the user as requested color
         try {
-            String storedAuthToken = this.memAuthDAO.getAuth(authToken);
+            String storedAuthToken = this.sqlAuthDAO.getAuth(authToken);
             if (storedAuthToken == null) throw new ServiceException("Error: unauthorized", 401);
 
-            if (this.memGameDAO.gameIsNull(gameID)) throw new ServiceException("Error: bad request", 400);
-            this.memGameDAO.updateGame(gameID, playerColor, storedAuthToken);
+            if (this.sqlGameDAO.gameIsNull(gameID)) throw new ServiceException("Error: bad request", 400);
+            this.sqlGameDAO.updateGame(gameID, playerColor, storedAuthToken);
         }
         catch(DataAccessException exception) {
             if (exception.getMessage().equals("Error: already taken")) {

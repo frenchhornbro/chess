@@ -16,9 +16,9 @@ public class LoginHandler {
             Map<String,String> credentials = serial.fromJson(request.body(), Map.class);
             LoginService loginService = new LoginService();
             String authToken = loginService.login(credentials.get("username"), credentials.get("password"));
+            UserAuth userAuthStorage = new UserAuth(credentials.get("username"), authToken);
 
-            //TODO: Make sure JSONifying this String doesn't throw an error
-            response.body(serial.toJson(authToken));
+            response.body(serial.toJson(userAuthStorage));
             response.status(200);
         }
         catch (ServiceException exception) {
@@ -33,4 +33,6 @@ public class LoginHandler {
         }
         return response.body();
     }
+
+    private record UserAuth(String username, String authToken) {}
 }
