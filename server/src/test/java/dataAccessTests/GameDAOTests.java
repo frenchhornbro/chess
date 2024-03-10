@@ -2,20 +2,26 @@ package dataAccessTests;
 
 import chess.ChessBoard;
 import chess.ChessGame;
+import dataAccess.DataAccessException;
+import dataAccess.SQLAuthDAO;
 import dataAccess.SQLGameDAO;
+import dataAccess.SQLUserDAO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class GameDAOTests extends DAOTests {
     private final SQLGameDAO sqlGameDAO;
+    private final SQLAuthDAO sqlAuthDAO;
 
     public GameDAOTests() throws Exception {
         this.sqlGameDAO = new SQLGameDAO();
+        this.sqlAuthDAO = new SQLAuthDAO();
     }
 
     @BeforeEach
     public void clearDB() throws Exception {
+        sqlAuthDAO.clear();
         sqlGameDAO.clear();
     }
 
@@ -26,15 +32,20 @@ public class GameDAOTests extends DAOTests {
         int gameID = sqlGameDAO.createGame(gameName);
         String gameIDString = Integer.toString(gameID);
 
-        //Data is still there
-        String createStatement = "select gameName from gameData where gameName=?";
-        //TODO: Also test for whiteUsername and blackUsername
-        Assertions.assertEquals(gameName, performQuery(createStatement, gameName));
+        //Test that the gameData is stored correctly
+        String testStatement = "select gameName from gameData where gameID=?";
+        Assertions.assertEquals(gameName, performQuery(testStatement, gameIDString));
+        testStatement = "select gameName from gameData where gameID=?";
+        Assertions.assertEquals(gameName, performQuery(testStatement, gameIDString));
+        testStatement = "select whiteUsername from gameData where gameID=?";
+        Assertions.assertNull(performQuery(testStatement, gameIDString));
+        testStatement = "select blackUsername from gameData where gameID=?";
+        Assertions.assertNull(performQuery(testStatement, gameIDString));
 
         //Test that the ChessGame data is stored correctly
         ChessBoard testBoard = new ChessBoard(true);
         ChessGame testGame = new ChessGame(null, testBoard);
-        String testStatement = "select gameID from chessGame where gameID=?";
+        testStatement = "select gameID from chessGame where gameID=?";
         Assertions.assertEquals(gameIDString, performQuery(testStatement, gameIDString));
         testStatement = "select teamTurn from chessGame where gameID=?";
         String turn = (testGame.getTeamTurn() == null) ? null : testGame.getTeamTurn().toString();
@@ -68,28 +79,55 @@ public class GameDAOTests extends DAOTests {
 
     @Test
     public void createGameFailure() throws Exception {
-        //Create game with invalid authToken
+        //TODO: How do we fail this???
 
     }
 
     @Test
     public void updateGameSuccess() throws Exception {
-        //Create game
+        //Create auths for two players
+        String user1 = "username";
+        String authToken1 = sqlAuthDAO.createAuth(user1);
+        String user2 = "newUser";
+        String authToken2 = sqlAuthDAO.createAuth(user2);
 
-        //Update usernames into whiteUsername and blackUsername
+        //Create game
+        String gameName = "Wow! A game!";
+        int gameID = sqlGameDAO.createGame(gameName);
+        String gameIDString = Integer.toString(gameID);
+
+        //Update username into whiteUsername and blackUsername
+        sqlGameDAO.updateGame(gameID, "WHITE", authToken1);
+        sqlGameDAO.updateGame(gameID, "BLACK", authToken2);
 
         //Verify game has those usernames
+        String testStatement = "select whiteUsername from gameData where gameID=?";
+        Assertions.assertEquals(user1, performQuery(testStatement, gameIDString));
+        testStatement = "select blackUsername from gameData where gameID=?";
+        Assertions.assertEquals(user2, performQuery(testStatement, gameIDString));
     }
 
     @Test
     public void updateGameFailure() throws Exception {
+        //Create auths for four players
+        String authToken1 = sqlAuthDAO.createAuth("userOne");
+        String authToken2 = sqlAuthDAO.createAuth("userTwo");
+        String authToken3 = sqlAuthDAO.createAuth("userThree");
+        String authToken4 = sqlAuthDAO.createAuth("userFour");
+
         //Create game
+        String gameName = "Wow! A game!";
+        int gameID = sqlGameDAO.createGame(gameName);
 
         //Update usernames into whiteUsername and blackUsername
+        sqlGameDAO.updateGame(gameID, "WHITE", authToken1);
+        sqlGameDAO.updateGame(gameID, "BLACK", authToken2);
 
-        //Update new usernames into whiteUsername and blackUsername
-
-        //Verify this throws an error
+        //Verify updating whiteUsername or blackUsername will throw an error
+        Assertions.assertThrows(DataAccessException.class,
+                                () -> sqlGameDAO.updateGame(gameID, "WHITE", authToken3));
+        Assertions.assertThrows(DataAccessException.class,
+                () -> sqlGameDAO.updateGame(gameID, "BLACK", authToken4));
     }
 
     @Test

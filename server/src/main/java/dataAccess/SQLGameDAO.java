@@ -81,7 +81,7 @@ public class SQLGameDAO extends SQLDAO {
             }
             else if (playerColor.equals("WHITE")){
                 String getWhiteUsernameStatement = "SELECT whiteUsername FROM gameData WHERE gameID=?";
-                if (queryDB(getWhiteUsernameStatement, gameID) == null){
+                if (queryDB(getWhiteUsernameStatement, gameID) != null){
                     throw new DataAccessException("Error: already taken");
                 }
                 String setWhiteUsernameStatement = "UPDATE gameData SET whiteUsername=? WHERE gameID=?";
@@ -89,7 +89,7 @@ public class SQLGameDAO extends SQLDAO {
             }
             else if (playerColor.equals("BLACK")){
                 String getBlackUsernameStatement = "SELECT blackUsername FROM gameData WHERE gameID=?";
-                if (queryDB(getBlackUsernameStatement, gameID) == null){
+                if (queryDB(getBlackUsernameStatement, gameID) != null) {
                     throw new DataAccessException("Error: already taken");
                 }
                 String setBlackUsernameStatement = "UPDATE gameData SET blackUsername=? WHERE gameID=?";
