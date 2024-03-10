@@ -16,7 +16,6 @@ public class SQLAuthDAO extends SQLDAO {
         }
         catch (Exception ex) {
             throw new DataAccessException(ex.getMessage());
-            //TODO: Check if the Register Service is doing its codes the right way
         }
     }
 

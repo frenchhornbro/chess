@@ -1,6 +1,5 @@
 package dataAccessTests;
 
-import dataAccess.DataAccessException;
 import dataAccess.SQLAuthDAO;
 import org.junit.jupiter.api.*;
 
@@ -36,8 +35,8 @@ public class AuthDAOTests extends DAOTests {
         String queryStatement = "select `authToken` from authData where username = ?";
         Assertions.assertEquals(authToken, performQuery(queryStatement, username), "AuthTokens are different");
 
-        //Creating a user with the same username throws an error
-        Assertions.assertThrows(DataAccessException.class,() -> sqlAuthDAO.createAuth(username));
+        //Attempting to get an incorrect authToken returns null
+        Assertions.assertNull(sqlAuthDAO.getAuth("IDK rand authToken"));
     }
 
     @Test
@@ -68,7 +67,6 @@ public class AuthDAOTests extends DAOTests {
         Assertions.assertNull(sqlAuthDAO.getAuth(authToken));
     }
     @Test
-    //TODO: Figure out how one would fail a delete test
     public void sqlAuthDeleteFail() throws Exception {
         //Delete an authToken that doesn't exist
         sqlAuthDAO.deleteAuth("nonexistentAuthToken", true);

@@ -23,7 +23,7 @@ public class ListGamesService {
             return sqlGameDAO.getGames();
         }
         catch (DataAccessException ex) {
-            throw new ServiceException(ex.getMessage(), 500); //TODO: Make sure 500 is the correct number
+            throw new ServiceException(ex.getMessage(), 500);
         }
     }
 }

@@ -22,7 +22,7 @@ public class CreateGameService {
             else throw new ServiceException("Error: unauthorized", 401);
         }
         catch (DataAccessException ex) {
-            throw new ServiceException(ex.getMessage(), 500); //TODO: Make sure 500 is the correct number
+            throw new ServiceException(ex.getMessage(), 500);
         }
     }
 }

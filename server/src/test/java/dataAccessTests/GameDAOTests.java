@@ -67,19 +67,19 @@ public class GameDAOTests extends DAOTests {
         Assertions.assertEquals(Integer.toString(0), performQuery(testStatement, gameIDString));
 
         //Test that the ChessBoard is stored correctly
-        //TODO: We can compare if the to_string or to_Json or whatever works...
-        // but what about that actual ChessBoard object itself?
         String boardString = testBoard.toString();
         testStatement = "select board from chessBoard where gameID=?";
         Assertions.assertEquals(boardString, performQuery(testStatement, gameIDString));
-
-        //TODO: Also test if a blank ChessBoard can be stored
     }
 
     @Test
     public void createGameNegative() throws Exception {
-        //TODO: How do we fail this???
-        Assertions.fail();
+        //Create game
+        String gameName = "myGame";
+        sqlGameDAO.createGame(gameName);
+
+        //Attempting to access a nonexistent game returns null
+        Assertions.assertTrue(sqlGameDAO.gameIsNull(-987654321));
     }
 
     @Test
@@ -141,7 +141,7 @@ public class GameDAOTests extends DAOTests {
     }
 
     @Test
-    public void getGamesPositive() throws Exception {
+    public void getGamesPositive() {
         //Create multiple games
         Assertions.assertDoesNotThrow(() -> sqlGameDAO.createGame("Game 1"));
         Assertions.assertDoesNotThrow(() -> sqlGameDAO.createGame("Game 2"));
@@ -157,6 +157,14 @@ public class GameDAOTests extends DAOTests {
 
     @Test
     public void sqlGameClearPositive() throws Exception {
-        Assertions.fail();
+        //Clearing doesn't throw an error and clears the database
+        Assertions.assertDoesNotThrow(() -> sqlGameDAO.createGame("Game Num 1"));
+        Assertions.assertDoesNotThrow(() -> sqlGameDAO.createGame("Game Num 2"));
+        Assertions.assertDoesNotThrow(() -> sqlGameDAO.createGame("Game Num 3"));
+        Assertions.assertDoesNotThrow(sqlGameDAO::clear);
+        String query = "SELECT gameID FROM gameData WHERE gameName=?";
+        Assertions.assertEquals("Not found", performQuery(query, "Game Num 1"));
+        Assertions.assertEquals("Not found", performQuery(query, "Game Num 2"));
+        Assertions.assertEquals("Not found", performQuery(query, "Game Num 3"));
     }
 }

@@ -15,7 +15,7 @@ public class SQLDAO {
     }
 
     //Create tables if they don't exist
-    private final String[] createStatements = {//TODO: Consider doing BEGIN TRANSACTION and COMMIT TRANSACTION
+    private final String[] createStatements = {
             """
             CREATE TABLE IF NOT EXISTS userData(
                 username VARCHAR(256) NOT NULL PRIMARY KEY,
@@ -25,8 +25,8 @@ public class SQLDAO {
             """,
             """
             CREATE TABLE IF NOT EXISTS authData(
-                username VARCHAR(256) NOT NULL PRIMARY KEY,
-                authToken VARCHAR(36) NOT NULL
+                authToken VARCHAR(36) NOT NULL PRIMARY KEY,
+                username VARCHAR(256) NOT NULL
             );
             """,
             """
@@ -39,7 +39,7 @@ public class SQLDAO {
             """,
             """
             CREATE TABLE IF NOT EXISTS observers(
-                gameID INT NOT NULL PRIMARY KEY,
+                gameID INT NOT NULL,
                 username VARCHAR(256)
             );
             """,
@@ -133,7 +133,6 @@ public class SQLDAO {
                         case String p -> prepState.setString(i + 1, p);
                         case Integer p -> prepState.setInt(i + 1, p);
                         case ChessGame p -> prepState.setString(i + 1, p.toString());
-                        //TODO Check if toString() is correct here ^^^
                         case null, default -> prepState.setNull(i + 1, NULL);
                     }
                 }

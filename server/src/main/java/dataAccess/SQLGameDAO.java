@@ -25,9 +25,6 @@ public class SQLGameDAO extends SQLDAO {
         try {
             String createDataStatement = "INSERT INTO gameData (gameName) VALUES (?)";
             int gameID = updateDB(createDataStatement, gameName);
-            //TODO: Figure out how to serialize the ChessGame
-            // I think the ChessBoard needs to be turned into a JSON object
-            //  And then we have to write something to repopulate it for the get method(?)
 
             ChessBoard chessBoard = new ChessBoard(true);
             ChessGame chessGame = new ChessGame(null, chessBoard);
@@ -45,7 +42,6 @@ public class SQLGameDAO extends SQLDAO {
                 );
             String createBoardStatement = "INSERT INTO chessBoard (gameID, board) VALUES (?, ?)";
             updateDB(createBoardStatement, gameID, chessBoard.toString());
-            //TODO ^^^ do we want to do a toString(), or a JSON conversion?
 
             return gameID;
         }

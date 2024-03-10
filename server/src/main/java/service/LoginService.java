@@ -22,8 +22,6 @@ public class LoginService {
             if (!pwd.equals(password)) {
                 throw new ServiceException("Error: password is incorrect", 401);
             }
-            //TODO: Consider no longer deleting old auths and instead storing them in a separate table
-            this.sqlAuthDao.deleteAuth(username, false);
             return this.sqlAuthDao.createAuth(username);
         }
         catch (DataAccessException ex) {
