@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 4 - All Tests Pass">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 4 - Small edit" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -304,14 +302,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702756436549</updated>
-    </task>
-    <task id="LOCAL-00001" summary="add(client) dependency on server for running tests.">
-      <option name="closed" value="true" />
-      <created>1703044500221</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1703044500221</updated>
     </task>
     <task id="LOCAL-00002" summary="fix(shared) maven resource reference">
       <option name="closed" value="true" />
@@ -697,7 +687,15 @@
       <option name="project" value="LOCAL" />
       <updated>1710051342993</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Phase 4 - Small edit">
+      <option name="closed" value="true" />
+      <created>1710197480500</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1710197480503</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -713,7 +711,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Finished initial setup for Phase 3" />
     <MESSAGE value="More initial setup, and server can now run" />
     <MESSAGE value="Register - Gson now parses, webpage now loads" />
     <MESSAGE value="Clear works" />
@@ -738,7 +735,8 @@
     <MESSAGE value="Phase 4 - SQLGameDao updateGame works" />
     <MESSAGE value="Phase 4 - All Persistence Tests Pass" />
     <MESSAGE value="Phase 4 - All Tests Pass" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 4 - All Tests Pass" />
+    <MESSAGE value="Phase 4 - Small edit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 4 - Small edit" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
