@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 4 - Small edit" />
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 5 - Imported starter code">
+      <change afterPath="$PROJECT_DIR$/client/src/main/java/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/main/java/ui/Repl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/main/java/ui/ServerFacade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/EscapeSequences.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/EscapeSequences.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/test/java/clientTests/ServerFacadeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/test/java/clientTests/ServerFacadeTests.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,6 +63,7 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "Application.Server.executor": "Run",
+    "Application.ServerFacade.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.All in server.executor": "Run",
     "JUnit.All in shared.executor": "Run",
@@ -213,7 +221,20 @@
       <command value="git add ." />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.UserDAOTests">
+  <component name="RunManager" selected="Application.ServerFacade">
+    <configuration name="ServerFacade" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ui.ServerFacade" />
+      <module name="client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="All in server" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <option name="PACKAGE_NAME" value="" />
@@ -246,22 +267,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameDAOTests.sqlGameClearPositive" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="dataAccessTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="dataAccessTests" />
-      <option name="MAIN_CLASS_NAME" value="dataAccessTests.GameDAOTests" />
-      <option name="METHOD_NAME" value="sqlGameClearPositive" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="UserDAOTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
@@ -279,11 +284,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.ServerFacade" />
         <item itemvalue="JUnit.UserDAOTests" />
         <item itemvalue="JUnit.All in shared" />
         <item itemvalue="JUnit.All in server" />
         <item itemvalue="JUnit.GameDAOTests.createGameNegative" />
-        <item itemvalue="JUnit.GameDAOTests.sqlGameClearPositive" />
       </list>
     </recent_temporary>
   </component>
@@ -302,22 +307,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702756436549</updated>
-    </task>
-    <task id="LOCAL-00002" summary="fix(shared) maven resource reference">
-      <option name="closed" value="true" />
-      <created>1703046815883</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1703046815883</updated>
-    </task>
-    <task id="LOCAL-00003" summary="General setup, overrode toString methods for each class except ChessGame">
-      <option name="closed" value="true" />
-      <created>1705781732909</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1705781732909</updated>
     </task>
     <task id="LOCAL-00004" summary="General setup and overrode toString methods for 4 chess classes (forgot to commit this)&#10;Set up BishopMovesCalculator to be able to run">
       <option name="closed" value="true" />
@@ -695,7 +684,23 @@
       <option name="project" value="LOCAL" />
       <updated>1710197480503</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Phase 4 - Small edit">
+      <option name="closed" value="true" />
+      <created>1710197573168</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1710197573168</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Phase 5 - Imported starter code">
+      <option name="closed" value="true" />
+      <created>1710801864642</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1710801864642</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -711,7 +716,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="More initial setup, and server can now run" />
     <MESSAGE value="Register - Gson now parses, webpage now loads" />
     <MESSAGE value="Clear works" />
     <MESSAGE value="Phase 3 - passed first test" />
@@ -736,7 +740,8 @@
     <MESSAGE value="Phase 4 - All Persistence Tests Pass" />
     <MESSAGE value="Phase 4 - All Tests Pass" />
     <MESSAGE value="Phase 4 - Small edit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 4 - Small edit" />
+    <MESSAGE value="Phase 5 - Imported starter code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 5 - Imported starter code" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
