@@ -9,9 +9,9 @@ import java.util.Map;
 
 public class UICreateHandler extends UIHandler {
 
-    /** Create and process an HTTP request to create a new game */
+    /** Create and process an HTTP request to create a new game. Returns false if an error occurs */
     public boolean create(String[] params, String authToken) {
-        if (params.length != 1) {
+        if (params.length < 1) {
             System.out.println("Incorrect number of parameters");
             PrintHelper.printCreate();
             return false;
@@ -23,10 +23,16 @@ public class UICreateHandler extends UIHandler {
         try {
             //Parameters
             String[] titles = {"gameName"};
+            StringBuilder gameNamePrepper = new StringBuilder();
+            for (int i = 0; i < params.length; i++) {
+                gameNamePrepper.append(params[i]);
+                if (i != params.length - 1) gameNamePrepper.append(" ");
+            }
+            String[] gameName = {gameNamePrepper.toString()};
 
             //Prepare request
             HttpURLConnection http = prepareRequest("/game", "POST",
-                    "authorization", authToken, titles, params);
+                    "authorization", authToken, titles, gameName);
 
             //Process request
             try (InputStream response = http.getInputStream()) {

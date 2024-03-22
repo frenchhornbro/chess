@@ -1,13 +1,24 @@
 package ServerFacade;
 
+import handler.UICreateHandler;
+import handler.UILoginHandler;
+import handler.UILogoutHandler;
+import handler.UIRegisterHandler;
 import ui.Client;
+import java.util.Scanner;
+
 import static ui.PrintHelper.*;
 
-public class PreLoginUI extends ServerFacade {
+public class PreLoginUI {
     private final PostLoginUI postLoginUI;
+    private final UIRegisterHandler registerHandler;
+    private final UILoginHandler loginHandler;
 
-    public PreLoginUI() {
-        postLoginUI = new PostLoginUI();
+    public PreLoginUI(UIRegisterHandler registerHandler, UILoginHandler loginHandler, UILogoutHandler logoutHandler,
+                      UICreateHandler createHandler) {
+        this.registerHandler = registerHandler;
+        this.loginHandler = loginHandler;
+        postLoginUI = new PostLoginUI(logoutHandler, createHandler);
     }
 
     /** Runs the Logged Out UI. */
@@ -17,7 +28,7 @@ public class PreLoginUI extends ServerFacade {
         String input = "";
         while (!input.equalsIgnoreCase("quit")) {
             System.out.print("> ");
-            String[] commands = super.getCommands();
+            String[] commands = getCommands();
             input = commands[0];
             String[] params = new String[commands.length - 1];
             System.arraycopy(commands, 1, params, 0, commands.length - 1);
@@ -59,5 +70,11 @@ public class PreLoginUI extends ServerFacade {
                     System.out.println("\033[31mInvalid command:\033[39m " + input);
             }
         }
+    }
+
+    public static String[] getCommands() {
+        Scanner scanner = new Scanner(System.in);
+        String line = scanner.nextLine();
+        return line.split(" ");
     }
 }

@@ -1,13 +1,23 @@
 package ServerFacade;
 
+import handler.UICreateHandler;
+import handler.UILogoutHandler;
 import ui.Client;
+import java.util.Scanner;
 import static ui.PrintHelper.*;
 import static ui.PrintHelper.printPreLoginUI;
 
-public class PostLoginUI extends ServerFacade {
+public class PostLoginUI {
+    private final UILogoutHandler logoutHandler;
+    private final UICreateHandler createHandler;
+
+    public PostLoginUI(UILogoutHandler logoutHandler, UICreateHandler createHandler) {
+        this.logoutHandler = logoutHandler;
+        this.createHandler = createHandler;
+    }
 
     /** Runs the Logged In UI. Returns true if it wants to fully quit and false otherwise.*/
-    protected boolean goToPostLogin(Client client) {
+    public boolean goToPostLogin(Client client) {
         System.out.println("\t\033[36;107;1m[Logged In UI]\033[39;49;0m");
         String input = "";
         while (!input.equalsIgnoreCase("logout")) {
@@ -34,6 +44,7 @@ public class PostLoginUI extends ServerFacade {
                 case ("exit"):
                 case ("quit"):
                     System.out.println("Exiting...");
+                    client.setAuthToken(null); //TODO: Should this be here?
                     return true;
                 case ("logout"):
                     if (logoutHandler.logout(params, client.getAuthToken())) {
@@ -45,7 +56,9 @@ public class PostLoginUI extends ServerFacade {
                     else input = "";
                     break;
                 case ("create"):
-                    System.out.println("Need to do");
+                    if (createHandler.create(params, client.getAuthToken())) {
+                        System.out.println("New game created: " + params[0]);
+                    }
                     break;
                 case ("list"):
                     System.out.println("Need to do");
@@ -61,5 +74,11 @@ public class PostLoginUI extends ServerFacade {
             }
         }
         return false;
+    }
+
+    public static String[] getCommands() {
+        Scanner scanner = new Scanner(System.in);
+        String line = scanner.nextLine();
+        return line.split(" ");
     }
 }
