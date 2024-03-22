@@ -12,4 +12,9 @@ public class ErrorCarrier {
     public int getErrorNum() {
         return errorNum;
     }
+
+    @Override
+    public String toString() {
+        return "Error " + errorNum + ": " + message;
+    }
 }
