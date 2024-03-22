@@ -1,9 +1,6 @@
 package ServerFacade;
 
-import handler.UICreateHandler;
-import handler.UILoginHandler;
-import handler.UILogoutHandler;
-import handler.UIRegisterHandler;
+import handler.*;
 import ui.Client;
 import java.util.Scanner;
 
@@ -15,10 +12,10 @@ public class PreLoginUI {
     private final UILoginHandler loginHandler;
 
     public PreLoginUI(UIRegisterHandler registerHandler, UILoginHandler loginHandler, UILogoutHandler logoutHandler,
-                      UICreateHandler createHandler) {
+                      UICreateHandler createHandler, UIListHandler listHandler) {
         this.registerHandler = registerHandler;
         this.loginHandler = loginHandler;
-        postLoginUI = new PostLoginUI(logoutHandler, createHandler);
+        postLoginUI = new PostLoginUI(logoutHandler, createHandler, listHandler);
     }
 
     /** Runs the Logged Out UI. */

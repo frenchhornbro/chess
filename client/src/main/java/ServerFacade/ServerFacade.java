@@ -5,18 +5,15 @@ import ui.Client;
 import ui.EscapeSequences;
 
 public class ServerFacade {
-    public final UIRegisterHandler registerHandler;
-    public final UILoginHandler loginHandler;
-    public final UILogoutHandler logoutHandler;
-    public final UICreateHandler createHandler;
     private final PreLoginUI preLoginUI;
 
     public ServerFacade() {
-        registerHandler = new UIRegisterHandler();
-        loginHandler = new UILoginHandler();
-        logoutHandler = new UILogoutHandler();
-        createHandler = new UICreateHandler();
-        preLoginUI = new PreLoginUI(registerHandler, loginHandler, logoutHandler, createHandler);
+        UIRegisterHandler registerHandler = new UIRegisterHandler();
+        UILoginHandler loginHandler = new UILoginHandler();
+        UILogoutHandler logoutHandler = new UILogoutHandler();
+        UICreateHandler createHandler = new UICreateHandler();
+        UIListHandler listHandler = new UIListHandler();
+        preLoginUI = new PreLoginUI(registerHandler, loginHandler, logoutHandler, createHandler, listHandler);
     }
 
     /** Starts the game. For use by a Client class. */

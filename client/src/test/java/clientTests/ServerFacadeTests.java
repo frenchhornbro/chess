@@ -1,9 +1,6 @@
 package clientTests;
 
-import handler.UICreateHandler;
-import handler.UILoginHandler;
-import handler.UILogoutHandler;
-import handler.UIRegisterHandler;
+import handler.*;
 import org.junit.jupiter.api.*;
 import server.Server;
 
@@ -15,6 +12,7 @@ public class ServerFacadeTests {
     private static UILoginHandler loginHandler;
     private static UILogoutHandler logoutHandler;
     private static UICreateHandler createHandler;
+    private static UIListHandler listHandler;
 
     @BeforeAll
     public static void init() {
@@ -25,6 +23,7 @@ public class ServerFacadeTests {
         loginHandler = new UILoginHandler();
         logoutHandler = new UILogoutHandler();
         createHandler = new UICreateHandler();
+        listHandler = new UIListHandler();
     }
 
     @BeforeEach
@@ -114,6 +113,24 @@ public class ServerFacadeTests {
         String authToken = "phonyAuthToken";
         String[] params = {"newGame"};
         Assertions.assertFalse(createHandler.create(params, authToken));
+    }
+
+    @Test
+    public void listPositive() {
+        String authToken = registrationSetup();
+        String[] params = {"newGame2"};
+        Assertions.assertTrue(createHandler.create(params, authToken));
+        params[0] = "newGame1";
+        Assertions.assertTrue(createHandler.create(params, authToken));
+        params[0] = "newGame3";
+        Assertions.assertTrue(createHandler.create(params, authToken));
+        String[] listParams = {};
+        Assertions.assertTrue(listHandler.list(listParams, authToken));
+    }
+
+    @Test
+    public void listNegative() {
+
     }
 
     private String registrationSetup() {

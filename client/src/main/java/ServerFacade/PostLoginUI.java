@@ -1,6 +1,7 @@
 package ServerFacade;
 
 import handler.UICreateHandler;
+import handler.UIListHandler;
 import handler.UILogoutHandler;
 import ui.Client;
 import java.util.Scanner;
@@ -10,10 +11,12 @@ import static ui.PrintHelper.printPreLoginUI;
 public class PostLoginUI {
     private final UILogoutHandler logoutHandler;
     private final UICreateHandler createHandler;
+    private final UIListHandler listHandler;
 
-    public PostLoginUI(UILogoutHandler logoutHandler, UICreateHandler createHandler) {
+    public PostLoginUI(UILogoutHandler logoutHandler, UICreateHandler createHandler, UIListHandler listHandler) {
         this.logoutHandler = logoutHandler;
         this.createHandler = createHandler;
+        this.listHandler = listHandler;
     }
 
     /** Runs the Logged In UI. Returns true if it wants to fully quit and false otherwise.*/
@@ -57,11 +60,15 @@ public class PostLoginUI {
                     break;
                 case ("create"):
                     if (createHandler.create(params, client.getAuthToken())) {
-                        System.out.println("New game created: " + params[0]);
+                        StringBuilder gameName = new StringBuilder();
+                        for (String word : params) {
+                            gameName.append(word);
+                        }
+                        System.out.println("New game created: " + gameName);
                     }
                     break;
                 case ("list"):
-                    System.out.println("Need to do");
+                    listHandler.list(params, client.getAuthToken());
                     break;
                 case ("join"):
                     System.out.println("Need to do");

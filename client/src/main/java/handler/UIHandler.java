@@ -44,16 +44,17 @@ public class UIHandler {
         if (headerName != null) http.addRequestProperty(headerName, headerValue);
 
         //Body
-        HashMap<String, String> bodyVars = new HashMap<>();
-        if (fields != null && params != null) {
+        if (fields != null && params != null && fields.length != 0 && params.length != 0) {
             if (fields.length != params.length) throw new Exception("Error: Fields and params were of different length");
+            HashMap<String, String> bodyVars = new HashMap<>();
             for (int i = 0; i < fields.length; i++) {
                 bodyVars.put(fields[i], params[i]);
             }
-        }
-        try (OutputStream outputStream = http.getOutputStream()) {
-            var jsonBody = new Gson().toJson(bodyVars);
-            outputStream.write(jsonBody.getBytes());
+            //TODO: Double check this doesn't break everything else
+            try (OutputStream outputStream = http.getOutputStream()) {
+                var jsonBody = new Gson().toJson(bodyVars);
+                outputStream.write(jsonBody.getBytes());
+            }
         }
 
         http.connect();
