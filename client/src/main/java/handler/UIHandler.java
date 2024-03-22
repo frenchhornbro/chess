@@ -29,7 +29,7 @@ public class UIHandler {
         }
     }
 
-    public HttpURLConnection prepareRequest(String slug, String requestMethod, String headerName, String headerValue,
+    protected HttpURLConnection prepareRequest(String slug, String requestMethod, String headerName, String headerValue,
                                             String[] fields, String[] params) throws Exception {
         URI uri = new URI("http://localhost:8080" + slug);
         URL url = uri.toURL();
@@ -61,7 +61,7 @@ public class UIHandler {
         return http;
     }
 
-    public void printError(String errorMsg) {
+    protected void printError(String errorMsg) {
         //TODO: Do we want to be printing the errorCodes to the users?
         String printStr = "Error";
         String testStr = "Server returned HTTP response code: ";

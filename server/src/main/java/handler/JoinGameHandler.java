@@ -12,12 +12,11 @@ public class JoinGameHandler {
         //Add the user as the specified player color (or an observer)
         Gson serial = new Gson();
         try {
-            Map<String, Object> input = serial.fromJson(request.body(), Map.class);
+            Map<String, String> input = serial.fromJson(request.body(), Map.class);
             String authToken = request.headers("authorization");
             String playerColor = "";
             if (input.get("playerColor") != null) playerColor = input.get("playerColor").toString();
-            double gameIDDouble = (double) input.get("gameID");
-            int gameID = (int) Math.floor(gameIDDouble);
+            int gameID = Integer.parseInt(input.get("gameID"));
             JoinGameService joinGameService = new JoinGameService();
             joinGameService.joinGame(authToken, playerColor, gameID);
 

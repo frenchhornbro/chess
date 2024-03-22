@@ -1,6 +1,8 @@
 package handler;
 
 import com.google.gson.Gson;
+import dataStorage.GameStorage;
+import dataStorage.GamesStorage;
 import ui.PrintHelper;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,18 +11,15 @@ import java.util.*;
 
 public class UIListHandler extends UIHandler {
 
-    public boolean list(String[] params, String authToken) {
-        //TODO: Need to print out every game and it's gameData
-        // Assign a tempID to each game for the Client
-        // Remember the tempID to be accessed by join and observe
+    public ArrayList<GameStorage> list(String[] params, String authToken) {
         if (params.length != 0) {
             System.out.println("Incorrect number of parameters");
             PrintHelper.printCreate();
-            return false;
+            return null;
         }
         if (authToken == null) {
             System.out.println("No auth token");
-            return false;
+            return null;
         }
         try {
             String[] blankList = {};
@@ -30,11 +29,8 @@ public class UIListHandler extends UIHandler {
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 try (InputStream responseBody = connection.getInputStream()) {
                     InputStreamReader reader = new InputStreamReader(responseBody);
-                    var response = new Gson().fromJson(reader, HashMap.class);
-                    String gamesString = response.get("games").toString();
-                    ArrayList<String> games = parseGames(gamesString);
-                    return true;
-                    //TODO: At some point change the to_String of the chessBoard to be the actual chessboard? Maybe not in this class though.
+                    GamesStorage games = new Gson().fromJson(reader, GamesStorage.class);
+                    return games.getGames();
                 }
             }
             else {
@@ -44,22 +40,13 @@ public class UIListHandler extends UIHandler {
                     for (ArrayList<String> error : response.values()) {
                         System.out.println("Error = " + error);
                     }
-                    return false;
+                    return null;
                 }
             }
         }
         catch (Exception ex) {
             System.out.println("Exception caught: " + ex.getMessage());
-            return false;
+            return null;
         }
-    }
-
-    private ArrayList<String> parseGames(String gamesString) {
-        ArrayList<String> arr = new ArrayList<>();
-        for (int i = 0; i < gamesString.length(); i++) {
-            System.out.print(gamesString.charAt(i));
-            //TODO: ^^^ Parse games out of this (like Assets in Snipe-IT)
-        }
-        return arr;
     }
 }

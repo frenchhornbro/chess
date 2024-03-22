@@ -13,6 +13,7 @@ public class ServerFacadeTests {
     private static UILogoutHandler logoutHandler;
     private static UICreateHandler createHandler;
     private static UIListHandler listHandler;
+    private static UIJoinHandler joinHandler;
 
     @BeforeAll
     public static void init() {
@@ -24,6 +25,7 @@ public class ServerFacadeTests {
         logoutHandler = new UILogoutHandler();
         createHandler = new UICreateHandler();
         listHandler = new UIListHandler();
+        joinHandler = new UIJoinHandler();
     }
 
     @BeforeEach
@@ -125,16 +127,37 @@ public class ServerFacadeTests {
         params[0] = "newGame3";
         Assertions.assertTrue(createHandler.create(params, authToken));
         String[] listParams = {};
-        Assertions.assertTrue(listHandler.list(listParams, authToken));
+        Assertions.assertNotNull(listHandler.list(listParams, authToken));
     }
 
     @Test
     public void listNegative() {
+        Assertions.fail();
+    }
 
+    @Test
+    public void joinPositive() {
+        String authToken = registrationSetup();
+        String[] gameParams = {"newGame2"};
+        Assertions.assertTrue(createHandler.create(gameParams, authToken));
+        gameParams[0] = "newGame1";
+        Assertions.assertTrue(createHandler.create(gameParams, authToken));
+        gameParams[0] = "newGame3";
+        Assertions.assertTrue(createHandler.create(gameParams, authToken));
+        String[] listParams = {};
+        Assertions.assertNotNull(listHandler.list(listParams, authToken));
+        String[] params = {"235", "WHITE"}; //TODO: Get the actual ID from here
+        Assertions.assertTrue(joinHandler.join(params, authToken));
+        Assertions.assertNotNull(listHandler.list(listParams, authToken));
+    }
+
+    @Test
+    public void joinNegative() {
+        Assertions.fail();
     }
 
     private String registrationSetup() {
-        String username = "mySuperRandomUsername";
+        String username = "mySuperCoolUsername";
         String password = "mySuperR4ndomPwd";
         String email = "email@randEmail.tacosNstuff";
         String[] args = {username, password, email};

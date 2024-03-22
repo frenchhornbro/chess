@@ -1,9 +1,12 @@
 package ServerFacade;
 
+import dataStorage.GameStorage;
 import handler.UICreateHandler;
 import handler.UIListHandler;
 import handler.UILogoutHandler;
 import ui.Client;
+
+import java.util.ArrayList;
 import java.util.Scanner;
 import static ui.PrintHelper.*;
 import static ui.PrintHelper.printPreLoginUI;
@@ -68,7 +71,20 @@ public class PostLoginUI {
                     }
                     break;
                 case ("list"):
-                    listHandler.list(params, client.getAuthToken());
+                    ArrayList<GameStorage> games = listHandler.list(params, client.getAuthToken());
+                    if (games != null) {
+                        ArrayList<Integer> gameIDs = new ArrayList<>();
+                        client.setGameIDs(gameIDs);
+                        for (int i = 0; i < games.size(); i++) {
+                            GameStorage game = games.get(i);
+                            System.out.print("Game: " + i + "\t"); //TODO: Set this at 1 and read from 1 eventually
+                            System.out.print("Name: " + game.getGameName() + "\t");
+                            System.out.print("White: " + game.getWhiteUsername() + "\t");
+                            System.out.println("Black: " + game.getBlackUsername());
+                            gameIDs.add(game.getGameID());
+                        }
+                        client.setGameIDs(gameIDs);
+                    }
                     break;
                 case ("join"):
                     System.out.println("Need to do");
@@ -89,3 +105,4 @@ public class PostLoginUI {
         return line.split(" ");
     }
 }
+//TODO: At some point change the to_String of the chessBoard to be the actual chessboard? Maybe not in this class though.
