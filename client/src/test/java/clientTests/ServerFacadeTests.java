@@ -1,5 +1,6 @@
 package clientTests;
 
+import handler.UICreateHandler;
 import handler.UILoginHandler;
 import handler.UILogoutHandler;
 import handler.UIRegisterHandler;
@@ -13,6 +14,7 @@ public class ServerFacadeTests {
     private static UIRegisterHandler registerHandler;
     private static UILoginHandler loginHandler;
     private static UILogoutHandler logoutHandler;
+    private static UICreateHandler createHandler;
 
     @BeforeAll
     public static void init() {
@@ -22,6 +24,7 @@ public class ServerFacadeTests {
         registerHandler = new UIRegisterHandler();
         loginHandler = new UILoginHandler();
         logoutHandler = new UILogoutHandler();
+        createHandler = new UICreateHandler();
     }
 
     @BeforeEach
@@ -73,11 +76,7 @@ public class ServerFacadeTests {
     public void logoutPositive() {
         //Use a valid authToken
         String[] blankList = {};
-        String username = "mySuperRandomUsername";
-        String password = "mySuperR4ndomPwd";
-        String email = "email@randEmail.tacosNstuff";
-        String[] args = {username, password, email};
-        String authToken = registerHandler.register(args);
+        String authToken = registrationSetup();
         Assertions.assertTrue(logoutHandler.logout(blankList, authToken));
     }
 
@@ -101,5 +100,27 @@ public class ServerFacadeTests {
         logoutPositive();
         String[] params = {"mySuperRandomUsername","badPwd"};
         Assertions.assertNull(loginHandler.login(params));
+    }
+
+    @Test
+    public void createPositive() {
+        String authToken = registrationSetup();
+        String[] params = {"newGame"};
+        Assertions.assertTrue(createHandler.create(params, authToken));
+    }
+
+    @Test
+    public void createNegative() {
+        String authToken = "phonyAuthToken";
+        String[] params = {"newGame"};
+        Assertions.assertFalse(createHandler.create(params, authToken));
+    }
+
+    private String registrationSetup() {
+        String username = "mySuperRandomUsername";
+        String password = "mySuperR4ndomPwd";
+        String email = "email@randEmail.tacosNstuff";
+        String[] args = {username, password, email};
+        return registerHandler.register(args);
     }
 }
