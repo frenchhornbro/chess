@@ -1,5 +1,6 @@
 package ui;
 
+import ServerFacade.ServerFacade;
 import server.Server;
 
 public class Client {
@@ -13,7 +14,7 @@ public class Client {
         Server server = new Server();
         int port = 8080;
         server.run(port);
-        ServerFacade serverFacade = new ServerFacade(port);
+        ServerFacade serverFacade = new ServerFacade();
         Client client = new Client();
 
         //Display UIs

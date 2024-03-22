@@ -1,31 +1,32 @@
 package clientTests;
 
+import handler.UILoginHandler;
+import handler.UILogoutHandler;
+import handler.UIRegisterHandler;
 import org.junit.jupiter.api.*;
 import server.Server;
-import ui.ServerFacade;
-import ui.ServerFacadeHandlers;
 
 
 public class ServerFacadeTests {
 
     private static Server server;
-    private static ServerFacade facade;
-    private static ServerFacadeHandlers handlers;
+    private static UIRegisterHandler registerHandler;
+    private static UILoginHandler loginHandler;
+    private static UILogoutHandler logoutHandler;
 
     @BeforeAll
     public static void init() {
         server = new Server();
         var port = server.run(8080);
         System.out.println("Started test HTTP server on " + port);
-        facade = new ServerFacade(port);
-        handlers = new ServerFacadeHandlers();
-        //TODO: Instantiate a ServerFacadeHandlers so we can automatically test logout
-        // without having to manually run the whole thing each time
+        registerHandler = new UIRegisterHandler();
+        loginHandler = new UILoginHandler();
+        logoutHandler = new UILogoutHandler();
     }
 
     @BeforeEach
     public void clear() {
-        //TODO: Create a clear function for testing
+        registerHandler.clearData();
     }
 
     @AfterAll
@@ -36,12 +37,17 @@ public class ServerFacadeTests {
 
     @Test
     public void startPositive() {
-
+        Assertions.fail();
     }
 
     @Test
     public void startNegative() {
+        Assertions.fail();
+    }
 
+    @Test
+    public void clearPositive() {
+        Assertions.assertTrue(registerHandler.clearData());
     }
 
     @Test
@@ -50,7 +56,7 @@ public class ServerFacadeTests {
         String password = "mySuperR4ndomPwd";
         String email = "email@randEmail.tacosNstuff";
         String[] args = {username, password, email};
-        Assertions.assertNotNull(handlers.register(args));
+        Assertions.assertNotNull(registerHandler.register(args));
     }
 
     @Test
@@ -60,7 +66,7 @@ public class ServerFacadeTests {
         String password = "mySuperR4ndomPwd";
         String email = "email@randEmail.tacosNstuff";
         String[] args = {username, password, email};
-        Assertions.assertNull(handlers.register(args));
+        Assertions.assertNull(registerHandler.register(args));
     }
 
     @Test
@@ -71,8 +77,8 @@ public class ServerFacadeTests {
         String password = "mySuperR4ndomPwd";
         String email = "email@randEmail.tacosNstuff";
         String[] args = {username, password, email};
-        String authToken = handlers.register(args);
-        Assertions.assertTrue(handlers.logout(blankList, authToken));
+        String authToken = registerHandler.register(args);
+        Assertions.assertTrue(logoutHandler.logout(blankList, authToken));
     }
 
     @Test
@@ -80,8 +86,20 @@ public class ServerFacadeTests {
         //Use an invalid authToken
         String[] blankList = {};
         String authToken = "fake auth token";
-        Assertions.assertFalse(handlers.logout(blankList, authToken));
+        Assertions.assertFalse(logoutHandler.logout(blankList, authToken));
     }
 
-    //TODO: Have a positive and a negative test for each test in ServerFacadeHandlers
+    @Test
+    public void loginPositive() {
+        logoutPositive();
+        String[] params = {"mySuperRandomUsername","mySuperR4ndomPwd"};
+        Assertions.assertNotNull(loginHandler.login(params));
+    }
+
+    @Test
+    public void loginNegative() {
+        logoutPositive();
+        String[] params = {"mySuperRandomUsername","badPwd"};
+        Assertions.assertNull(loginHandler.login(params));
+    }
 }
