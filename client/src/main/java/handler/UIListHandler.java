@@ -14,7 +14,7 @@ public class UIListHandler extends UIHandler {
     public ArrayList<GameStorage> list(String[] params, String authToken) {
         if (params.length != 0) {
             System.out.println("Incorrect number of parameters");
-            PrintHelper.printCreate();
+            PrintHelper.printList();
             return null;
         }
         if (authToken == null) {

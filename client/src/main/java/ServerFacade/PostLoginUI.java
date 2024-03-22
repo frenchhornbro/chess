@@ -1,11 +1,8 @@
 package ServerFacade;
 
 import dataStorage.GameStorage;
-import handler.UICreateHandler;
-import handler.UIListHandler;
-import handler.UILogoutHandler;
+import handler.*;
 import ui.Client;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import static ui.PrintHelper.*;
@@ -15,11 +12,13 @@ public class PostLoginUI {
     private final UILogoutHandler logoutHandler;
     private final UICreateHandler createHandler;
     private final UIListHandler listHandler;
+    private final UIJoinHandler joinHandler;
 
-    public PostLoginUI(UILogoutHandler logoutHandler, UICreateHandler createHandler, UIListHandler listHandler) {
-        this.logoutHandler = logoutHandler;
-        this.createHandler = createHandler;
-        this.listHandler = listHandler;
+    public PostLoginUI() {
+        this.logoutHandler = new UILogoutHandler();
+        this.createHandler = new UICreateHandler();
+        this.listHandler = new UIListHandler();
+        this.joinHandler = new UIJoinHandler();
     }
 
     /** Runs the Logged In UI. Returns true if it wants to fully quit and false otherwise.*/
@@ -87,7 +86,8 @@ public class PostLoginUI {
                     }
                     break;
                 case ("join"):
-                    System.out.println("Need to do");
+                    joinHandler.join(params, client.getAuthToken(), client.getGameIDs());
+                    //TODO: If this ^^^ is true, go to Gameplay UI
                     break;
                 case ("observe"):
                     System.out.println("Need to do");

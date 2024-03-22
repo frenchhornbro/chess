@@ -11,11 +11,10 @@ public class PreLoginUI {
     private final UIRegisterHandler registerHandler;
     private final UILoginHandler loginHandler;
 
-    public PreLoginUI(UIRegisterHandler registerHandler, UILoginHandler loginHandler, UILogoutHandler logoutHandler,
-                      UICreateHandler createHandler, UIListHandler listHandler) {
-        this.registerHandler = registerHandler;
-        this.loginHandler = loginHandler;
-        postLoginUI = new PostLoginUI(logoutHandler, createHandler, listHandler);
+    public PreLoginUI() {
+        this.registerHandler = new UIRegisterHandler();
+        this.loginHandler = new UILoginHandler();
+        postLoginUI = new PostLoginUI();
     }
 
     /** Runs the Logged Out UI. */

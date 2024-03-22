@@ -1,8 +1,11 @@
 package clientTests;
 
+import dataStorage.GameStorage;
 import handler.*;
 import org.junit.jupiter.api.*;
 import server.Server;
+
+import java.util.ArrayList;
 
 
 public class ServerFacadeTests {
@@ -138,16 +141,17 @@ public class ServerFacadeTests {
     @Test
     public void joinPositive() {
         String authToken = registrationSetup();
-        String[] gameParams = {"newGame2"};
-        Assertions.assertTrue(createHandler.create(gameParams, authToken));
-        gameParams[0] = "newGame1";
-        Assertions.assertTrue(createHandler.create(gameParams, authToken));
-        gameParams[0] = "newGame3";
+        String[] gameParams = {"newGame"};
         Assertions.assertTrue(createHandler.create(gameParams, authToken));
         String[] listParams = {};
-        Assertions.assertNotNull(listHandler.list(listParams, authToken));
-        String[] params = {"235", "WHITE"}; //TODO: Get the actual ID from here
-        Assertions.assertTrue(joinHandler.join(params, authToken));
+        ArrayList<GameStorage> games = listHandler.list(listParams, authToken);
+        Assertions.assertNotNull(games);
+        String[] whiteParams = {"0", "WHITE"};
+        ArrayList<Integer> gameIDs = new ArrayList<>();
+        for (GameStorage game : games) gameIDs.add(game.getGameID());
+        Assertions.assertTrue(joinHandler.join(whiteParams, authToken, gameIDs));
+        String[] blackParams = {"0", "BLACK"};
+        Assertions.assertTrue(joinHandler.join(blackParams, authToken, gameIDs));
         Assertions.assertNotNull(listHandler.list(listParams, authToken));
     }
 

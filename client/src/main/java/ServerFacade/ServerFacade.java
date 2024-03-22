@@ -1,6 +1,5 @@
 package ServerFacade;
 
-import handler.*;
 import ui.Client;
 import ui.EscapeSequences;
 
@@ -8,12 +7,7 @@ public class ServerFacade {
     private final PreLoginUI preLoginUI;
 
     public ServerFacade() {
-        UIRegisterHandler registerHandler = new UIRegisterHandler();
-        UILoginHandler loginHandler = new UILoginHandler();
-        UILogoutHandler logoutHandler = new UILogoutHandler();
-        UICreateHandler createHandler = new UICreateHandler();
-        UIListHandler listHandler = new UIListHandler();
-        preLoginUI = new PreLoginUI(registerHandler, loginHandler, logoutHandler, createHandler, listHandler);
+        preLoginUI = new PreLoginUI();
     }
 
     /** Starts the game. For use by a Client class. */
