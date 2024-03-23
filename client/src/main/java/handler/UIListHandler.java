@@ -36,8 +36,8 @@ public class UIListHandler extends UIHandler {
             else {
                 try (InputStream responseBody = connection.getErrorStream()) {
                     InputStreamReader reader = new InputStreamReader(responseBody);
-                    Map<String, ArrayList<String>> response = new Gson().fromJson(reader, Map.class);
-                    for (ArrayList<String> error : response.values()) {
+                    Map<String, String> response = new Gson().fromJson(reader, Map.class);
+                    for (String error : response.values()) {
                         System.out.println("Error = " + error);
                     }
                     return null;

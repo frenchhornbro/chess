@@ -86,7 +86,7 @@ public class ServerFacadeTests {
     @Test
     public void loginPositive() {
         logoutPositive();
-        String[] params = {"mySuperRandomUsername","mySuperR4ndomPwd"};
+        String[] params = {"mySuperCoolUsername","mySuperR4ndomPwd"};
         Assertions.assertNotNull(loginHandler.login(params));
     }
 
@@ -113,6 +113,7 @@ public class ServerFacadeTests {
 
     @Test
     public void listPositive() {
+        // List outputs the contents of the three games
         String authToken = registrationSetup();
         String[] params = {"newGame2"};
         Assertions.assertTrue(createHandler.create(params, authToken));
@@ -126,11 +127,14 @@ public class ServerFacadeTests {
 
     @Test
     public void listNegative() {
-        Assertions.fail();
+        // Bad authToken prevents listing
+        String[] listParams = {};
+        Assertions.assertNull(listHandler.list(listParams, "phonyAuthToken"));
     }
 
     @Test
     public void joinPositive() {
+        // Standard join
         String authToken = registrationSetup();
         String[] gameParams = {"newGame"};
         Assertions.assertTrue(createHandler.create(gameParams, authToken));
@@ -148,7 +152,16 @@ public class ServerFacadeTests {
 
     @Test
     public void joinNegative() {
-        Assertions.fail();
+        //Joining a nonexistent gameID
+        String authToken = registrationSetup();
+        String[] gameParams = {"newGame"};
+        Assertions.assertTrue(createHandler.create(gameParams, authToken));
+        String[] listParams = {};
+        ArrayList<GameStorage> games = listHandler.list(listParams, authToken);
+        ArrayList<Integer> gameIDs = new ArrayList<>();
+        for (GameStorage game : games) gameIDs.add(game.getGameID());
+        String[] joinParams = {"123", "WHITE"};
+        Assertions.assertFalse(joinHandler.join(joinParams, authToken, gameIDs, false));
     }
 
     @Test

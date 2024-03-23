@@ -50,7 +50,7 @@ public class PostLoginUI {
                 case ("exit"):
                 case ("quit"):
                     System.out.println("Exiting...");
-                    client.setAuthToken(null); //TODO: Should this be here?
+                    client.setAuthToken(null);
                     return true;
                 case ("logout"):
                     if (logoutHandler.logout(params, client.getAuthToken())) {
@@ -78,7 +78,7 @@ public class PostLoginUI {
                         client.setGameIDs(gameIDs);
                         for (int i = 0; i < games.size(); i++) {
                             GameStorage game = games.get(i);
-                            System.out.print("Game: " + i + "\t"); //TODO: Set this at 1 and read from 1 eventually
+                            System.out.print("Game: " + i + "\t");
                             System.out.print("Name: " + game.getGameName() + "\t");
                             System.out.print("White: " + game.getWhiteUsername() + "\t");
                             System.out.println("Black: " + game.getBlackUsername());
@@ -110,4 +110,3 @@ public class PostLoginUI {
         return line.split(" ");
     }
 }
-//TODO: At some point change the to_String of the chessBoard to be the actual chessboard? Maybe not in this class though.

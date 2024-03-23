@@ -50,7 +50,6 @@ public class UIHandler {
             for (int i = 0; i < fields.length; i++) {
                 bodyVars.put(fields[i], params[i]);
             }
-            //TODO: Double check this doesn't break everything else
             try (OutputStream outputStream = http.getOutputStream()) {
                 var jsonBody = new Gson().toJson(bodyVars);
                 outputStream.write(jsonBody.getBytes());
@@ -62,7 +61,6 @@ public class UIHandler {
     }
 
     protected void printError(String errorMsg) {
-        //TODO: Do we want to be printing the errorCodes to the users?
         String printStr = "Error";
         String testStr = "Server returned HTTP response code: ";
         String[] errorCodes = {"400", "401", "403", "500"};
