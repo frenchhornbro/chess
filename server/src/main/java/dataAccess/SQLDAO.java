@@ -1,11 +1,11 @@
 package dataAccess;
 
 import chess.ChessGame;
+import chess.ChessPiece;
 
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import static java.sql.Types.NULL;
 
 public class SQLDAO {
@@ -136,6 +136,8 @@ public class SQLDAO {
                         case String p -> prepState.setString(i + 1, p);
                         case Integer p -> prepState.setInt(i + 1, p);
                         case ChessGame p -> prepState.setString(i + 1, p.toString());
+                        case ChessGame.TeamColor p -> prepState.setString(i + 1, p.toString());
+                        case ChessPiece.PieceType p -> prepState.setString(i + 1, p.toString());
                         case null, default -> prepState.setNull(i + 1, NULL);
                     }
                 }

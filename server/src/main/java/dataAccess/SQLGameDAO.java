@@ -60,7 +60,6 @@ public class SQLGameDAO extends SQLDAO {
         catch (Exception ex) {
             throw new DataAccessException(ex.getMessage());
         }
-
     }
 
     public boolean gameIsNull (int gameID) throws DataAccessException {
@@ -143,7 +142,6 @@ public class SQLGameDAO extends SQLDAO {
                 String playerColorStr = queryDB(playerColorStatement, gameID, i, j);
                 String pieceTypeStr = queryDB(pieceTypeStatement, gameID, i, j);
                 if (playerColorStr != null && pieceTypeStr != null) {
-                    System.out.println("Color: " + playerColorStr + "\tType: " + pieceTypeStr);
                     ChessGame.TeamColor playerColor =
                             (playerColorStr.equals("WHITE")) ? ChessGame.TeamColor.WHITE: ChessGame.TeamColor.BLACK;
                     ChessPiece.PieceType pieceType = switch (pieceTypeStr) {

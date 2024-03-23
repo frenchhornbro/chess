@@ -64,8 +64,9 @@ public class PostLoginUI {
                 case ("create"):
                     if (createHandler.create(params, client.getAuthToken())) {
                         StringBuilder gameName = new StringBuilder();
-                        for (String word : params) {
-                            gameName.append(word);
+                        for (int i = 0; i < params.length; i++) {
+                            gameName.append(params[i]);
+                            if (i != params.length-1) gameName.append(" ");
                         }
                         System.out.println("New game created: " + gameName);
                     }
@@ -87,13 +88,14 @@ public class PostLoginUI {
                     }
                     break;
                 case ("join"):
-                    if (joinHandler.join(params, client.getAuthToken(), client.getGameIDs())) {
+                    if (joinHandler.join(params, client.getAuthToken(), client.getGameIDs(), false)) {
                         this.gameplayUI.goToGameplayUI(params[0], client.getGameIDs());
                     }
                     break;
                 case ("observe"):
-                    System.out.println("Need to do");
-                    //TODO: ^^^ Observe
+                    if (joinHandler.join(params, client.getAuthToken(), client.getGameIDs(), true)) {
+                        this.gameplayUI.goToGameplayUI(params[0], client.getGameIDs());
+                    }
                     break;
                 default:
                     System.out.println("\033[31mInvalid command:\033[39m " + input);

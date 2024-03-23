@@ -43,17 +43,6 @@ public class ServerFacadeTests {
         server.stop();
     }
 
-
-    @Test
-    public void startPositive() {
-        Assertions.fail();
-    }
-
-    @Test
-    public void startNegative() {
-        Assertions.fail();
-    }
-
     @Test
     public void clearPositive() {
         Assertions.assertTrue(registerHandler.clearData());
@@ -151,9 +140,9 @@ public class ServerFacadeTests {
         String[] whiteParams = {"0", "WHITE"};
         ArrayList<Integer> gameIDs = new ArrayList<>();
         for (GameStorage game : games) gameIDs.add(game.getGameID());
-        Assertions.assertTrue(joinHandler.join(whiteParams, authToken, gameIDs));
+        Assertions.assertTrue(joinHandler.join(whiteParams, authToken, gameIDs, false));
         String[] blackParams = {"0", "BLACK"};
-        Assertions.assertTrue(joinHandler.join(blackParams, authToken, gameIDs));
+        Assertions.assertTrue(joinHandler.join(blackParams, authToken, gameIDs, false));
         Assertions.assertNotNull(listHandler.list(listParams, authToken));
     }
 
