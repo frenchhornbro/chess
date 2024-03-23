@@ -1,9 +1,11 @@
 package clientTests;
 
+import chess.ChessBoard;
 import dataStorage.GameStorage;
 import handler.*;
 import org.junit.jupiter.api.*;
 import server.Server;
+import ui.GameplayDrawer;
 
 import java.util.ArrayList;
 
@@ -158,6 +160,20 @@ public class ServerFacadeTests {
     @Test
     public void joinNegative() {
         Assertions.fail();
+    }
+
+    @Test
+    public void drawPositive() {
+        //Draw a filled board
+        ChessBoard board = new ChessBoard(true);
+        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(board));
+    }
+
+    @Test
+    public void drawNegative() {
+        //Draw a blank board
+        ChessBoard board = new ChessBoard();
+        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(board));
     }
 
     private String registrationSetup() {

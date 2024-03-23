@@ -13,12 +13,14 @@ public class PostLoginUI {
     private final UICreateHandler createHandler;
     private final UIListHandler listHandler;
     private final UIJoinHandler joinHandler;
+    private final GameplayUI gameplayUI;
 
     public PostLoginUI() {
         this.logoutHandler = new UILogoutHandler();
         this.createHandler = new UICreateHandler();
         this.listHandler = new UIListHandler();
         this.joinHandler = new UIJoinHandler();
+        this.gameplayUI = new GameplayUI();
     }
 
     /** Runs the Logged In UI. Returns true if it wants to fully quit and false otherwise.*/
@@ -31,7 +33,6 @@ public class PostLoginUI {
             input = commands[0];
             String[] params = new String[commands.length - 1];
             System.arraycopy(commands, 1, params, 0, commands.length - 1);
-            //TODO: Figure out what do to if the client leaves here? Do we close their session in this phase? Maybe just call quit.
             switch(input.toLowerCase()) {
                 case ("help"):
                     if (commands.length > 1) {
@@ -86,11 +87,13 @@ public class PostLoginUI {
                     }
                     break;
                 case ("join"):
-                    joinHandler.join(params, client.getAuthToken(), client.getGameIDs());
-                    //TODO: If this ^^^ is true, go to Gameplay UI
+                    if (joinHandler.join(params, client.getAuthToken(), client.getGameIDs())) {
+                        this.gameplayUI.goToGameplayUI(params[0], client.getGameIDs());
+                    }
                     break;
                 case ("observe"):
                     System.out.println("Need to do");
+                    //TODO: ^^^ Observe
                     break;
                 default:
                     System.out.println("\033[31mInvalid command:\033[39m " + input);

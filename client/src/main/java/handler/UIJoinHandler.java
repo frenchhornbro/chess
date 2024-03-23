@@ -49,6 +49,8 @@ public class UIJoinHandler extends UIHandler {
             HttpURLConnection http = prepareRequest("/game", "PUT",
                     "authorization", authToken, titles, params);
 
+            params[0] = gameID;
+
             //Process request
             try (InputStream response = http.getInputStream()) {
                 return true;
@@ -61,7 +63,7 @@ public class UIJoinHandler extends UIHandler {
         }
     }
 
-    private String convertID(String displayID, ArrayList<Integer> storageIDs) {
+    public static String convertID(String displayID, ArrayList<Integer> storageIDs) {
         return storageIDs.get(Integer.parseInt(displayID)).toString();
     }
 }

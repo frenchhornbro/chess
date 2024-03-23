@@ -24,6 +24,10 @@ public class ChessBoard {
         if (newGame) resetBoard();
     }
 
+    public ChessBoard(ChessPiece[][] inputtedBoard) {
+        squares = inputtedBoard;
+    }
+
     /**
      * Adds a chess piece to the chessboard
      *

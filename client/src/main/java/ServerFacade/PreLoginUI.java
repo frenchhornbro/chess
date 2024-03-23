@@ -18,7 +18,7 @@ public class PreLoginUI {
     }
 
     /** Runs the Logged Out UI. */
-    protected void goToPreLogin(Client client) {
+    public void goToPreLogin(Client client) {
         printPreLoginUI();
 
         String input = "";

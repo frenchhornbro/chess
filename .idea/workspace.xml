@@ -4,16 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 5 - Logged In UI: Fixed create">
-      <change afterPath="$PROJECT_DIR$/client/src/main/java/handler/UIJoinHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/main/java/handler/UIListHandler.java" afterDir="false" />
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 5 - Logged In UI: Implemented Join">
+      <change afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/GameplayUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/client/src/main/java/ui/GameplayDrawer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PostLoginUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PostLoginUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PreLoginUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PreLoginUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/ServerFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/ServerFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/handler/UIHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/handler/UIHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/handler/UIJoinHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/handler/UIJoinHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/EscapeSequences.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/EscapeSequences.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/test/java/clientTests/ServerFacadeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/test/java/clientTests/ServerFacadeTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/CreateGameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/CreateGameHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/GameDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/GameDAOTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,10 +118,13 @@
     "JUnit.EnPassantTests.executor": "Debug",
     "JUnit.GameDAOTests.createGameFailure.executor": "Debug",
     "JUnit.GameDAOTests.createGameNegative.executor": "Run",
+    "JUnit.GameDAOTests.createGamePositive.executor": "Run",
     "JUnit.GameDAOTests.createGameSuccess.executor": "Run",
     "JUnit.GameDAOTests.executor": "Run",
     "JUnit.GameDAOTests.gameIsNullFailure.executor": "Run",
     "JUnit.GameDAOTests.gameIsNullSuccess.executor": "Run",
+    "JUnit.GameDAOTests.getBoardNegative.executor": "Run",
+    "JUnit.GameDAOTests.getBoardPositive.executor": "Run",
     "JUnit.GameDAOTests.getGamesNegative.executor": "Run",
     "JUnit.GameDAOTests.getGamesSuccess.executor": "Run",
     "JUnit.GameDAOTests.sqlGameClearPositive.executor": "Run",
@@ -157,8 +163,11 @@
     "JUnit.ServerFacadeTests.clearPositive.executor": "Run",
     "JUnit.ServerFacadeTests.createNegative.executor": "Run",
     "JUnit.ServerFacadeTests.createPositive.executor": "Run",
+    "JUnit.ServerFacadeTests.drawNegative.executor": "Run",
+    "JUnit.ServerFacadeTests.drawPositive.executor": "Run",
     "JUnit.ServerFacadeTests.executor": "Run",
-    "JUnit.ServerFacadeTests.listPositive.executor": "Debug",
+    "JUnit.ServerFacadeTests.joinPositive.executor": "Run",
+    "JUnit.ServerFacadeTests.listPositive.executor": "Run",
     "JUnit.ServerFacadeTests.loginNegative.executor": "Run",
     "JUnit.ServerFacadeTests.loginPositive.executor": "Run",
     "JUnit.ServerFacadeTests.logoutNegative.executor": "Run",
@@ -236,7 +245,7 @@
       <command value="git add ." />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ServerFacadeTests.createPositive">
+  <component name="RunManager" selected="JUnit.ServerFacadeTests.drawPositive">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ui.Client" />
       <module name="client" />
@@ -250,39 +259,39 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerFacadeTests.createNegative" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="client" />
+    <configuration name="GameDAOTests.getBoardNegative" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="clientTests.*" />
+          <option name="PATTERN" value="dataAccessTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="clientTests" />
-      <option name="MAIN_CLASS_NAME" value="clientTests.ServerFacadeTests" />
-      <option name="METHOD_NAME" value="createNegative" />
+      <option name="PACKAGE_NAME" value="dataAccessTests" />
+      <option name="MAIN_CLASS_NAME" value="dataAccessTests.GameDAOTests" />
+      <option name="METHOD_NAME" value="getBoardNegative" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerFacadeTests.createPositive" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="client" />
+    <configuration name="GameDAOTests.getBoardPositive" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="clientTests.*" />
+          <option name="PATTERN" value="dataAccessTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="clientTests" />
-      <option name="MAIN_CLASS_NAME" value="clientTests.ServerFacadeTests" />
-      <option name="METHOD_NAME" value="createPositive" />
+      <option name="PACKAGE_NAME" value="dataAccessTests" />
+      <option name="MAIN_CLASS_NAME" value="dataAccessTests.GameDAOTests" />
+      <option name="METHOD_NAME" value="getBoardPositive" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerFacadeTests.listPositive" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ServerFacadeTests.drawNegative" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="client" />
       <extension name="coverage">
         <pattern>
@@ -292,13 +301,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="clientTests" />
       <option name="MAIN_CLASS_NAME" value="clientTests.ServerFacadeTests" />
-      <option name="METHOD_NAME" value="listPositive" />
+      <option name="METHOD_NAME" value="drawNegative" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerFacadeTests.loginNegative" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ServerFacadeTests.drawPositive" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="client" />
       <extension name="coverage">
         <pattern>
@@ -308,7 +317,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="clientTests" />
       <option name="MAIN_CLASS_NAME" value="clientTests.ServerFacadeTests" />
-      <option name="METHOD_NAME" value="loginNegative" />
+      <option name="METHOD_NAME" value="drawPositive" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -316,11 +325,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ServerFacadeTests.createPositive" />
-        <item itemvalue="JUnit.ServerFacadeTests.listPositive" />
+        <item itemvalue="JUnit.ServerFacadeTests.drawPositive" />
+        <item itemvalue="JUnit.ServerFacadeTests.drawNegative" />
         <item itemvalue="Application.Client" />
-        <item itemvalue="JUnit.ServerFacadeTests.createNegative" />
-        <item itemvalue="JUnit.ServerFacadeTests.loginNegative" />
+        <item itemvalue="JUnit.GameDAOTests.getBoardPositive" />
+        <item itemvalue="JUnit.GameDAOTests.getBoardNegative" />
       </list>
     </recent_temporary>
   </component>
@@ -339,30 +348,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702756436549</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Code passes all KnightMovesTests">
-      <option name="closed" value="true" />
-      <created>1705989758775</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1705989758775</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Code matches desired output of PawnMoveTests but still does not pass">
-      <option name="closed" value="true" />
-      <created>1706064582390</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1706064582390</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Code passes all PawnMoveTests">
-      <option name="closed" value="true" />
-      <created>1706066802960</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1706066802960</updated>
     </task>
     <task id="LOCAL-00014" summary="Code passes all test for Phase 0">
       <option name="closed" value="true" />
@@ -732,7 +717,31 @@
       <option name="project" value="LOCAL" />
       <updated>1711095620963</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Phase 5 - Logged In UI: Partially implemented list">
+      <option name="closed" value="true" />
+      <created>1711141266620</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1711141266620</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Phase 5 - Logged In UI: Implemented List">
+      <option name="closed" value="true" />
+      <created>1711145559538</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1711145559538</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Phase 5 - Logged In UI: Implemented Join">
+      <option name="closed" value="true" />
+      <created>1711148316149</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1711148316149</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -748,9 +757,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Phase 3 - passed test 9-12" />
-    <MESSAGE value="Phase 3 - passed test 5" />
-    <MESSAGE value="Phase 3 - Passed all tests" />
     <MESSAGE value="Phase 3 - All unit tests passed" />
     <MESSAGE value="Phase 3 - Code cleanup" />
     <MESSAGE value="Phase 3 - Matched naming convention" />
@@ -773,7 +779,10 @@
     <MESSAGE value="Phase 5 - Logged In UI: Refactored all files into separate classes" />
     <MESSAGE value="Phase 5 - Logged In UI: Implemented create" />
     <MESSAGE value="Phase 5 - Logged In UI: Fixed create" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 5 - Logged In UI: Fixed create" />
+    <MESSAGE value="Phase 5 - Logged In UI: Partially implemented list" />
+    <MESSAGE value="Phase 5 - Logged In UI: Implemented List" />
+    <MESSAGE value="Phase 5 - Logged In UI: Implemented Join" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 5 - Logged In UI: Implemented Join" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

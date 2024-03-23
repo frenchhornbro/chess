@@ -59,8 +59,11 @@ public class SQLDAO {
             """,
             """
             CREATE TABLE IF NOT EXISTS chessBoard(
-                gameID INTEGER NOT NULL PRIMARY KEY,
-                board TEXT NOT NULL
+                gameID INTEGER NOT NULL,
+                rowNum INTEGER NOT NULL,
+                colNum INTEGER NOT NULL,
+                playerColor CHAR(5),
+                pieceType CHAR(6)
             );
             """
     };

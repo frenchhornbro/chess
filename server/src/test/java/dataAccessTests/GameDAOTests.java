@@ -65,11 +65,6 @@ public class GameDAOTests extends DAOTests {
         Assertions.assertEquals(Integer.toString(0), performQuery(testStatement, gameIDString));
         testStatement = "select bKingMoved from chessGame where gameID=?";
         Assertions.assertEquals(Integer.toString(0), performQuery(testStatement, gameIDString));
-
-        //Test that the ChessBoard is stored correctly
-        String boardString = testBoard.toString();
-        testStatement = "select board from chessBoard where gameID=?";
-        Assertions.assertEquals(boardString, performQuery(testStatement, gameIDString));
     }
 
     @Test
@@ -153,6 +148,21 @@ public class GameDAOTests extends DAOTests {
     public void getGamesNegative() throws Exception {
         //When no games are added, a blank array is returned
         Assertions.assertEquals("{}", sqlGameDAO.getGames().toString());
+    }
+
+    @Test
+    public void getBoardPositive() throws Exception {
+        //A returned game is not null
+        String gameName = "myGame";
+        int gameID = sqlGameDAO.createGame(gameName);
+        Assertions.assertNotNull(sqlGameDAO.getBoard(gameID));
+    }
+
+    @Test
+    public void getBoardNegative() throws Exception {
+        //A returned game for a false gameID has no attributes
+        int gameID = 12345;
+        Assertions.assertEquals("", sqlGameDAO.getBoard(gameID).toString());
     }
 
     @Test

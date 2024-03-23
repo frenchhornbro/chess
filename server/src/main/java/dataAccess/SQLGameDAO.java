@@ -2,10 +2,14 @@ package dataAccess;
 
 import chess.ChessBoard;
 import chess.ChessGame;
+import chess.ChessPiece;
+import chess.ChessPosition;
 import dataStorage.GameStorage;
 import dataStorage.GamesStorage;
 
 import java.util.ArrayList;
+
+import static chess.ChessBoard.BOARDSIZE;
 
 public class SQLGameDAO extends SQLDAO {
 
@@ -40,8 +44,16 @@ public class SQLGameDAO extends SQLDAO {
                 chessGame.getWKingRookMoved(), chessGame.getWQueenRookMoved(), chessGame.getWKingMoved(),
                 chessGame.getBKingRookMoved(), chessGame.getBQueenRookMoved(), chessGame.getBKingMoved()
                 );
-            String createBoardStatement = "INSERT INTO chessBoard (gameID, board) VALUES (?, ?)";
-            updateDB(createBoardStatement, gameID, chessBoard.toString());
+            for (int i = 0; i < BOARDSIZE; i++) {
+                for (int j = 0; j < BOARDSIZE; j++) {
+                    ChessPiece thisPiece = chessBoard.getPiece(new ChessPosition(i+1, j+1));
+                    ChessGame.TeamColor teamColor = (thisPiece == null) ? null : thisPiece.getTeamColor();
+                    ChessPiece.PieceType pieceType = (thisPiece == null) ? null : thisPiece.getPieceType();
+                    String createBoardStatement =
+                            "INSERT INTO chessBoard (gameID, rowNum, colNum, playerColor, pieceType) VALUES (?, ?, ?, ?, ?)";
+                    updateDB(createBoardStatement, gameID, i, j, teamColor, pieceType);
+                }
+            }
 
             return gameID;
         }
@@ -121,6 +133,34 @@ public class SQLGameDAO extends SQLDAO {
         }
 
     }
+
+    public ChessBoard getBoard(int gameID) throws Exception {
+        String playerColorStatement = "SELECT playerColor from chessBoard WHERE gameID=? AND rowNum=? AND colNum=?";
+        String pieceTypeStatement = "SELECT pieceType from chessBoard WHERE gameID=? AND rowNum=? AND colNum=?";
+        ChessPiece[][] squares = new ChessPiece[BOARDSIZE][BOARDSIZE];
+        for (int i = 0; i < BOARDSIZE; i++) {
+            for (int j = 0; j < BOARDSIZE; j++) {
+                String playerColorStr = queryDB(playerColorStatement, gameID, i, j);
+                String pieceTypeStr = queryDB(pieceTypeStatement, gameID, i, j);
+                if (playerColorStr != null && pieceTypeStr != null) {
+                    System.out.println("Color: " + playerColorStr + "\tType: " + pieceTypeStr);
+                    ChessGame.TeamColor playerColor =
+                            (playerColorStr.equals("WHITE")) ? ChessGame.TeamColor.WHITE: ChessGame.TeamColor.BLACK;
+                    ChessPiece.PieceType pieceType = switch (pieceTypeStr) {
+                        case "KING" -> ChessPiece.PieceType.KING;
+                        case "QUEEN" -> ChessPiece.PieceType.QUEEN;
+                        case "ROOK" -> ChessPiece.PieceType.ROOK;
+                        case "BISHOP" -> ChessPiece.PieceType.BISHOP;
+                        case "KNIGHT" -> ChessPiece.PieceType.KNIGHT;
+                        default -> ChessPiece.PieceType.PAWN;
+                    };
+                    squares[i][j] = new ChessPiece(playerColor, pieceType);
+                }
+            }
+        }
+        return new ChessBoard(squares);
+    }
+
     public void clear() throws Exception {
         String clearStatement = "DELETE FROM gameData";
         updateDB(clearStatement);
