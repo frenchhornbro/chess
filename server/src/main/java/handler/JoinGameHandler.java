@@ -16,7 +16,8 @@ public class JoinGameHandler {
             String authToken = request.headers("authorization");
             String playerColor = "";
             if (input.get("playerColor") != null) playerColor = input.get("playerColor").toString();
-            int gameID = (int) Math.floor((double) input.get("gameID"));
+            int gameID = (int) Math.round((double) input.get("gameID"));
+
             JoinGameService joinGameService = new JoinGameService();
             joinGameService.joinGame(authToken, playerColor, gameID);
 

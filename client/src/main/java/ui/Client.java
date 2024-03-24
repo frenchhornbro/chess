@@ -18,7 +18,7 @@ public class Client {
         Server server = new Server();
         int port = 8080;
         server.run(port);
-        ServerFacade serverFacade = new ServerFacade();
+        ServerFacade serverFacade = new ServerFacade(false, new ArrayList<>());
         Client client = new Client();
 
         //Display UIs

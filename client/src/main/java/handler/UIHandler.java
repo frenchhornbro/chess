@@ -2,12 +2,12 @@ package handler;
 
 import com.google.gson.Gson;
 import ui.EscapeSequences;
-
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UIHandler {
@@ -29,8 +29,8 @@ public class UIHandler {
         }
     }
 
-    protected HttpURLConnection prepareRequest(String slug, String requestMethod, String headerName, String headerValue,
-                                            String[] fields, String[] params) throws Exception {
+    protected <T> HttpURLConnection prepareRequest(String slug, String requestMethod, String headerName, String headerValue,
+                                            ArrayList<String> fields, ArrayList<T> params) throws Exception {
         URI uri = new URI("http://localhost:8080" + slug);
         URL url = uri.toURL();
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
@@ -44,11 +44,11 @@ public class UIHandler {
         if (headerName != null) http.addRequestProperty(headerName, headerValue);
 
         //Body
-        if (fields != null && params != null && fields.length != 0 && params.length != 0) {
-            if (fields.length != params.length) throw new Exception("Error: Fields and params were of different length");
-            HashMap<String, String> bodyVars = new HashMap<>();
-            for (int i = 0; i < fields.length; i++) {
-                bodyVars.put(fields[i], params[i]);
+        if (fields != null && params != null && !fields.isEmpty() && !params.isEmpty()) {
+            if (fields.size() != params.size()) throw new Exception("Error: Fields and params were of different length");
+            HashMap<String, T> bodyVars = new HashMap<>();
+            for (int i = 0; i < fields.size(); i++) {
+                bodyVars.put(fields.get(i), params.get(i));
             }
             try (OutputStream outputStream = http.getOutputStream()) {
                 var jsonBody = new Gson().toJson(bodyVars);

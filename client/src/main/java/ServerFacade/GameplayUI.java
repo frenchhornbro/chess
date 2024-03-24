@@ -8,10 +8,10 @@ import java.util.ArrayList;
 
 public class GameplayUI {
     public void goToGameplayUI(String gameID, ArrayList<Integer> storageIDs) {
-        gameID = UIJoinHandler.convertID(gameID, storageIDs);
+        int storageGameId = UIJoinHandler.convertID(gameID, storageIDs);
         try {
             SQLGameDAO sqlGameDAO = new SQLGameDAO();
-            ChessBoard board = sqlGameDAO.getBoard(Integer.parseInt(gameID));
+            ChessBoard board = sqlGameDAO.getBoard(storageGameId);
             GameplayDrawer.draw(board);
         }
         catch (Exception ex) {

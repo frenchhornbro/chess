@@ -4,7 +4,6 @@ import dataStorage.GameStorage;
 import handler.*;
 import ui.Client;
 import java.util.ArrayList;
-import java.util.Scanner;
 import static ui.PrintHelper.*;
 import static ui.PrintHelper.printPreLoginUI;
 
@@ -29,13 +28,13 @@ public class PostLoginUI {
         String input = "";
         while (!input.equalsIgnoreCase("logout")) {
             System.out.print("> ");
-            String[] commands = getCommands();
-            input = commands[0];
-            String[] params = new String[commands.length - 1];
-            System.arraycopy(commands, 1, params, 0, commands.length - 1);
+            ArrayList<String> commands = PreLoginUI.getCommands();
+            input = commands.getFirst();
+            ArrayList<String> params = new ArrayList<>(commands);
+            params.removeFirst();
             switch(input.toLowerCase()) {
                 case ("help"):
-                    if (commands.length > 1) {
+                    if (commands.size() > 1) {
                         System.out.println("\033[32mhelp\033[39m cannot receive parameters");
                         break;
                     }
@@ -64,9 +63,9 @@ public class PostLoginUI {
                 case ("create"):
                     if (createHandler.create(params, client.getAuthToken())) {
                         StringBuilder gameName = new StringBuilder();
-                        for (int i = 0; i < params.length; i++) {
-                            gameName.append(params[i]);
-                            if (i != params.length-1) gameName.append(" ");
+                        for (int i = 0; i < params.size(); i++) {
+                            gameName.append(params.get(i));
+                            if (i != params.size()-1) gameName.append(" ");
                         }
                         System.out.println("New game created: " + gameName);
                     }
@@ -89,12 +88,12 @@ public class PostLoginUI {
                     break;
                 case ("join"):
                     if (joinHandler.join(params, client.getAuthToken(), client.getGameIDs(), false)) {
-                        this.gameplayUI.goToGameplayUI(params[0], client.getGameIDs());
+                        this.gameplayUI.goToGameplayUI(params.getFirst(), client.getGameIDs());
                     }
                     break;
                 case ("observe"):
                     if (joinHandler.join(params, client.getAuthToken(), client.getGameIDs(), true)) {
-                        this.gameplayUI.goToGameplayUI(params[0], client.getGameIDs());
+                        this.gameplayUI.goToGameplayUI(params.getFirst(), client.getGameIDs());
                     }
                     break;
                 default:
@@ -102,11 +101,5 @@ public class PostLoginUI {
             }
         }
         return false;
-    }
-
-    public static String[] getCommands() {
-        Scanner scanner = new Scanner(System.in);
-        String line = scanner.nextLine();
-        return line.split(" ");
     }
 }

@@ -5,13 +5,15 @@ import ui.PrintHelper;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class UICreateHandler extends UIHandler {
 
     /** Create and process an HTTP request to create a new game. Returns false if an error occurs */
-    public boolean create(String[] params, String authToken) {
-        if (params.length < 1) {
+    public boolean create(ArrayList<String> params, String authToken) {
+        if (params.isEmpty()) {
             System.out.println("Incorrect number of parameters");
             PrintHelper.printCreate();
             return false;
@@ -22,13 +24,13 @@ public class UICreateHandler extends UIHandler {
         }
         try {
             //Parameters
-            String[] titles = {"gameName"};
+            ArrayList<String> titles = new ArrayList<>(List.of("gameName"));
             StringBuilder gameNamePrepper = new StringBuilder();
-            for (int i = 0; i < params.length; i++) {
-                gameNamePrepper.append(params[i]);
-                if (i != params.length - 1) gameNamePrepper.append(" ");
+            for (int i = 0; i < params.size(); i++) {
+                gameNamePrepper.append(params.get(i));
+                if (i != params.size() - 1) gameNamePrepper.append(" ");
             }
-            String[] gameName = {gameNamePrepper.toString()};
+            ArrayList<String> gameName = new ArrayList<>(List.of(gameNamePrepper.toString()));
 
             //Prepare request
             HttpURLConnection http = prepareRequest("/game", "POST",

@@ -2,6 +2,8 @@ package ServerFacade;
 
 import handler.*;
 import ui.Client;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import static ui.PrintHelper.*;
@@ -10,10 +12,14 @@ public class PreLoginUI {
     private final PostLoginUI postLoginUI;
     private final UIRegisterHandler registerHandler;
     private final UILoginHandler loginHandler;
+    private final boolean testEnv;
+    private final ArrayList<ArrayList<String>> testCommands;
 
-    public PreLoginUI() {
+    public PreLoginUI(boolean testEnv, ArrayList<ArrayList<String>> testCommands) {
         this.registerHandler = new UIRegisterHandler();
         this.loginHandler = new UILoginHandler();
+        this.testEnv = testEnv;
+        this.testCommands = testCommands;
         postLoginUI = new PostLoginUI();
     }
 
@@ -24,13 +30,13 @@ public class PreLoginUI {
         String input = "";
         while (!input.equalsIgnoreCase("quit")) {
             System.out.print("> ");
-            String[] commands = getCommands();
-            input = commands[0];
-            String[] params = new String[commands.length - 1];
-            System.arraycopy(commands, 1, params, 0, commands.length - 1);
+            ArrayList<String> commands = (testEnv) ? testCommands.getFirst() : getCommands();
+            input = commands.getFirst();
+            ArrayList<String> params = new ArrayList<>(commands);
+            params.removeFirst();
             switch (input.toLowerCase()) {
                 case ("help"):
-                    if (commands.length > 1) {
+                    if (commands.size() > 1) {
                         System.out.println("\033[32mhelp\033[39m cannot receive parameters");
                         break;
                     }
@@ -65,12 +71,17 @@ public class PreLoginUI {
                 default:
                     System.out.println("\033[31mInvalid command:\033[39m " + input);
             }
+            if (testEnv){
+                if (!testCommands.isEmpty()) testCommands.removeFirst();
+                else input = "quit";
+            }
         }
     }
 
-    public static String[] getCommands() {
+    public static ArrayList<String> getCommands() {
         Scanner scanner = new Scanner(System.in);
         String line = scanner.nextLine();
-        return line.split(" ");
+        String[] strArr = line.split(" ");
+        return new ArrayList<>(Arrays.asList(strArr));
     }
 }

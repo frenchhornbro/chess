@@ -5,13 +5,14 @@ import ui.PrintHelper;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.Map;
 
 public class UILogoutHandler extends UIHandler {
 
     /** Create and process an HTTP request to log out a user */
-    public boolean logout(String[] params, String authToken) {
-        if (params.length > 0) {
+    public boolean logout(ArrayList<String> params, String authToken) {
+        if (!params.isEmpty()) {
             System.out.println("Incorrect number of parameters");
             PrintHelper.printLogout();
             return false;
@@ -22,7 +23,7 @@ public class UILogoutHandler extends UIHandler {
         }
         try {
             //Prepare request
-            String[] blankBody = {};
+            ArrayList<String> blankBody = new ArrayList<>();
             HttpURLConnection http = prepareRequest("/session", "DELETE", "authorization",
                                                     authToken, blankBody, blankBody);
 
