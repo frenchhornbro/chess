@@ -47,6 +47,7 @@ public class PostLoginUI {
                     printJoin();
                     printObserve();
                     printLogout();
+                    printClear();
                     printQuit();
                     printHelp();
                     break;
@@ -99,6 +100,13 @@ public class PostLoginUI {
                     if (joinHandler.join(port, params, client.getAuthToken(), client.getGameIDs(), true)) {
                         this.gameplayUI.goToGameplayUI(params.getFirst(), client.getGameIDs());
                     }
+                    break;
+                case ("clear"):
+                    if (commands.size() > 1) {
+                        System.out.println("\033[32mclear\033[39m cannot receive parameters");
+                        break;
+                    }
+                    logoutHandler.clearScreen();
                     break;
                 default:
                     System.out.println("\033[31mInvalid command:\033[39m " + input);

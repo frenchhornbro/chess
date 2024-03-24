@@ -44,6 +44,7 @@ public class PreLoginUI {
                     }
                     printRegister();
                     printLogin();
+                    printClear();
                     printQuit();
                     printHelp();
                     break;
@@ -68,6 +69,10 @@ public class PreLoginUI {
                     break;
                 }
                 case ("clear"):
+                    if (commands.size() > 1) {
+                        System.out.println("\033[clear\033[39m cannot receive parameters");
+                        break;
+                    }
                     registerHandler.clearScreen();
                     break;
                 default:

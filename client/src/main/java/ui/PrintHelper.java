@@ -22,6 +22,10 @@ public class PrintHelper {
         System.out.println("\033[32mhelp\033[39m - display possible commands");
     }
 
+    public static void printClear() {
+        System.out.println("\033[32mclear\033[39m - clear the screen");
+    }
+
     public static void printCreate() {
         System.out.println("\033[32mcreate\033[39m \033[31m<GAMENAME>\033[39m - create a new game");
     }
