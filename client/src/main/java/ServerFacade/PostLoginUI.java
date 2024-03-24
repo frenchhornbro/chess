@@ -1,8 +1,12 @@
 package ServerFacade;
 
 import dataStorage.GameStorage;
-import handler.*;
 import ui.Client;
+import uiHandler.UICreateHandler;
+import uiHandler.UIJoinHandler;
+import uiHandler.UIListHandler;
+import uiHandler.UILogoutHandler;
+
 import java.util.ArrayList;
 import static ui.PrintHelper.*;
 import static ui.PrintHelper.printPreLoginUI;

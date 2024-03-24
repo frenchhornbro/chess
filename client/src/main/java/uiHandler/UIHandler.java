@@ -1,4 +1,4 @@
-package handler;
+package uiHandler;
 
 import com.google.gson.Gson;
 import ui.EscapeSequences;

@@ -1,4 +1,4 @@
-package handler;
+package uiHandler;
 
 import com.google.gson.Gson;
 import ui.PrintHelper;
@@ -9,21 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class UILoginHandler extends UIHandler {
+public class UIRegisterHandler extends UIHandler {
 
-    /** Create and process an HTTP request to log in a user */
-    public String login(ArrayList<String> params) {
-        if (params.size() != 2) {
+    /** Create and process an HTTP request to register a new user */
+    public String register(ArrayList<String> params) {
+        if (params.size() != 3) {
             System.out.println("Incorrect number of parameters");
-            PrintHelper.printLogin();
+            PrintHelper.printRegister();
             return null;
         }
         try {
             //Parameters
-            ArrayList<String> titles = new ArrayList<>(List.of("username", "password"));
+            ArrayList<String> titles = new ArrayList<>(List.of("username", "password", "email"));
 
             //Prepare request
-            HttpURLConnection http = prepareRequest("/session", "POST", null,
+            HttpURLConnection http = prepareRequest("/user", "POST", null,
                                         null, titles, params);
 
             //Process request

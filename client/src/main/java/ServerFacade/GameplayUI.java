@@ -2,7 +2,7 @@ package ServerFacade;
 
 import chess.ChessBoard;
 import dataAccess.SQLGameDAO;
-import handler.UIJoinHandler;
+import uiHandler.UIJoinHandler;
 import ui.GameplayDrawer;
 import java.util.ArrayList;
 

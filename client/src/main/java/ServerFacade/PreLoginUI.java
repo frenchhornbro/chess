@@ -1,7 +1,9 @@
 package ServerFacade;
 
-import handler.*;
 import ui.Client;
+import uiHandler.UILoginHandler;
+import uiHandler.UIRegisterHandler;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;

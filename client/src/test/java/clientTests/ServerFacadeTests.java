@@ -3,12 +3,11 @@ package clientTests;
 import ServerFacade.ServerFacade;
 import chess.ChessBoard;
 import dataStorage.GameStorage;
-import handler.*;
 import org.junit.jupiter.api.*;
 import server.Server;
 import ui.Client;
 import ui.GameplayDrawer;
-
+import uiHandler.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class ServerFacadeTests {
     @BeforeAll
     public static void init() {
         server = new Server();
-        var port = server.run(8080);
+        var port = server.run(0);
         System.out.println("Started test HTTP server on " + port);
         registerHandler = new UIRegisterHandler();
         loginHandler = new UILoginHandler();

@@ -1,4 +1,4 @@
-package handler;
+package uiHandler;
 
 import ui.PrintHelper;
 import java.io.InputStream;

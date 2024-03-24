@@ -4,19 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 5 - Logged In UI: Implemented Join">
-      <change afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/GameplayUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/client/src/main/java/ui/GameplayDrawer.java" afterDir="false" />
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 5 - GameplayUI: Implemented test environment, refactored joining to fix bug">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/GameplayUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/GameplayUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PostLoginUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PostLoginUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PreLoginUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PreLoginUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/handler/UIJoinHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/handler/UIJoinHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/EscapeSequences.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/EscapeSequences.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/handler/UICreateHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UICreateHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/handler/UIHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/handler/UIJoinHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIJoinHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/handler/UIListHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIListHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/handler/UILoginHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UILoginHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/handler/UILogoutHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UILogoutHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/handler/UIRegisterHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIRegisterHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/test/java/clientTests/ServerFacadeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/test/java/clientTests/ServerFacadeTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/GameDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/GameDAOTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +52,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -68,10 +68,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Application.Client.executor": "Debug",
+    "Application.Client.executor": "Run",
     "Application.Server.executor": "Run",
     "Application.ServerFacade.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.All in client.executor": "Run",
     "JUnit.All in server.executor": "Run",
     "JUnit.All in shared.executor": "Run",
     "JUnit.AuthDAOTests.executor": "Run",
@@ -166,7 +167,9 @@
     "JUnit.ServerFacadeTests.drawNegative.executor": "Run",
     "JUnit.ServerFacadeTests.drawPositive.executor": "Run",
     "JUnit.ServerFacadeTests.executor": "Run",
+    "JUnit.ServerFacadeTests.joinNegative.executor": "Run",
     "JUnit.ServerFacadeTests.joinPositive.executor": "Run",
+    "JUnit.ServerFacadeTests.listNegative.executor": "Run",
     "JUnit.ServerFacadeTests.listPositive.executor": "Run",
     "JUnit.ServerFacadeTests.loginNegative.executor": "Run",
     "JUnit.ServerFacadeTests.loginPositive.executor": "Run",
@@ -174,6 +177,8 @@
     "JUnit.ServerFacadeTests.logoutPositive.executor": "Run",
     "JUnit.ServerFacadeTests.registerNegative.executor": "Run",
     "JUnit.ServerFacadeTests.registerPositive.executor": "Run",
+    "JUnit.ServerFacadeTests.startNegative.executor": "Run",
+    "JUnit.ServerFacadeTests.startPositive.executor": "Run",
     "JUnit.ServiceTests.clearSuccess.executor": "Run",
     "JUnit.ServiceTests.createGameFail.executor": "Run",
     "JUnit.ServiceTests.createGameSuccess.executor": "Run",
@@ -205,7 +210,7 @@
     "JUnit.StandardAPITests.successLogin.executor": "Debug",
     "JUnit.StandardAPITests.successLogout.executor": "Run",
     "JUnit.StandardAPITests.successRegister.executor": "Debug",
-    "JUnit.StandardAPITests.uniqueAuthorizationTokens.executor": "Debug",
+    "JUnit.StandardAPITests.uniqueAuthorizationTokens.executor": "Run",
     "JUnit.UserDAOTests.executor": "Run",
     "JUnit.UserDAOTests.sqlAuthCreateFail.executor": "Debug",
     "JUnit.UserDAOTests.sqlUserClearSuccess.executor": "Run",
@@ -213,9 +218,11 @@
     "JUnit.UserDAOTests.sqlUserCreateSuccess.executor": "Run",
     "JUnit.UserDAOTests.sqlUserGetFail.executor": "Run",
     "JUnit.UserDAOTests.sqlUserGetSuccess.executor": "Run",
+    "JUnit.dataAccessTests in server.executor": "Run",
     "JUnit.passoffTests in shared.executor": "Run",
     "JUnit.passoffTests.chessTests in shared.executor": "Debug",
     "JUnit.passoffTests.chessTests.chessPieceTests in shared.executor": "Run",
+    "JUnit.unitTests in server.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -245,79 +252,57 @@
       <command value="git add ." />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ServerFacadeTests.drawPositive">
-    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ui.Client" />
+  <component name="RunManager" selected="JUnit.All in client">
+    <configuration name="All in client" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="client" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="handler.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameDAOTests.getBoardNegative" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="All in server" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="All in shared" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shared" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StandardAPITests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="dataAccessTests.*" />
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="dataAccessTests" />
-      <option name="MAIN_CLASS_NAME" value="dataAccessTests.GameDAOTests" />
-      <option name="METHOD_NAME" value="getBoardNegative" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="GameDAOTests.getBoardPositive" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="StandardAPITests.uniqueAuthorizationTokens" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="dataAccessTests.*" />
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="dataAccessTests" />
-      <option name="MAIN_CLASS_NAME" value="dataAccessTests.GameDAOTests" />
-      <option name="METHOD_NAME" value="getBoardPositive" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ServerFacadeTests.drawNegative" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="client" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="clientTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="clientTests" />
-      <option name="MAIN_CLASS_NAME" value="clientTests.ServerFacadeTests" />
-      <option name="METHOD_NAME" value="drawNegative" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ServerFacadeTests.drawPositive" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="client" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="clientTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="clientTests" />
-      <option name="MAIN_CLASS_NAME" value="clientTests.ServerFacadeTests" />
-      <option name="METHOD_NAME" value="drawPositive" />
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
+      <option name="METHOD_NAME" value="uniqueAuthorizationTokens" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -325,11 +310,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ServerFacadeTests.drawPositive" />
-        <item itemvalue="JUnit.ServerFacadeTests.drawNegative" />
-        <item itemvalue="Application.Client" />
-        <item itemvalue="JUnit.GameDAOTests.getBoardPositive" />
-        <item itemvalue="JUnit.GameDAOTests.getBoardNegative" />
+        <item itemvalue="JUnit.All in client" />
+        <item itemvalue="JUnit.All in shared" />
+        <item itemvalue="JUnit.StandardAPITests" />
+        <item itemvalue="JUnit.StandardAPITests.uniqueAuthorizationTokens" />
+        <item itemvalue="JUnit.All in server" />
       </list>
     </recent_temporary>
   </component>
@@ -348,38 +333,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702756436549</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Code passes all test for Phase 0">
-      <option name="closed" value="true" />
-      <created>1706069014610</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1706069014610</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Files set up to begin work on Phase 1">
-      <option name="closed" value="true" />
-      <created>1706554955689</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1706554955689</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Implemented isInCheck method">
-      <option name="closed" value="true" />
-      <created>1706564591960</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1706564591961</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Implemented isInStalemate method">
-      <option name="closed" value="true" />
-      <created>1706566401542</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1706566401542</updated>
     </task>
     <task id="LOCAL-00018" summary="Cleaned up code in ChessBoard">
       <option name="closed" value="true" />
@@ -741,7 +694,39 @@
       <option name="project" value="LOCAL" />
       <updated>1711148316149</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Phase 5 - GameplayUI: Can draw Chessboard">
+      <option name="closed" value="true" />
+      <created>1711161784401</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1711161784403</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Phase 5 - GameplayUI: Fixed observe and join bug">
+      <option name="closed" value="true" />
+      <created>1711168624110</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1711168624110</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Phase 5 - GameplayUI: GameplayDrawer draws both boards">
+      <option name="closed" value="true" />
+      <created>1711172499139</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1711172499139</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Phase 5 - GameplayUI: Implemented test environment, refactored joining to fix bug">
+      <option name="closed" value="true" />
+      <created>1711248437634</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1711248437635</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -757,10 +742,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Phase 3 - All unit tests passed" />
-    <MESSAGE value="Phase 3 - Code cleanup" />
-    <MESSAGE value="Phase 3 - Matched naming convention" />
-    <MESSAGE value="Phase 4 - Imported starter files" />
     <MESSAGE value="Phase 4 - Initial setup to implement SQL" />
     <MESSAGE value="Phase 4 - Create and Get works for Auth and User" />
     <MESSAGE value="Phase 4 - DAOs now stored in services" />
@@ -782,7 +763,11 @@
     <MESSAGE value="Phase 5 - Logged In UI: Partially implemented list" />
     <MESSAGE value="Phase 5 - Logged In UI: Implemented List" />
     <MESSAGE value="Phase 5 - Logged In UI: Implemented Join" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 5 - Logged In UI: Implemented Join" />
+    <MESSAGE value="Phase 5 - GameplayUI: Can draw Chessboard" />
+    <MESSAGE value="Phase 5 - GameplayUI: Fixed observe and join bug" />
+    <MESSAGE value="Phase 5 - GameplayUI: GameplayDrawer draws both boards" />
+    <MESSAGE value="Phase 5 - GameplayUI: Implemented test environment, refactored joining to fix bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 5 - GameplayUI: Implemented test environment, refactored joining to fix bug" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
