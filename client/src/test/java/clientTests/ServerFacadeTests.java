@@ -15,6 +15,7 @@ import java.util.List;
 public class ServerFacadeTests {
 
     private static Server server;
+    private static int port;
     private static UIRegisterHandler registerHandler;
     private static UILoginHandler loginHandler;
     private static UILogoutHandler logoutHandler;
@@ -25,7 +26,7 @@ public class ServerFacadeTests {
     @BeforeAll
     public static void init() {
         server = new Server();
-        var port = server.run(0);
+        port = server.run(0);
         System.out.println("Started test HTTP server on " + port);
         registerHandler = new UIRegisterHandler();
         loginHandler = new UILoginHandler();
@@ -37,7 +38,7 @@ public class ServerFacadeTests {
 
     @BeforeEach
     public void clear() {
-        registerHandler.clearData();
+        registerHandler.clearData(port);
     }
 
     @AfterAll
@@ -54,7 +55,7 @@ public class ServerFacadeTests {
         ArrayList<String> testCommand2 = new ArrayList<>(List.of("quit"));
         testCommands.add(testCommand2);
         ServerFacade serverFacade = new ServerFacade(true, testCommands);
-        Assertions.assertDoesNotThrow(() -> serverFacade.start(new Client()));
+        Assertions.assertDoesNotThrow(() -> serverFacade.start(port, new Client()));
     }
 
     @Test
@@ -64,16 +65,16 @@ public class ServerFacadeTests {
         ArrayList<String> testCommand1 = new ArrayList<>(List.of("login", "fake", "creds", "exit"));
         testCommands.add(testCommand1);
         ServerFacade serverFacade = new ServerFacade(true, testCommands);
-        Assertions.assertThrows(Exception.class, () -> serverFacade.start(new Client()));
+        Assertions.assertThrows(Exception.class, () -> serverFacade.start(port, new Client()));
         ArrayList<String> testCommand2 = new ArrayList<>(List.of("help", "unnecessary", "pars", "quit"));
         testCommands.add(testCommand2);
         ServerFacade otherServerFacade = new ServerFacade(true, testCommands);
-        Assertions.assertThrows(Exception.class, () -> otherServerFacade.start(new Client()));
+        Assertions.assertThrows(Exception.class, () -> otherServerFacade.start(port, new Client()));
     }
 
     @Test
     public void clearPositive() {
-        Assertions.assertTrue(registerHandler.clearData());
+        Assertions.assertTrue(registerHandler.clearData(port));
     }
 
     @Test
@@ -82,7 +83,7 @@ public class ServerFacadeTests {
         String password = "mySuperR4ndomPwd";
         String email = "email@randEmail.tacosNstuff";
         ArrayList<String> args = new ArrayList<>(List.of(username, password, email));
-        Assertions.assertNotNull(registerHandler.register(args));
+        Assertions.assertNotNull(registerHandler.register(port, args));
     }
 
     @Test
@@ -92,49 +93,49 @@ public class ServerFacadeTests {
         String password = "mySuperR4ndomPwd";
         String email = "email@randEmail.tacosNstuff";
         ArrayList<String> args = new ArrayList<>(List.of(username, password, email));
-        Assertions.assertNull(registerHandler.register(args));
+        Assertions.assertNull(registerHandler.register(port, args));
     }
 
     @Test
     public void logoutPositive() {
         //Use a valid authToken
         String authToken = registrationSetup();
-        Assertions.assertTrue(logoutHandler.logout(new ArrayList<>(), authToken));
+        Assertions.assertTrue(logoutHandler.logout(port, new ArrayList<>(), authToken));
     }
 
     @Test
     public void logoutNegative() {
         //Use an invalid authToken
         String authToken = "fake auth token";
-        Assertions.assertFalse(logoutHandler.logout(new ArrayList<>(), authToken));
+        Assertions.assertFalse(logoutHandler.logout(port, new ArrayList<>(), authToken));
     }
 
     @Test
     public void loginPositive() {
         logoutPositive();
         ArrayList<String> params = new ArrayList<>(List.of("mySuperCoolUsername","mySuperR4ndomPwd"));
-        Assertions.assertNotNull(loginHandler.login(params));
+        Assertions.assertNotNull(loginHandler.login(port, params));
     }
 
     @Test
     public void loginNegative() {
         logoutPositive();
         ArrayList<String> params = new ArrayList<>(List.of("mySuperCoolUsername","badPwd"));
-        Assertions.assertNull(loginHandler.login(params));
+        Assertions.assertNull(loginHandler.login(port, params));
     }
 
     @Test
     public void createPositive() {
         String authToken = registrationSetup();
         ArrayList<String> params = new ArrayList<>(List.of("newGame"));
-        Assertions.assertTrue(createHandler.create(params, authToken));
+        Assertions.assertTrue(createHandler.create(port, params, authToken));
     }
 
     @Test
     public void createNegative() {
         String authToken = "phonyAuthToken";
         ArrayList<String> params = new ArrayList<>(List.of("newGame"));
-        Assertions.assertFalse(createHandler.create(params, authToken));
+        Assertions.assertFalse(createHandler.create(port, params, authToken));
     }
 
     @Test
@@ -142,18 +143,18 @@ public class ServerFacadeTests {
         // List outputs the contents of the three games
         String authToken = registrationSetup();
         ArrayList<String> params = new ArrayList<>(List.of("newGame1"));
-        Assertions.assertTrue(createHandler.create(params, authToken));
+        Assertions.assertTrue(createHandler.create(port, params, authToken));
         params.set(0, "newGame2");
-        Assertions.assertTrue(createHandler.create(params, authToken));
+        Assertions.assertTrue(createHandler.create(port, params, authToken));
         params.set(0, "newGame3");
-        Assertions.assertTrue(createHandler.create(params, authToken));
-        Assertions.assertNotNull(listHandler.list(new ArrayList<>(), authToken));
+        Assertions.assertTrue(createHandler.create(port, params, authToken));
+        Assertions.assertNotNull(listHandler.list(port, new ArrayList<>(), authToken));
     }
 
     @Test
     public void listNegative() {
         // Bad authToken prevents listing
-        Assertions.assertNull(listHandler.list(new ArrayList<>(), "phonyAuthToken"));
+        Assertions.assertNull(listHandler.list(port, new ArrayList<>(), "phonyAuthToken"));
     }
 
     @Test
@@ -161,16 +162,16 @@ public class ServerFacadeTests {
         // Standard join
         String authToken = registrationSetup();
         ArrayList<String> gameParams = new ArrayList<>(List.of("newGame"));
-        Assertions.assertTrue(createHandler.create(gameParams, authToken));
-        ArrayList<GameStorage> games = listHandler.list(new ArrayList<>(), authToken);
+        Assertions.assertTrue(createHandler.create(port, gameParams, authToken));
+        ArrayList<GameStorage> games = listHandler.list(port, new ArrayList<>(), authToken);
         Assertions.assertNotNull(games);
         ArrayList<String> whiteParams = new ArrayList<>(List.of("0", "WHITE"));
         ArrayList<Integer> gameIDs = new ArrayList<>();
         for (GameStorage game : games) gameIDs.add(game.getGameID());
-        Assertions.assertTrue(joinHandler.join(whiteParams, authToken, gameIDs, false));
+        Assertions.assertTrue(joinHandler.join(port, whiteParams, authToken, gameIDs, false));
         ArrayList<String> blackParams = new ArrayList<>(List.of("0", "BLACK"));
-        Assertions.assertTrue(joinHandler.join(blackParams, authToken, gameIDs, false));
-        Assertions.assertNotNull(listHandler.list(new ArrayList<>(), authToken));
+        Assertions.assertTrue(joinHandler.join(port, blackParams, authToken, gameIDs, false));
+        Assertions.assertNotNull(listHandler.list(port, new ArrayList<>(), authToken));
     }
 
     @Test
@@ -178,12 +179,12 @@ public class ServerFacadeTests {
         //Joining a nonexistent gameID
         String authToken = registrationSetup();
         ArrayList<String> gameParams = new ArrayList<>(List.of("newGame"));
-        Assertions.assertTrue(createHandler.create(gameParams, authToken));
-        ArrayList<GameStorage> games = listHandler.list(new ArrayList<>(), authToken);
+        Assertions.assertTrue(createHandler.create(port, gameParams, authToken));
+        ArrayList<GameStorage> games = listHandler.list(port, new ArrayList<>(), authToken);
         ArrayList<Integer> gameIDs = new ArrayList<>();
         for (GameStorage game : games) gameIDs.add(game.getGameID());
         ArrayList<String> joinParams = new ArrayList<>(List.of("123", "WHITE"));
-        Assertions.assertFalse(joinHandler.join(joinParams, authToken, gameIDs, false));
+        Assertions.assertFalse(joinHandler.join(port, joinParams, authToken, gameIDs, false));
     }
 
     @Test
@@ -205,6 +206,6 @@ public class ServerFacadeTests {
         String password = "mySuperR4ndomPwd";
         String email = "email@randEmail.tacosNstuff";
         ArrayList<String> args = new ArrayList<>(List.of(username, password, email));
-        return registerHandler.register(args);
+        return registerHandler.register(port, args);
     }
 }

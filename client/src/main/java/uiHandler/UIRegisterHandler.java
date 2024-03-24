@@ -12,7 +12,7 @@ import java.util.Map;
 public class UIRegisterHandler extends UIHandler {
 
     /** Create and process an HTTP request to register a new user */
-    public String register(ArrayList<String> params) {
+    public String register(int port, ArrayList<String> params) {
         if (params.size() != 3) {
             System.out.println("Incorrect number of parameters");
             PrintHelper.printRegister();
@@ -23,7 +23,7 @@ public class UIRegisterHandler extends UIHandler {
             ArrayList<String> titles = new ArrayList<>(List.of("username", "password", "email"));
 
             //Prepare request
-            HttpURLConnection http = prepareRequest("/user", "POST", null,
+            HttpURLConnection http = prepareRequest("/user", port, "POST", null,
                                         null, titles, params);
 
             //Process request

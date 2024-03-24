@@ -15,9 +15,9 @@ public class UIHandler {
         System.out.print(EscapeSequences.ERASE_SCREEN);
     }
 
-    public boolean clearData() {
+    public boolean clearData(int port) {
         try {
-            HttpURLConnection http = prepareRequest("/db", "DELETE", null, null,
+            HttpURLConnection http = prepareRequest("/db", port, "DELETE", null, null,
                                                 null, null);
             try (InputStream response = http.getInputStream()) {
                 return true;
@@ -29,9 +29,9 @@ public class UIHandler {
         }
     }
 
-    protected <T> HttpURLConnection prepareRequest(String slug, String requestMethod, String headerName, String headerValue,
+    protected <T> HttpURLConnection prepareRequest(String slug, int port, String requestMethod, String headerName, String headerValue,
                                             ArrayList<String> fields, ArrayList<T> params) throws Exception {
-        URI uri = new URI("http://localhost:8080" + slug);
+        URI uri = new URI("http://localhost:" + port + slug);
         URL url = uri.toURL();
         HttpURLConnection http = (HttpURLConnection) url.openConnection();
 

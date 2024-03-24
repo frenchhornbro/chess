@@ -12,7 +12,7 @@ import java.util.Map;
 public class UILoginHandler extends UIHandler {
 
     /** Create and process an HTTP request to log in a user */
-    public String login(ArrayList<String> params) {
+    public String login(int port, ArrayList<String> params) {
         if (params.size() != 2) {
             System.out.println("Incorrect number of parameters");
             PrintHelper.printLogin();
@@ -23,7 +23,7 @@ public class UILoginHandler extends UIHandler {
             ArrayList<String> titles = new ArrayList<>(List.of("username", "password"));
 
             //Prepare request
-            HttpURLConnection http = prepareRequest("/session", "POST", null,
+            HttpURLConnection http = prepareRequest("/session", port, "POST", null,
                                         null, titles, params);
 
             //Process request

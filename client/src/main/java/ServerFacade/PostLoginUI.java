@@ -27,7 +27,7 @@ public class PostLoginUI {
     }
 
     /** Runs the Logged In UI. Returns true if it wants to fully quit and false otherwise.*/
-    public boolean goToPostLogin(Client client) {
+    public boolean goToPostLogin(int port, Client client) {
         System.out.println("\t\033[36;107;1m[Logged In UI]\033[39;49;0m");
         String input = "";
         while (!input.equalsIgnoreCase("logout")) {
@@ -56,7 +56,7 @@ public class PostLoginUI {
                     client.setAuthToken(null);
                     return true;
                 case ("logout"):
-                    if (logoutHandler.logout(params, client.getAuthToken())) {
+                    if (logoutHandler.logout(port, params, client.getAuthToken())) {
                         client.setAuthToken(null);
                         System.out.println("Logging out...");
                         printPreLoginUI();
@@ -65,7 +65,7 @@ public class PostLoginUI {
                     else input = "";
                     break;
                 case ("create"):
-                    if (createHandler.create(params, client.getAuthToken())) {
+                    if (createHandler.create(port, params, client.getAuthToken())) {
                         StringBuilder gameName = new StringBuilder();
                         for (int i = 0; i < params.size(); i++) {
                             gameName.append(params.get(i));
@@ -75,7 +75,7 @@ public class PostLoginUI {
                     }
                     break;
                 case ("list"):
-                    ArrayList<GameStorage> games = listHandler.list(params, client.getAuthToken());
+                    ArrayList<GameStorage> games = listHandler.list(port, params, client.getAuthToken());
                     if (games != null) {
                         ArrayList<Integer> gameIDs = new ArrayList<>();
                         client.setGameIDs(gameIDs);
@@ -91,12 +91,12 @@ public class PostLoginUI {
                     }
                     break;
                 case ("join"):
-                    if (joinHandler.join(params, client.getAuthToken(), client.getGameIDs(), false)) {
+                    if (joinHandler.join(port, params, client.getAuthToken(), client.getGameIDs(), false)) {
                         this.gameplayUI.goToGameplayUI(params.getFirst(), client.getGameIDs());
                     }
                     break;
                 case ("observe"):
-                    if (joinHandler.join(params, client.getAuthToken(), client.getGameIDs(), true)) {
+                    if (joinHandler.join(port, params, client.getAuthToken(), client.getGameIDs(), true)) {
                         this.gameplayUI.goToGameplayUI(params.getFirst(), client.getGameIDs());
                     }
                     break;

@@ -11,7 +11,7 @@ import java.util.*;
 
 public class UIListHandler extends UIHandler {
 
-    public ArrayList<GameStorage> list(ArrayList<String> params, String authToken) {
+    public ArrayList<GameStorage> list(int port, ArrayList<String> params, String authToken) {
         if (!params.isEmpty()) {
             System.out.println("Incorrect number of parameters");
             PrintHelper.printList();
@@ -23,7 +23,7 @@ public class UIListHandler extends UIHandler {
         }
         try {
             ArrayList<String> blankList = new ArrayList<>();
-            HttpURLConnection connection = prepareRequest("/game", "GET",
+            HttpURLConnection connection = prepareRequest("/game", port, "GET",
                     "authorization", authToken, blankList, blankList);
 
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {

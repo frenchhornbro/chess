@@ -12,7 +12,7 @@ import java.util.Map;
 public class UICreateHandler extends UIHandler {
 
     /** Create and process an HTTP request to create a new game. Returns false if an error occurs */
-    public boolean create(ArrayList<String> params, String authToken) {
+    public boolean create(int port, ArrayList<String> params, String authToken) {
         if (params.isEmpty()) {
             System.out.println("Incorrect number of parameters");
             PrintHelper.printCreate();
@@ -33,7 +33,7 @@ public class UICreateHandler extends UIHandler {
             ArrayList<String> gameName = new ArrayList<>(List.of(gameNamePrepper.toString()));
 
             //Prepare request
-            HttpURLConnection http = prepareRequest("/game", "POST",
+            HttpURLConnection http = prepareRequest("/game", port, "POST",
                     "authorization", authToken, titles, gameName);
 
             //Process request

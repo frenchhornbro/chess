@@ -22,7 +22,7 @@ public class Client {
         Client client = new Client();
 
         //Display UIs
-        serverFacade.start(client);
+        serverFacade.start(port, client);
 
         //Stop server
         server.stop();

@@ -26,7 +26,7 @@ public class PreLoginUI {
     }
 
     /** Runs the Logged Out UI. */
-    public void goToPreLogin(Client client) {
+    public void goToPreLogin(int port, Client client) {
         printPreLoginUI();
 
         String input = "";
@@ -52,18 +52,18 @@ public class PreLoginUI {
                     System.out.println("Exiting...");
                     return;
                 case ("login"): {
-                    String authToken = loginHandler.login(params);
+                    String authToken = loginHandler.login(port, params);
                     if (authToken != null) {
                         client.setAuthToken(authToken);
-                        if (postLoginUI.goToPostLogin(client)) return;
+                        if (postLoginUI.goToPostLogin(port, client)) return;
                     }
                 }
                 break;
                 case ("register"): {
-                    String authToken = registerHandler.register(params);
+                    String authToken = registerHandler.register(port, params);
                     if (authToken != null) {
                         client.setAuthToken(authToken);
-                        if (postLoginUI.goToPostLogin(client)) return;
+                        if (postLoginUI.goToPostLogin(port, client)) return;
                     }
                     break;
                 }
