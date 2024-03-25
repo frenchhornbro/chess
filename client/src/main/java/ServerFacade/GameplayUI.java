@@ -1,18 +1,16 @@
 package ServerFacade;
 
-import chess.ChessBoard;
-import dataAccess.SQLGameDAO;
+import ui.Client;
+import uiHandler.UIDrawBoardHandler;
 import uiHandler.UIJoinHandler;
-import ui.GameplayDrawer;
 import java.util.ArrayList;
 
 public class GameplayUI {
-    public void goToGameplayUI(String gameID, ArrayList<Integer> storageIDs) {
-        int storageGameId = UIJoinHandler.convertID(gameID, storageIDs);
+    public void goToGameplayUI(int port, Client client, String displayGameID, ArrayList<Integer> storageIDs) {
+        String storageGameID = String.valueOf(UIJoinHandler.convertID(displayGameID, storageIDs));
         try {
-            SQLGameDAO sqlGameDAO = new SQLGameDAO();
-            ChessBoard board = sqlGameDAO.getBoard(storageGameId);
-            GameplayDrawer.draw(board);
+            UIDrawBoardHandler drawBoardHandler = new UIDrawBoardHandler();
+            drawBoardHandler.drawBoard(port, client.getAuthToken(), storageGameID);
         }
         catch (Exception ex) {
             System.out.println(ex.getMessage());

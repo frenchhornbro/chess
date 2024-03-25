@@ -86,7 +86,7 @@ public class UIHandler {
                 printStr += " 500: system error";
                 break;
             default:
-                printStr += ": unknown error";
+                printStr += ": Server not started";
         }
         System.out.println(printStr);
     }

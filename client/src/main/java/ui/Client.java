@@ -1,8 +1,6 @@
 package ui;
 
 import ServerFacade.ServerFacade;
-import server.Server;
-
 import java.util.ArrayList;
 
 public class Client {
@@ -14,19 +12,13 @@ public class Client {
     }
 
     public static void main(String[] args) {
-        //Set up server and client
-        Server server = new Server();
-        int port = 8080;
-        server.run(port);
+        //Set up client
         ServerFacade serverFacade = new ServerFacade(false, new ArrayList<>());
+        int port = 8080;
         Client client = new Client();
 
         //Display UIs
         serverFacade.start(port, client);
-
-        //Stop server
-        server.stop();
-        System.exit(0);
     }
 
     public String getAuthToken() {

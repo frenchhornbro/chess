@@ -5,6 +5,7 @@ import spark.*;
 
 public class Server {
 
+    private GetBoardHandler getBoardHandler;
     private RegistrationHandler regHandler;
     private ClearHandler clearHandler;
     private LoginHandler loginHandler;
@@ -26,6 +27,7 @@ public class Server {
             this.logoutHandler = new LogoutHandler();
             this.joinGameHandler = new JoinGameHandler();
             this.listGamesHandler = new ListGamesHandler();
+            this.getBoardHandler = new GetBoardHandler();
         }
         catch (Throwable ex) {
             System.out.println("Error: Can't start server\n" + ex.getMessage());
@@ -51,6 +53,7 @@ public class Server {
         Spark.post("/session", this.loginHandler::login);
         Spark.delete("/session", this.logoutHandler::logout);
         Spark.get("/game", this.listGamesHandler::listGames);
+        Spark.post("/board", this.getBoardHandler::getBoard);
         Spark.post("/game",this.createGameHandler::createGame);
         Spark.put("/game", this.joinGameHandler::joinGame);
         Spark.delete("/db", this.clearHandler::clearApplication);
