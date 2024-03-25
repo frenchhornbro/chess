@@ -192,7 +192,7 @@ public class ServiceTests extends DAOTests {
         int gameID = createGameService.createGame("MyGame", authToken);
         String gameIDString = Integer.toString(gameID);
         JoinGameService joinGameService = new JoinGameService();
-        Assertions.assertDoesNotThrow(() -> joinGameService.joinGame(authToken, "WHITE", gameID));
+        Assertions.assertDoesNotThrow(() -> joinGameService.joinGame(authToken, "WHITE", gameID, USER));
         String query = "SELECT whiteUsername FROM gameData WHERE gameID=?";
         Assertions.assertEquals(USER, performQuery(query, gameIDString));
     }
@@ -205,10 +205,10 @@ public class ServiceTests extends DAOTests {
             CreateGameService createGameService = new CreateGameService();
             int gameID = createGameService.createGame("MyGame", authToken);
             JoinGameService joinGameService = new JoinGameService();
-            Assertions.assertDoesNotThrow(() -> joinGameService.joinGame(authToken, "WHITE", gameID));
+            Assertions.assertDoesNotThrow(() -> joinGameService.joinGame(authToken, "WHITE", gameID, USER));
 
             String newAuthToken = regServ.register("otherUser", PWD, EMAIL);
-            joinGameService.joinGame(newAuthToken, "WHITE", gameID);
+            joinGameService.joinGame(newAuthToken, "WHITE", gameID, USER);
             Assertions.fail();
         }
         catch(ServiceException e) {

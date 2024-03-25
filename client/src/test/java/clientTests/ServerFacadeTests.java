@@ -168,9 +168,11 @@ public class ServerFacadeTests {
         ArrayList<String> whiteParams = new ArrayList<>(List.of("0", "WHITE"));
         ArrayList<Integer> gameIDs = new ArrayList<>();
         for (GameStorage game : games) gameIDs.add(game.getGameID());
-        Assertions.assertNotEquals("false", joinHandler.join(port, whiteParams, authToken, gameIDs, false));
+        Assertions.assertNotEquals("false", joinHandler.join(port, whiteParams, authToken, gameIDs,
+                false, "mySuperCoolUsername"));
         ArrayList<String> blackParams = new ArrayList<>(List.of("0", "BLACK"));
-        Assertions.assertNotEquals("false", joinHandler.join(port, blackParams, authToken, gameIDs, false));
+        Assertions.assertNotEquals("false", joinHandler.join(port, blackParams, authToken, gameIDs,
+                false, "mySuperCoolUsername"));
         Assertions.assertNotNull(listHandler.list(port, new ArrayList<>(), authToken));
     }
 
@@ -184,7 +186,8 @@ public class ServerFacadeTests {
         ArrayList<Integer> gameIDs = new ArrayList<>();
         for (GameStorage game : games) gameIDs.add(game.getGameID());
         ArrayList<String> joinParams = new ArrayList<>(List.of("123", "WHITE"));
-        Assertions.assertEquals("false", joinHandler.join(port, joinParams, authToken, gameIDs, false));
+        Assertions.assertEquals("false", joinHandler.join(port, joinParams, authToken, gameIDs,
+                false, "mySuperCoolUsername"));
     }
 
     @Test

@@ -27,7 +27,7 @@ public class PostLoginUI {
     }
 
     /** Runs the Logged In UI. Returns true if it wants to fully quit and false otherwise.*/
-    public boolean goToPostLogin(int port, Client client) {
+    public boolean goToPostLogin(int port, Client client, String username) {
         System.out.println("\t\033[36;107;1m[Logged In UI]\033[39;49;0m");
         String input = "";
         while (!input.equalsIgnoreCase("logout")) {
@@ -92,13 +92,15 @@ public class PostLoginUI {
                     }
                     break;
                 case ("join"):
-                    String displayJoinGameID = joinHandler.join(port, params, client.getAuthToken(), client.getGameIDs(), false);
+                    String displayJoinGameID = joinHandler.join(port, params, client.getAuthToken(), client.getGameIDs(),
+                            false, username);
                     if (!displayJoinGameID.equals("false")) {
                         this.gameplayUI.goToGameplayUI(port, client, displayJoinGameID, client.getGameIDs());
                     }
                     break;
                 case ("observe"):
-                    String displayObserveGameID = joinHandler.join(port, params, client.getAuthToken(), client.getGameIDs(), true);
+                    String displayObserveGameID = joinHandler.join(port, params, client.getAuthToken(), client.getGameIDs(),
+                            true, username);
                     if (!displayObserveGameID.equals("false")) {
                         this.gameplayUI.goToGameplayUI(port, client, displayObserveGameID, client.getGameIDs());
                     }

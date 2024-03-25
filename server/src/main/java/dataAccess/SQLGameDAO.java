@@ -96,7 +96,7 @@ public class SQLGameDAO extends SQLDAO {
         }
     }
 
-    public void updateGame(int gameID, String playerColor, String authToken) throws DataAccessException {
+    public void updateGame(int gameID, String playerColor, String authToken, String inputtedUsername) throws DataAccessException {
         //If playerColor is  WHITE or BLACK (not already taken), set them accordingly
         //If playerColor is null or some other String, set them as an observer
         try {
@@ -108,7 +108,8 @@ public class SQLGameDAO extends SQLDAO {
             }
             else if (playerColor.equals("WHITE")){
                 String getWhiteUsernameStatement = "SELECT whiteUsername FROM gameData WHERE gameID=?";
-                if (queryDB(getWhiteUsernameStatement, gameID) != null){
+                String query = queryDB(getWhiteUsernameStatement, gameID);
+                if (query != null && !query.equals(username)){
                     throw new DataAccessException("Error: already taken");
                 }
                 String setWhiteUsernameStatement = "UPDATE gameData SET whiteUsername=? WHERE gameID=?";
@@ -116,7 +117,8 @@ public class SQLGameDAO extends SQLDAO {
             }
             else if (playerColor.equals("BLACK")){
                 String getBlackUsernameStatement = "SELECT blackUsername FROM gameData WHERE gameID=?";
-                if (queryDB(getBlackUsernameStatement, gameID) != null) {
+                String query = queryDB(getBlackUsernameStatement, gameID);
+                if (query != null && !query.equals(username)) {
                     throw new DataAccessException("Error: already taken");
                 }
                 String setBlackUsernameStatement = "UPDATE gameData SET blackUsername=? WHERE gameID=?";

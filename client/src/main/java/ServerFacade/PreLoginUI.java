@@ -56,7 +56,7 @@ public class PreLoginUI {
                     String authToken = loginHandler.login(port, params);
                     if (authToken != null) {
                         client.setAuthToken(authToken);
-                        if (postLoginUI.goToPostLogin(port, client)) return;
+                        if (postLoginUI.goToPostLogin(port, client, params.getFirst())) return;
                     }
                 }
                 break;
@@ -64,7 +64,7 @@ public class PreLoginUI {
                     String authToken = registerHandler.register(port, params);
                     if (authToken != null) {
                         client.setAuthToken(authToken);
-                        if (postLoginUI.goToPostLogin(port, client)) return;
+                        if (postLoginUI.goToPostLogin(port, client, params.getFirst())) return;
                     }
                     break;
                 }

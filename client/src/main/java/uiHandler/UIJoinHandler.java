@@ -9,7 +9,8 @@ import java.util.List;
 public class UIJoinHandler extends UIHandler {
 
     /** Add a player to a game, or add a player as an observer. Return false if any errors occur.  */
-    public String join(int port, ArrayList<String> params, String authToken, ArrayList<Integer> gameIDs, boolean observe) {
+    public String join(int port, ArrayList<String> params, String authToken, ArrayList<Integer> gameIDs,
+                       boolean observe, String username) {
         //params should be gameID and clientColor
         if ((params.size() != 1 && observe) || (params.size() != 2 && !observe)) {
             System.out.println("Incorrect number of parameters");
@@ -55,6 +56,8 @@ public class UIJoinHandler extends UIHandler {
             if (!observe) {
                 titles.add("playerColor");
                 joinParams.add(playerColor);
+                titles.add("username");
+                joinParams.add(username);
             }
 
             //Prepare request
