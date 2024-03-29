@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class UIDrawBoardHandler extends UIHandler {
-    public void drawBoard(int port, String authToken, String gameID) {
+    public void drawBoard(int port, String authToken, String gameID, String playerColor) {
         if (authToken == null) {
             System.out.println("No auth token");
             return;
@@ -30,7 +30,7 @@ public class UIDrawBoardHandler extends UIHandler {
                 try (InputStream responseBody = connection.getInputStream()) {
                     InputStreamReader reader = new InputStreamReader(responseBody);
                     ChessBoard board = new Gson().fromJson(reader, ChessBoard.class);
-                    GameplayDrawer.draw(board);
+                    GameplayDrawer.draw(board, playerColor);
                 }
             }
             else {

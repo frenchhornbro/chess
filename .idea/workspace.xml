@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="client:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 5 - Refactored to provide custom port">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PostLoginUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PostLoginUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PreLoginUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PreLoginUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/PrintHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/PrintHelper.java" afterDir="false" />
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Board drawn based on color">
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/JoinGameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/JoinGameHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/JoinGameService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/JoinGameService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/GameDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/GameDAOTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/java/unitTests/ServiceTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/unitTests/ServiceTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,6 +159,7 @@
     "JUnit.RookMoveTests.rookBlocked.executor": "Debug",
     "JUnit.RookMoveTests.rookCaptureEnemy.executor": "Debug",
     "JUnit.RookMoveTests.rookMoveUntilEdge.executor": "Debug",
+    "JUnit.ServerFacadeTests.clear.executor": "Run",
     "JUnit.ServerFacadeTests.clearPositive.executor": "Run",
     "JUnit.ServerFacadeTests.createNegative.executor": "Run",
     "JUnit.ServerFacadeTests.createPositive.executor": "Run",
@@ -176,6 +183,7 @@
     "JUnit.ServiceTests.createGameSuccess.executor": "Run",
     "JUnit.ServiceTests.executor": "Run",
     "JUnit.ServiceTests.joinGameFail.executor": "Run",
+    "JUnit.ServiceTests.joinGamePositive.executor": "Run",
     "JUnit.ServiceTests.joinGameSuccess.executor": "Run",
     "JUnit.ServiceTests.listGamesFail.executor": "Run",
     "JUnit.ServiceTests.listGamesSuccess.executor": "Run",
@@ -220,12 +228,14 @@
     "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/htdur/CS-240/chess/server/src/test/java/passoffTests/serverTests",
-    "project.structure.last.edited": "Libraries",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.34252873",
+    "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.General"
   }
 }]]></component>
@@ -244,36 +254,7 @@
       <command value="git add ." />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Client">
-    <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ui.Client" />
-      <module name="client" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="ui.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="All in client" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="client" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="All in server" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="server" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.All in shared">
     <configuration name="All in shared" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="shared" />
       <option name="PACKAGE_NAME" value="" />
@@ -282,28 +263,72 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerFacadeTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="client" />
+    <configuration name="PersistenceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="clientTests.*" />
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="clientTests" />
-      <option name="MAIN_CLASS_NAME" value="clientTests.ServerFacadeTests" />
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.PersistenceTests" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServiceTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="unitTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="unitTests" />
+      <option name="MAIN_CLASS_NAME" value="unitTests.ServiceTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StandardAPITests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.StandardAPITests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="dataAccessTests in server" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dataAccessTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dataAccessTests" />
+      <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Client" />
         <item itemvalue="JUnit.All in shared" />
-        <item itemvalue="JUnit.All in server" />
-        <item itemvalue="JUnit.ServerFacadeTests" />
-        <item itemvalue="JUnit.All in client" />
+        <item itemvalue="JUnit.StandardAPITests" />
+        <item itemvalue="JUnit.ServiceTests" />
+        <item itemvalue="JUnit.PersistenceTests" />
+        <item itemvalue="JUnit.dataAccessTests in server" />
       </list>
     </recent_temporary>
   </component>
@@ -322,54 +347,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702756436549</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Implemented promotion in ChessGame">
-      <option name="closed" value="true" />
-      <created>1706672287501</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1706672287501</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Implemented checkmate in ChessGame">
-      <option name="closed" value="true" />
-      <created>1706728899398</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1706728899398</updated>
-    </task>
-    <task id="LOCAL-00022" summary="All Phase 1 non-extra credit tests pass">
-      <option name="closed" value="true" />
-      <created>1706910923561</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1706910923561</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Castling Implemented">
-      <option name="closed" value="true" />
-      <created>1707288000556</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1707288000556</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Imported starter code for Phase 3">
-      <option name="closed" value="true" />
-      <created>1708469156879</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1708469156879</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Finished initial setup for Phase 3">
-      <option name="closed" value="true" />
-      <created>1708625653292</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1708625653292</updated>
     </task>
     <task id="LOCAL-00026" summary="More initial setup, and server can now run">
       <option name="closed" value="true" />
@@ -715,7 +692,55 @@
       <option name="project" value="LOCAL" />
       <updated>1711250397472</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="Phase 5 - Enabled a clear screen command">
+      <option name="closed" value="true" />
+      <created>1711258742891</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1711258742891</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Phase 5 - Fixed typo on clear">
+      <option name="closed" value="true" />
+      <created>1711382513120</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1711382513121</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Phase 5 - Refactored server to be independent of the client">
+      <option name="closed" value="true" />
+      <created>1711392498349</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1711392498349</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Phase 5 - Client can join the same game as their same color if they left">
+      <option name="closed" value="true" />
+      <created>1711398578279</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1711398578280</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Phase 6 - Imported starter code">
+      <option name="closed" value="true" />
+      <created>1711401207074</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1711401207074</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Phase 6 - Board drawn based on color">
+      <option name="closed" value="true" />
+      <created>1711743308369</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1711743308369</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -731,12 +756,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Phase 4 - DAOs now stored in services" />
-    <MESSAGE value="Phase 4 - All AuthDAO unit tests passed" />
-    <MESSAGE value="Phase 4 - All UserDAO unit tests passed" />
-    <MESSAGE value="Phase 4 - SQLGameDao createGame works" />
-    <MESSAGE value="Phase 4 - SQLGameDao updateGame works" />
-    <MESSAGE value="Phase 4 - All Persistence Tests Pass" />
     <MESSAGE value="Phase 4 - All Tests Pass" />
     <MESSAGE value="Phase 4 - Small edit" />
     <MESSAGE value="Phase 5 - Imported starter code" />
@@ -756,7 +775,13 @@
     <MESSAGE value="Phase 5 - GameplayUI: Implemented test environment, refactored joining to fix bug" />
     <MESSAGE value="Phase 5 - GameplayUI: Renamed package to uiHandler for clarity" />
     <MESSAGE value="Phase 5 - Refactored to provide custom port" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 5 - Refactored to provide custom port" />
+    <MESSAGE value="Phase 5 - Enabled a clear screen command" />
+    <MESSAGE value="Phase 5 - Fixed typo on clear" />
+    <MESSAGE value="Phase 5 - Refactored server to be independent of the client" />
+    <MESSAGE value="Phase 5 - Client can join the same game as their same color if they left" />
+    <MESSAGE value="Phase 6 - Imported starter code" />
+    <MESSAGE value="Phase 6 - Board drawn based on color" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Board drawn based on color" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

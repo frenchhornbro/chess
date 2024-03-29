@@ -156,8 +156,8 @@ public class ServiceTests extends DAOTests {
         ListGamesService listGamesService = new ListGamesService();
 
         GamesStorage games = listGamesService.listGames(authToken);
-        Assertions.assertEquals("Game1", games.getGames().get(0).getGameName());
-        Assertions.assertEquals(gameID1, games.getGames().get(0).getGameID());
+        Assertions.assertEquals("Game1", games.getGames().getFirst().getGameName());
+        Assertions.assertEquals(gameID1, games.getGames().getFirst().getGameID());
         Assertions.assertNull(games.getGames().get(0).getWhiteUsername());
         Assertions.assertNull(games.getGames().get(0).getBlackUsername());
         Assertions.assertEquals("Game2", games.getGames().get(1).getGameName());
@@ -192,7 +192,7 @@ public class ServiceTests extends DAOTests {
         int gameID = createGameService.createGame("MyGame", authToken);
         String gameIDString = Integer.toString(gameID);
         JoinGameService joinGameService = new JoinGameService();
-        Assertions.assertDoesNotThrow(() -> joinGameService.joinGame(authToken, "WHITE", gameID, USER));
+        Assertions.assertDoesNotThrow(() -> joinGameService.joinGame(authToken, "WHITE", gameID));
         String query = "SELECT whiteUsername FROM gameData WHERE gameID=?";
         Assertions.assertEquals(USER, performQuery(query, gameIDString));
     }
@@ -205,10 +205,10 @@ public class ServiceTests extends DAOTests {
             CreateGameService createGameService = new CreateGameService();
             int gameID = createGameService.createGame("MyGame", authToken);
             JoinGameService joinGameService = new JoinGameService();
-            Assertions.assertDoesNotThrow(() -> joinGameService.joinGame(authToken, "WHITE", gameID, USER));
+            Assertions.assertDoesNotThrow(() -> joinGameService.joinGame(authToken, "WHITE", gameID));
 
             String newAuthToken = regServ.register("otherUser", PWD, EMAIL);
-            joinGameService.joinGame(newAuthToken, "WHITE", gameID, USER);
+            joinGameService.joinGame(newAuthToken, "WHITE", gameID);
             Assertions.fail();
         }
         catch(ServiceException e) {

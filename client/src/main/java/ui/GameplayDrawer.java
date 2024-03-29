@@ -13,11 +13,18 @@ public class GameplayDrawer {
         blackSquare = true;
     }
 
-    public static void draw (ChessBoard board) {
-        System.out.println(ERASE_SCREEN);
-        printWhite(board);
-        System.out.println();
-        printBlack(board);
+    public static void draw (ChessBoard board, String playerColor) {
+        if (playerColor == null) return;    //FIXME: What do we do for observers?
+        if (playerColor.equals("WHITE")) {
+            System.out.println(ERASE_SCREEN);
+            printWhite(board);
+            System.out.println();
+        }
+        else {
+            System.out.println(ERASE_SCREEN);
+            printBlack(board);
+            System.out.println();
+        }
     }
 
     public static void printWhite(ChessBoard board) {

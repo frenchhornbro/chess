@@ -91,8 +91,8 @@ public class GameDAOTests extends DAOTests {
         String gameIDString = Integer.toString(gameID);
 
         //Update username into whiteUsername and blackUsername
-        sqlGameDAO.updateGame(gameID, "WHITE", authToken1, user1);
-        sqlGameDAO.updateGame(gameID, "BLACK", authToken2, user2);
+        sqlGameDAO.updateGame(gameID, "WHITE", authToken1);
+        sqlGameDAO.updateGame(gameID, "BLACK", authToken2);
 
         //Verify game has those usernames
         String testStatement = "select whiteUsername from gameData where gameID=?";
@@ -114,14 +114,14 @@ public class GameDAOTests extends DAOTests {
         int gameID = sqlGameDAO.createGame(gameName);
 
         //Update usernames into whiteUsername and blackUsername
-        sqlGameDAO.updateGame(gameID, "WHITE", authToken1, "userOne");
-        sqlGameDAO.updateGame(gameID, "BLACK", authToken2, "userTwo");
+        sqlGameDAO.updateGame(gameID, "WHITE", authToken1);
+        sqlGameDAO.updateGame(gameID, "BLACK", authToken2);
 
         //Verify updating whiteUsername or blackUsername will throw an error
         Assertions.assertThrows(DataAccessException.class,
-                                () -> sqlGameDAO.updateGame(gameID, "WHITE", authToken3, "userThree"));
+                                () -> sqlGameDAO.updateGame(gameID, "WHITE", authToken3));
         Assertions.assertThrows(DataAccessException.class,
-                () -> sqlGameDAO.updateGame(gameID, "BLACK", authToken4, "userFour"));
+                () -> sqlGameDAO.updateGame(gameID, "BLACK", authToken4));
     }
 
     @Test

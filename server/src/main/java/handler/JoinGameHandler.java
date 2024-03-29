@@ -17,10 +17,9 @@ public class JoinGameHandler {
             String playerColor = "";
             if (input.get("playerColor") != null) playerColor = input.get("playerColor").toString();
             int gameID = (int) Math.round((double) input.get("gameID"));
-            String username = String.valueOf(input.get("username"));
 
             JoinGameService joinGameService = new JoinGameService();
-            joinGameService.joinGame(authToken, playerColor, gameID, username);
+            joinGameService.joinGame(authToken, playerColor, gameID);
 
             response.status(200);
             response.body("{}");

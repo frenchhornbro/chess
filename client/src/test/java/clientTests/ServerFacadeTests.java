@@ -194,14 +194,14 @@ public class ServerFacadeTests {
     public void drawPositive() {
         //Draw a filled board
         ChessBoard board = new ChessBoard(true);
-        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(board));
+        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(board, "WHITE"));
     }
 
     @Test
     public void drawNegative() {
         //Draw a blank board
         ChessBoard board = new ChessBoard();
-        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(board));
+        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(board, "BLACK"));
     }
 
     private String registrationSetup() {

@@ -95,14 +95,14 @@ public class PostLoginUI {
                     String displayJoinGameID = joinHandler.join(port, params, client.getAuthToken(), client.getGameIDs(),
                             false, username);
                     if (!displayJoinGameID.equals("false")) {
-                        this.gameplayUI.goToGameplayUI(port, client, displayJoinGameID, client.getGameIDs());
+                        this.gameplayUI.goToGameplayUI(port, client, displayJoinGameID, client.getGameIDs(), params.get(1));
                     }
                     break;
                 case ("observe"):
                     String displayObserveGameID = joinHandler.join(port, params, client.getAuthToken(), client.getGameIDs(),
                             true, username);
                     if (!displayObserveGameID.equals("false")) {
-                        this.gameplayUI.goToGameplayUI(port, client, displayObserveGameID, client.getGameIDs());
+                        this.gameplayUI.goToGameplayUI(port, client, displayObserveGameID, client.getGameIDs(), null);
                     }
                     break;
                 case ("clear"):
