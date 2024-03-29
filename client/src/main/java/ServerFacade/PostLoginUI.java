@@ -2,6 +2,7 @@ package ServerFacade;
 
 import dataStorage.GameStorage;
 import ui.Client;
+import ui.PrintHelper;
 import uiHandler.UICreateHandler;
 import uiHandler.UIJoinHandler;
 import uiHandler.UIListHandler;
@@ -28,7 +29,7 @@ public class PostLoginUI {
 
     /** Runs the Logged In UI. Returns true if it wants to fully quit and false otherwise.*/
     public boolean goToPostLogin(int port, Client client, String username) {
-        System.out.println("\t\033[36;107;1m[Logged In UI]\033[39;49;0m");
+        PrintHelper.printPostLoginUI();
         String input = "";
         while (!input.equalsIgnoreCase("logout")) {
             System.out.print("> ");
