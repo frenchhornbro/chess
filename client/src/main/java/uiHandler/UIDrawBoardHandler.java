@@ -1,20 +1,22 @@
 package uiHandler;
 
 import chess.ChessBoard;
+import chess.ChessMove;
 import com.google.gson.Gson;
 import ui.GameplayDrawer;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
 public class UIDrawBoardHandler extends UIHandler {
-    public void drawBoard(int port, String authToken, String gameID, String playerColor) {
+    public ChessBoard drawBoard(int port, String authToken, String gameID, String playerColor, Collection<ChessMove> moves) {
         if (authToken == null) {
             System.out.println("No auth token");
-            return;
+            return null;
         }
         try {
             //Parameters
@@ -30,7 +32,8 @@ public class UIDrawBoardHandler extends UIHandler {
                 try (InputStream responseBody = connection.getInputStream()) {
                     InputStreamReader reader = new InputStreamReader(responseBody);
                     ChessBoard board = new Gson().fromJson(reader, ChessBoard.class);
-                    GameplayDrawer.draw(board, playerColor);
+                    GameplayDrawer.draw(board, playerColor, moves);
+                    return board;
                 }
             }
             else {
@@ -46,5 +49,6 @@ public class UIDrawBoardHandler extends UIHandler {
         catch (Exception ex) {
             System.out.println("Exception caught: " + ex.getMessage());
         }
+        return null;
     }
 }

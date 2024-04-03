@@ -2,15 +2,12 @@ package ServerFacade;
 
 import dataStorage.GameStorage;
 import ui.Client;
-import ui.PrintHelper;
 import uiHandler.UICreateHandler;
 import uiHandler.UIJoinHandler;
 import uiHandler.UIListHandler;
 import uiHandler.UILogoutHandler;
-
 import java.util.ArrayList;
 import static ui.PrintHelper.*;
-import static ui.PrintHelper.printPreLoginUI;
 
 public class PostLoginUI {
     private final UILogoutHandler logoutHandler;
@@ -29,7 +26,7 @@ public class PostLoginUI {
 
     /** Runs the Logged In UI. Returns true if it wants to fully quit and false otherwise.*/
     public boolean goToPostLogin(int port, Client client, String username) {
-        PrintHelper.printPostLoginUI();
+        printPostLoginUI();
         String input = "";
         while (!input.equalsIgnoreCase("logout")) {
             System.out.print("> ");
@@ -96,14 +93,14 @@ public class PostLoginUI {
                     String displayJoinGameID = joinHandler.join(port, params, client.getAuthToken(), client.getGameIDs(),
                             false, username);
                     if (!displayJoinGameID.equals("false")) {
-                        this.gameplayUI.goToGameplayUI(port, client, displayJoinGameID, client.getGameIDs(), params.get(1));
+                        if (this.gameplayUI.goToGameplayUI(port, client, displayJoinGameID, client.getGameIDs(), params.get(1))) return true;
                     }
                     break;
                 case ("observe"):
                     String displayObserveGameID = joinHandler.join(port, params, client.getAuthToken(), client.getGameIDs(),
                             true, username);
                     if (!displayObserveGameID.equals("false")) {
-                        this.gameplayUI.goToGameplayUI(port, client, displayObserveGameID, client.getGameIDs(), null);
+                        if (this.gameplayUI.goToGameplayUI(port, client, displayObserveGameID, client.getGameIDs(), null)) return true;
                     }
                     break;
                 case ("clear"):

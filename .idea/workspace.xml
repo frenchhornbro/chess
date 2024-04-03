@@ -9,10 +9,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Board drawn based on color">
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Help command works">
+      <change afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIHighlightHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/server/WebSocketServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/GameplayUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/GameplayUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/PrintHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/PrintHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PostLoginUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PostLoginUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PreLoginUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PreLoginUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/GameplayDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/GameplayDrawer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIDrawBoardHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIDrawBoardHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/test/java/clientTests/ServerFacadeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/test/java/clientTests/ServerFacadeTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,6 +170,7 @@
     "JUnit.ServerFacadeTests.drawNegative.executor": "Run",
     "JUnit.ServerFacadeTests.drawPositive.executor": "Run",
     "JUnit.ServerFacadeTests.executor": "Run",
+    "JUnit.ServerFacadeTests.highlight.executor": "Run",
     "JUnit.ServerFacadeTests.joinNegative.executor": "Run",
     "JUnit.ServerFacadeTests.joinPositive.executor": "Run",
     "JUnit.ServerFacadeTests.listNegative.executor": "Run",
@@ -254,7 +261,7 @@
       <command value="git add ." />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Client">
+  <component name="RunManager" selected="JUnit.ServerFacadeTests.highlight">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ui.Client" />
       <module name="client" />
@@ -281,10 +288,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All in shared" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="shared" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
+    <configuration name="ServerFacadeTests.highlight" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="clientTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="clientTests" />
+      <option name="MAIN_CLASS_NAME" value="clientTests.ServerFacadeTests" />
+      <option name="METHOD_NAME" value="highlight" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -322,11 +337,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.ServerFacadeTests.highlight" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.Server" />
         <item itemvalue="JUnit.WebSocketTests.joinPlayerGood" />
         <item itemvalue="JUnit.WebSocketTests" />
-        <item itemvalue="JUnit.All in shared" />
       </list>
     </recent_temporary>
   </component>
@@ -345,14 +360,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702756436549</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Clear works">
-      <option name="closed" value="true" />
-      <created>1709082743781</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1709082743781</updated>
     </task>
     <task id="LOCAL-00029" summary="Phase 3 - passed first test">
       <option name="closed" value="true" />
@@ -738,7 +745,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711743888587</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="Phase 6 - Help command works">
+      <option name="closed" value="true" />
+      <created>1711746275670</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1711746275671</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -754,7 +769,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Phase 4 - All Tests Pass" />
     <MESSAGE value="Phase 4 - Small edit" />
     <MESSAGE value="Phase 5 - Imported starter code" />
     <MESSAGE value="Phase 5 - Logged Out UI: implemented help and quit" />
@@ -779,7 +793,8 @@
     <MESSAGE value="Phase 5 - Client can join the same game as their same color if they left" />
     <MESSAGE value="Phase 6 - Imported starter code" />
     <MESSAGE value="Phase 6 - Board drawn based on color" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Board drawn based on color" />
+    <MESSAGE value="Phase 6 - Help command works" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Help command works" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

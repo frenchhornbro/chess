@@ -2,6 +2,7 @@ package clientTests;
 
 import ServerFacade.ServerFacade;
 import chess.ChessBoard;
+import chess.ChessMove;
 import dataStorage.GameStorage;
 import org.junit.jupiter.api.*;
 import server.Server;
@@ -9,6 +10,7 @@ import ui.Client;
 import ui.GameplayDrawer;
 import uiHandler.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -22,6 +24,7 @@ public class ServerFacadeTests {
     private static UICreateHandler createHandler;
     private static UIListHandler listHandler;
     private static UIJoinHandler joinHandler;
+    private static UIHighlightHandler highlightHandler;
 
     @BeforeAll
     public static void init() {
@@ -34,6 +37,7 @@ public class ServerFacadeTests {
         createHandler = new UICreateHandler();
         listHandler = new UIListHandler();
         joinHandler = new UIJoinHandler();
+        highlightHandler = new UIHighlightHandler();
     }
 
     @BeforeEach
@@ -194,14 +198,24 @@ public class ServerFacadeTests {
     public void drawPositive() {
         //Draw a filled board
         ChessBoard board = new ChessBoard(true);
-        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(board, "WHITE"));
+        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(board, "WHITE", null));
     }
 
     @Test
     public void drawNegative() {
         //Draw a blank board
         ChessBoard board = new ChessBoard();
-        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(board, "BLACK"));
+        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(board, "BLACK", null));
+    }
+
+    @Test
+    public void highlight() {
+        ChessBoard board = new ChessBoard(true);
+        ArrayList<String> coordinates = new ArrayList<>();
+        coordinates.add("d2");
+        Collection<ChessMove> moves = highlightHandler.highlight(coordinates, board);
+        GameplayDrawer.draw(board, "WHITE", moves);
+        GameplayDrawer.draw(board, "BLACK", moves);
     }
 
     private String registrationSetup() {
