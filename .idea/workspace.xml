@@ -9,16 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Help command works">
-      <change afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIHighlightHandler.java" afterDir="false" />
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Highlight command works">
+      <change afterPath="$PROJECT_DIR$/client/src/main/java/ui/WebSocketClient.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/server/src/main/java/server/WebSocketServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/GameplayUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/GameplayUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PostLoginUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PostLoginUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PreLoginUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PreLoginUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/GameplayDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/GameplayDrawer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIDrawBoardHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIDrawBoardHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/test/java/clientTests/ServerFacadeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/test/java/clientTests/ServerFacadeTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +67,8 @@
     "Application.Client.executor": "Run",
     "Application.Server.executor": "Run",
     "Application.ServerFacade.executor": "Run",
+    "Application.WebSocketClient.executor": "Run",
+    "Application.WebSocketServer.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.All in client.executor": "Run",
     "JUnit.All in server.executor": "Run",
@@ -261,7 +257,7 @@
       <command value="git add ." />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.ServerFacadeTests.highlight">
+  <component name="RunManager" selected="JUnit.WebSocketTests">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ui.Client" />
       <module name="client" />
@@ -275,8 +271,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="server.Server" />
+    <configuration name="WebSocketClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ui.WebSocketClient" />
+      <module name="client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ui.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WebSocketServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="server.WebSocketServer" />
       <module name="server" />
       <extension name="coverage">
         <pattern>
@@ -319,29 +328,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WebSocketTests.joinPlayerGood" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.serverTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.WebSocketTests" />
-      <option name="METHOD_NAME" value="joinPlayerGood" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.WebSocketTests" />
+        <item itemvalue="Application.WebSocketClient" />
+        <item itemvalue="Application.WebSocketServer" />
         <item itemvalue="JUnit.ServerFacadeTests.highlight" />
         <item itemvalue="Application.Client" />
-        <item itemvalue="Application.Server" />
-        <item itemvalue="JUnit.WebSocketTests.joinPlayerGood" />
-        <item itemvalue="JUnit.WebSocketTests" />
       </list>
     </recent_temporary>
   </component>
@@ -360,14 +353,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702756436549</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Phase 3 - passed first test">
-      <option name="closed" value="true" />
-      <created>1709084085006</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1709084085006</updated>
     </task>
     <task id="LOCAL-00030" summary="Phase 3 - passed test 2">
       <option name="closed" value="true" />
@@ -753,7 +738,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711746275671</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="Phase 6 - Highlight command works">
+      <option name="closed" value="true" />
+      <created>1712179194700</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1712179194700</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -769,7 +762,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Phase 4 - Small edit" />
     <MESSAGE value="Phase 5 - Imported starter code" />
     <MESSAGE value="Phase 5 - Logged Out UI: implemented help and quit" />
     <MESSAGE value="Phase 5 - Logged Out UI: implemented register" />
@@ -794,7 +786,8 @@
     <MESSAGE value="Phase 6 - Imported starter code" />
     <MESSAGE value="Phase 6 - Board drawn based on color" />
     <MESSAGE value="Phase 6 - Help command works" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Help command works" />
+    <MESSAGE value="Phase 6 - Highlight command works" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Highlight command works" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
