@@ -1,10 +1,12 @@
 package server;
 
 import handler.*;
+import server.webSocket.WebSocketHandler;
 import spark.*;
 
 public class Server {
 
+    private WebSocketHandler webSocketHandler;
     private GetBoardHandler getBoardHandler;
     private RegistrationHandler regHandler;
     private ClearHandler clearHandler;
@@ -28,6 +30,7 @@ public class Server {
             this.joinGameHandler = new JoinGameHandler();
             this.listGamesHandler = new ListGamesHandler();
             this.getBoardHandler = new GetBoardHandler();
+            this.webSocketHandler = new WebSocketHandler();
         }
         catch (Throwable ex) {
             System.out.println("Error: Can't start server\n" + ex.getMessage());
@@ -38,6 +41,8 @@ public class Server {
         try {
             Spark.port(desiredPort);
             Spark.staticFiles.location("web");
+            Spark.webSocket("/connect", webSocketHandler);
+            //TODO: In each of the HTTP handlers, need to add functionality to push notifications out to others
             createRoutes();
             Spark.awaitInitialization();
         }

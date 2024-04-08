@@ -1,17 +1,10 @@
-package server;
+package server.webSocket;
 
 import org.eclipse.jetty.websocket.api.annotations.*;
 import org.eclipse.jetty.websocket.api.Session;
-import spark.Spark;
 
 @WebSocket
-public class WebSocketServer {
-    public static void main(String[] args) {
-        Spark.port(8080);
-        Spark.webSocket("/connect", WebSocketServer.class);
-        Spark.get("/echo/:msg", (request, response) -> "HTTP response: " + request.params(":msg"));
-    }
-
+public class WebSocketHandler {
     @OnWebSocketMessage
     public void onMessage(Session session, String message) throws Exception {
         switch (message) {

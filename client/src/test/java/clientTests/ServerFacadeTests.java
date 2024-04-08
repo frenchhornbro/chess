@@ -59,7 +59,7 @@ public class ServerFacadeTests {
         ArrayList<String> testCommand2 = new ArrayList<>(List.of("quit"));
         testCommands.add(testCommand2);
         ServerFacade serverFacade = new ServerFacade(true, testCommands);
-        Assertions.assertDoesNotThrow(() -> serverFacade.start(port, new Client()));
+        Assertions.assertDoesNotThrow(() -> serverFacade.start(port, new Client(port)));
     }
 
     @Test
@@ -69,11 +69,11 @@ public class ServerFacadeTests {
         ArrayList<String> testCommand1 = new ArrayList<>(List.of("login", "fake", "creds", "exit"));
         testCommands.add(testCommand1);
         ServerFacade serverFacade = new ServerFacade(true, testCommands);
-        Assertions.assertThrows(Exception.class, () -> serverFacade.start(port, new Client()));
+        Assertions.assertThrows(Exception.class, () -> serverFacade.start(port, new Client(port)));
         ArrayList<String> testCommand2 = new ArrayList<>(List.of("help", "unnecessary", "pars", "quit"));
         testCommands.add(testCommand2);
         ServerFacade otherServerFacade = new ServerFacade(true, testCommands);
-        Assertions.assertThrows(Exception.class, () -> otherServerFacade.start(port, new Client()));
+        Assertions.assertThrows(Exception.class, () -> otherServerFacade.start(port, new Client(port)));
     }
 
     @Test
