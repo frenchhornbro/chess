@@ -37,19 +37,15 @@ public class WebSocketHandler {
                 observe(session, username, game);
                 break;
             case "MAKE_MOVE":
-                session.getRemote().sendString("A move was made");
                 System.out.println("A move was made");
                 break;
             case "LEAVE":
-                session.getRemote().sendString("Someone left");
                 System.out.println("Someone left");
                 break;
             case "RESIGN":
-                session.getRemote().sendString("A player resigned");
                 System.out.println("A player resigned");
                 break;
             default:
-                session.getRemote().sendString("Incorrect message sent: " + message);
                 System.out.println("Incorrect message sent: " + message);
         }
     }
@@ -57,7 +53,7 @@ public class WebSocketHandler {
     private void sendError(Session session, String errorMsg) {
         try {
             ServerMessage error = new ServerMessage(ServerMessage.ServerMessageType.ERROR);
-            error.setMessage(errorMsg);
+            error.setErrorMessage(errorMsg);
             session.getRemote().sendString(new Gson().toJson(error));
         }
         catch (Exception ex) {

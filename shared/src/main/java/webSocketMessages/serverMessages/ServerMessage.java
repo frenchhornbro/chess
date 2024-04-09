@@ -13,6 +13,7 @@ public class ServerMessage {
     ServerMessageType serverMessageType;
     ChessGame game;
     String message;
+    String errorMessage;
 
     public enum ServerMessageType {
         LOAD_GAME,
@@ -29,19 +30,27 @@ public class ServerMessage {
     }
 
     public ChessGame getGame() {
-        return game;
+        return this.game;
     }
 
     public void setGame(ChessGame newGame) {
-        game = newGame;
+        this.game = newGame;
     }
 
     public String getMessage() {
-        return message;
+        return this.message;
     }
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     @Override

@@ -9,9 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Client prints board from ServerMessage upon joining">
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - WS message sends for observers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/server/webSocket/WebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/webSocket/WebSocketHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/serverMessages/ServerMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/serverMessages/ServerMessage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,6 +220,8 @@
     "JUnit.UserDAOTests.sqlUserGetFail.executor": "Run",
     "JUnit.UserDAOTests.sqlUserGetSuccess.executor": "Run",
     "JUnit.WebSocketTests.executor": "Run",
+    "JUnit.WebSocketTests.joinObserverGood.executor": "Run",
+    "JUnit.WebSocketTests.joinPlayerBadAuthToken.executor": "Debug",
     "JUnit.WebSocketTests.joinPlayerEmpty.executor": "Run",
     "JUnit.WebSocketTests.joinPlayerGood.executor": "Run",
     "JUnit.WebSocketTests.joinPlayerSteal.executor": "Run",
@@ -316,7 +319,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WebSocketTests.joinPlayerGood" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WebSocketTests.joinPlayerBadAuthToken" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
@@ -326,7 +329,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
       <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.WebSocketTests" />
-      <option name="METHOD_NAME" value="joinPlayerGood" />
+      <option name="METHOD_NAME" value="joinPlayerBadAuthToken" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -335,10 +338,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.WebSocketTests" />
+        <item itemvalue="JUnit.WebSocketTests.joinPlayerBadAuthToken" />
         <item itemvalue="JUnit.WebSocketTests.joinObserverGood" />
         <item itemvalue="Application.Server" />
         <item itemvalue="Application.Client" />
-        <item itemvalue="JUnit.WebSocketTests.joinPlayerGood" />
       </list>
     </recent_temporary>
   </component>
@@ -357,14 +360,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702756436549</updated>
-    </task>
-    <task id="LOCAL-00037" summary="Phase 3 - All unit tests passed">
-      <option name="closed" value="true" />
-      <created>1709184965731</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1709184965731</updated>
     </task>
     <task id="LOCAL-00038" summary="Phase 3 - Code cleanup">
       <option name="closed" value="true" />
@@ -750,7 +745,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712701789735</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="Phase 6 - WS message sends for observers">
+      <option name="closed" value="true" />
+      <created>1712703001110</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1712703001110</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -766,7 +769,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Phase 5 - Logged In UI: Refactored all files into separate classes" />
     <MESSAGE value="Phase 5 - Logged In UI: Implemented create" />
     <MESSAGE value="Phase 5 - Logged In UI: Fixed create" />
     <MESSAGE value="Phase 5 - Logged In UI: Partially implemented list" />
@@ -791,18 +793,8 @@
     <MESSAGE value="Phase 6 - Passed first WebSocketTest" />
     <MESSAGE value="Phase 6 - Client interprets messages correctly" />
     <MESSAGE value="Phase 6 - Client prints board from ServerMessage upon joining" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Client prints board from ServerMessage upon joining" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/server/src/test/java/passoffTests/serverTests/WebSocketTests.java</url>
-          <line>90</line>
-          <option name="timeStamp" value="17" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Phase 6 - WS message sends for observers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - WS message sends for observers" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
