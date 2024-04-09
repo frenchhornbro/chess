@@ -30,6 +30,16 @@ public class SQLAuthDAO extends SQLDAO {
         }
     }
 
+    public String getUser(String authToken) throws DataAccessException {
+        try {
+            String getStatement = "select username from authData where authToken=?";
+            return queryDB(getStatement, authToken);
+        }
+        catch (Exception ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
+    }
+
     //Delete an authToken
     public void deleteAuth(String authOrUser, boolean isAuth) throws DataAccessException {
         try {

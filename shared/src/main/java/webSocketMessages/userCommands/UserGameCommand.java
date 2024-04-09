@@ -10,21 +10,29 @@ import java.util.Objects;
  */
 public class UserGameCommand {
 
+    protected CommandType commandType;
+    private final String authToken;
+    private String gameID;
+    private String playerColor;
+
     public UserGameCommand(String authToken) {
         this.authToken = authToken;
     }
 
+    public UserGameCommand(CommandType commandType, String authToken, String gameID, String playerColor) {
+        this.commandType = commandType;
+        this.authToken = authToken;
+        this.gameID = gameID;
+        this.playerColor = playerColor;
+    }
     public enum CommandType {
         JOIN_PLAYER,
         JOIN_OBSERVER,
         MAKE_MOVE,
         LEAVE,
         RESIGN
+
     }
-
-    protected CommandType commandType;
-
-    private final String authToken;
 
     public String getAuthString() {
         return authToken;
@@ -32,6 +40,14 @@ public class UserGameCommand {
 
     public CommandType getCommandType() {
         return this.commandType;
+    }
+
+    public String getGameID() {
+        return gameID;
+    }
+
+    public String getPlayerColor() {
+        return playerColor;
     }
 
     @Override

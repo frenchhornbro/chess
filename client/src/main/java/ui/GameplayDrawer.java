@@ -4,10 +4,8 @@ import chess.ChessBoard;
 import chess.ChessMove;
 import chess.ChessPiece;
 import chess.ChessPosition;
-
 import java.util.ArrayList;
 import java.util.Collection;
-
 import static chess.ChessBoard.BOARDSIZE;
 import static ui.EscapeSequences.*;
 
@@ -19,17 +17,10 @@ public class GameplayDrawer {
     }
 
     public static void draw (ChessBoard board, String playerColor, Collection<ChessMove> moves) {
-        if (playerColor == null) return;    //FIXME: What do we do for observers?
-        if (playerColor.equalsIgnoreCase("WHITE")) {
-            System.out.println(ERASE_SCREEN);
-            printWhite(board, moves);
-            System.out.println();
-        }
-        else {
-            System.out.println(ERASE_SCREEN);
-            printBlack(board, moves);
-            System.out.println();
-        }
+        System.out.print(ERASE_SCREEN);
+        if (playerColor == null || playerColor.equalsIgnoreCase("WHITE")) printWhite(board, moves);
+        else printBlack(board, moves);
+        System.out.println();
     }
 
     public static void printWhite(ChessBoard board, Collection<ChessMove> moves) {
@@ -89,7 +80,7 @@ public class GameplayDrawer {
         }
         if (collMoves != null) {
             if (!collMoves.isEmpty()) {
-                //TODO: Consider preventing querying moves for the opposite team
+                //TODO: Consider only allowing querying moves for the person whose turn it is
                 row = BOARDSIZE - 1 - row;
                 ArrayList<ChessMove> moves = new ArrayList<>(collMoves);
                 ChessPosition startPos = moves.getFirst().getStartPosition();
