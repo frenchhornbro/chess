@@ -9,16 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Client interprets messages correctly">
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Client prints board from ServerMessage upon joining">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/GameplayUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/GameplayUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/server/webSocket/WebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/webSocket/WebSocketHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/dataStorage/GameStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/dataStorage/GameStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/dataStorage/GamesStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/dataStorage/GamesStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/serverMessages/ServerMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/webSocketMessages/serverMessages/ServerMessage.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +63,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Application.Client.executor": "Debug",
+    "Application.Client.executor": "Run",
     "Application.Server.executor": "Run",
     "Application.ServerFacade.executor": "Run",
     "Application.WebSocketClient.executor": "Run",
@@ -265,7 +258,7 @@
       <command value="git add ." />
     </option>
   </component>
-  <component name="RunManager" selected="Application.Server">
+  <component name="RunManager" selected="JUnit.WebSocketTests">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ui.Client" />
       <module name="client" />
@@ -292,32 +285,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerFacadeTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="client" />
+    <configuration name="WebSocketTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="clientTests.*" />
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="clientTests" />
-      <option name="MAIN_CLASS_NAME" value="clientTests.ServerFacadeTests" />
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.WebSocketTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerFacadeTests.listNegative" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="client" />
+    <configuration name="WebSocketTests.joinObserverGood" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="clientTests.*" />
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="clientTests" />
-      <option name="MAIN_CLASS_NAME" value="clientTests.ServerFacadeTests" />
-      <option name="METHOD_NAME" value="listNegative" />
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.WebSocketTests" />
+      <option name="METHOD_NAME" value="joinObserverGood" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -341,11 +334,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.WebSocketTests" />
+        <item itemvalue="JUnit.WebSocketTests.joinObserverGood" />
         <item itemvalue="Application.Server" />
         <item itemvalue="Application.Client" />
         <item itemvalue="JUnit.WebSocketTests.joinPlayerGood" />
-        <item itemvalue="JUnit.ServerFacadeTests.listNegative" />
-        <item itemvalue="JUnit.ServerFacadeTests" />
       </list>
     </recent_temporary>
   </component>
@@ -364,22 +357,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702756436549</updated>
-    </task>
-    <task id="LOCAL-00035" summary="Phase 3 - passed test 5">
-      <option name="closed" value="true" />
-      <created>1709172196770</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1709172196770</updated>
-    </task>
-    <task id="LOCAL-00036" summary="Phase 3 - Passed all tests">
-      <option name="closed" value="true" />
-      <created>1709181306153</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1709181306153</updated>
     </task>
     <task id="LOCAL-00037" summary="Phase 3 - All unit tests passed">
       <option name="closed" value="true" />
@@ -757,7 +734,23 @@
       <option name="project" value="LOCAL" />
       <updated>1712692793783</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="Phase 6 - Client prints board from ServerMessage upon joining">
+      <option name="closed" value="true" />
+      <created>1712701699461</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1712701699461</updated>
+    </task>
+    <task id="LOCAL-00085" summary="Phase 6 - Client prints board from ServerMessage upon joining">
+      <option name="closed" value="true" />
+      <created>1712701789735</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1712701789735</updated>
+    </task>
+    <option name="localTasksCounter" value="86" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -773,7 +766,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Phase 5 - Logged In UI: implemented logout" />
     <MESSAGE value="Phase 5 - Logged In UI: Refactored all files into separate classes" />
     <MESSAGE value="Phase 5 - Logged In UI: Implemented create" />
     <MESSAGE value="Phase 5 - Logged In UI: Fixed create" />
@@ -798,7 +790,8 @@
     <MESSAGE value="Phase 6 - WebSocketTests now run" />
     <MESSAGE value="Phase 6 - Passed first WebSocketTest" />
     <MESSAGE value="Phase 6 - Client interprets messages correctly" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Client interprets messages correctly" />
+    <MESSAGE value="Phase 6 - Client prints board from ServerMessage upon joining" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Client prints board from ServerMessage upon joining" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

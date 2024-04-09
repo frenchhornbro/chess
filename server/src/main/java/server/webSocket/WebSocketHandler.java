@@ -14,13 +14,12 @@ public class WebSocketHandler {
     private final ConnectionManager connections = new ConnectionManager();
     @OnWebSocketMessage
     public void onMessage(Session session, String message) throws Exception {
-        Gson serial = new Gson();
-        HashMap<String, Object> command = serial.fromJson(message, HashMap.class);
+        HashMap<String, Object> command = new Gson().fromJson(message, HashMap.class);
         System.out.println("Server received a message: " + message);
         String authToken = (String) command.get("authToken");
         SQLAuthDAO authDAO = new SQLAuthDAO();
         if (authDAO.getAuth(authToken) == null) {
-            //TODO: Send an unauthorized error
+            sendError(session, "Error: unauthorized");
             return;
         }
         String username = authDAO.getUser(authToken);
@@ -35,8 +34,7 @@ public class WebSocketHandler {
                 join(session, username, game, playerColor);
                 break;
             case "JOIN_OBSERVER":
-                session.getRemote().sendString("An observer joined");
-                System.out.println("An observer joined");
+                observe(session, username, game);
                 break;
             case "MAKE_MOVE":
                 session.getRemote().sendString("A move was made");
@@ -56,12 +54,33 @@ public class WebSocketHandler {
         }
     }
 
+    private void sendError(Session session, String errorMsg) {
+        try {
+            ServerMessage error = new ServerMessage(ServerMessage.ServerMessageType.ERROR);
+            error.setMessage(errorMsg);
+            session.getRemote().sendString(new Gson().toJson(error));
+        }
+        catch (Exception ex) {
+            System.out.println("Error: could not send error message to connection");
+        }
+    }
+
     private void join(Session session, String username, ChessGame game, String playerColor) {
         ServerMessage userMsg = new ServerMessage(ServerMessage.ServerMessageType.LOAD_GAME);
         userMsg.setGame(game);
         userMsg.setMessage(playerColor);
         ServerMessage broadcastMsg = new ServerMessage(ServerMessage.ServerMessageType.NOTIFICATION);
         broadcastMsg.setMessage(username + " has joined as " + playerColor);
+        connections.add(username, session);
+        connections.broadcast(username, userMsg, broadcastMsg);
+        System.out.println(broadcastMsg.getMessage());
+    }
+
+    private void observe(Session session, String username, ChessGame game) {
+        ServerMessage userMsg = new ServerMessage(ServerMessage.ServerMessageType.LOAD_GAME);
+        userMsg.setGame(game);
+        ServerMessage broadcastMsg = new ServerMessage(ServerMessage.ServerMessageType.NOTIFICATION);
+        broadcastMsg.setMessage(username + " has joined as an observer");
         connections.add(username, session);
         connections.broadcast(username, userMsg, broadcastMsg);
         System.out.println(broadcastMsg.getMessage());
