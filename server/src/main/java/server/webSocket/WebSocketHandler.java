@@ -1,6 +1,5 @@
 package server.webSocket;
 
-import chess.ChessBoard;
 import chess.ChessGame;
 import com.google.gson.Gson;
 import dataAccess.SQLAuthDAO;
@@ -20,21 +19,20 @@ public class WebSocketHandler {
         System.out.println("Server received a message: " + message);
         String authToken = (String) command.get("authToken");
         SQLAuthDAO authDAO = new SQLAuthDAO();
+        if (authDAO.getAuth(authToken) == null) {
+            //TODO: Send an unauthorized error
+            return;
+        }
         String username = authDAO.getUser(authToken);
-//        String gameID = (String) command.get("gameID");
-//        SQLGameDAO sqlGameDAO = new SQLGameDAO();
-//        ChessBoard board = sqlGameDAO.getBoard(Integer.parseInt(gameID));
+        Object objGameID = command.get("gameID");
+        String gameID = String.valueOf(objGameID);
+        SQLGameDAO sqlGameDAO = new SQLGameDAO();
+        ChessGame game = sqlGameDAO.getGame(gameID);
         String commandType = (String) command.get("commandType");
         String playerColor = (String) command.get("playerColor");
         switch (commandType) {
             case "JOIN_PLAYER":
-                ServerMessage userMsg = new ServerMessage(ServerMessage.ServerMessageType.LOAD_GAME);
-                userMsg.setGame(new ChessGame(ChessGame.TeamColor.WHITE, new ChessBoard(true))); //TODO: Need to get the actual ChessGame
-                ServerMessage broadcastMsg = new ServerMessage(ServerMessage.ServerMessageType.NOTIFICATION);
-                broadcastMsg.setMessage(username + " has joined as " + playerColor);
-                connections.add(username, session);
-                connections.broadcast(username, userMsg, broadcastMsg);
-                System.out.println(broadcastMsg.getMessage());
+                join(session, username, game, playerColor);
                 break;
             case "JOIN_OBSERVER":
                 session.getRemote().sendString("An observer joined");
@@ -56,5 +54,16 @@ public class WebSocketHandler {
                 session.getRemote().sendString("Incorrect message sent: " + message);
                 System.out.println("Incorrect message sent: " + message);
         }
+    }
+
+    private void join(Session session, String username, ChessGame game, String playerColor) {
+        ServerMessage userMsg = new ServerMessage(ServerMessage.ServerMessageType.LOAD_GAME);
+        userMsg.setGame(game);
+        userMsg.setMessage(playerColor);
+        ServerMessage broadcastMsg = new ServerMessage(ServerMessage.ServerMessageType.NOTIFICATION);
+        broadcastMsg.setMessage(username + " has joined as " + playerColor);
+        connections.add(username, session);
+        connections.broadcast(username, userMsg, broadcastMsg);
+        System.out.println(broadcastMsg.getMessage());
     }
 }

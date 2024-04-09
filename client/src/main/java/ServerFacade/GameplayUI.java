@@ -8,23 +8,24 @@ import uiHandler.UIHighlightHandler;
 import uiHandler.UIJoinHandler;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import static ui.PrintHelper.*;
+import webSocketMessages.userCommands.UserGameCommand;
+import static webSocketMessages.userCommands.UserGameCommand.CommandType.*;
 
 public class GameplayUI {
     private final UIDrawBoardHandler drawBoardHandler;
     private final UIHighlightHandler highlightHandler;
-    private ChessBoard board;
+    private final ChessBoard board;
     public GameplayUI() {
         this.drawBoardHandler = new UIDrawBoardHandler();
         this.highlightHandler = new UIHighlightHandler();
         this.board = null;
     }
     public boolean goToGameplayUI(int port, Client client, String displayGameID, ArrayList<Integer> storageIDs, String playerColor) {
-        //TODO: Send a notification of observers joining, and of players joining as a specified color
-        // Do this with the /connect endpoint
+        UserGameCommand.CommandType commandType = (playerColor == null) ? JOIN_OBSERVER : JOIN_PLAYER;
         String storageGameID = String.valueOf(UIJoinHandler.convertID(displayGameID, storageIDs));
-        board = drawBoardHandler.drawBoard(port, client.getAuthToken(), storageGameID, playerColor, null);
+        client.send(new UserGameCommand(commandType, client.getAuthToken(), storageGameID, playerColor));
+//        board = drawBoardHandler.drawBoard(port, client.getAuthToken(), storageGameID, playerColor, null);
         /*
             Commands:
             Help
@@ -36,7 +37,6 @@ public class GameplayUI {
          */
         String input = "";
         while (!input.equalsIgnoreCase("leave")) {
-            System.out.print("> ");
             ArrayList<String> commands = PreLoginUI.getCommands();
             input = commands.getFirst();
             ArrayList<String> params = new ArrayList<>(commands);
@@ -72,6 +72,8 @@ public class GameplayUI {
                     //TODO: Send a notification of player resigning
                     break;
                 case ("highlight"):
+                    //TODO: Make the highlighter send a WS message to get the board, then highlight based off of that
+                    // Either that or save the board somewhere and highlight based off of the saved board
                     Collection<ChessMove> moves = highlightHandler.highlight(params, board);
                     if (moves != null) {
                         drawBoardHandler.clearScreen();

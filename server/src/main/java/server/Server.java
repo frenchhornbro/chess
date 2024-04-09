@@ -42,7 +42,6 @@ public class Server {
             Spark.port(desiredPort);
             Spark.staticFiles.location("web");
             Spark.webSocket("/connect", webSocketHandler);
-            //TODO: In each of the HTTP handlers, need to add functionality to push notifications out to others
             createRoutes();
             Spark.awaitInitialization();
         }

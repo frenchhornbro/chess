@@ -1,16 +1,20 @@
 package dataStorage;
 
+import chess.ChessGame;
+
 public class GameStorage {
     private final int gameID;
     private final String whiteUsername;
     private final String blackUsername;
     private final String gameName;
+    private final ChessGame game;
 
-    public GameStorage(int gameID, String whiteUsername, String blackUsername, String gameName) {
+    public GameStorage(int gameID, String whiteUsername, String blackUsername, String gameName, ChessGame game) {
         this.gameID = gameID;
         this.whiteUsername = whiteUsername;
         this.blackUsername = blackUsername;
         this.gameName = gameName;
+        this.game = game;
     }
 
     public int getGameID() {
@@ -27,6 +31,10 @@ public class GameStorage {
 
     public String getGameName() {
         return gameName;
+    }
+
+    public ChessGame getGame() {
+        return game;
     }
 
     @Override

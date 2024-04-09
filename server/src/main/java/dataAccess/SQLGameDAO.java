@@ -80,18 +80,66 @@ public class SQLGameDAO extends SQLDAO {
 
             ArrayList<GameStorage> games = new ArrayList<>();
             for (String gameID : gameIDs) {
-                String getWhiteUserNameStatement = "SELECT whiteUsername FROM gameData WHERE gameID=?";
-                String whiteUsername = queryDB(getWhiteUserNameStatement, gameID);
-                String getBlackUserNameStatement = "SELECT blackUsername FROM gameData WHERE gameID=?";
-                String blackUsername = queryDB(getBlackUserNameStatement, gameID);
-                String getGameNameStatement = "SELECT gameName FROM gameData WHERE gameID=?";
-                String gameName = queryDB(getGameNameStatement, gameID);
-                GameStorage gameStorage = new GameStorage(Integer.parseInt(gameID), whiteUsername, blackUsername, gameName);
-                games.add(gameStorage);
+                games.add(getGameData(gameID));
             }
             return new GamesStorage(games);
         }
         catch (Exception ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
+    }
+
+    public GameStorage getGameData(String gameID) throws DataAccessException {
+        try {
+            //From gameData
+            String getWhiteUserNameStatement = "SELECT whiteUsername FROM gameData WHERE gameID=?";
+            String whiteUsername = queryDB(getWhiteUserNameStatement, gameID);
+            String getBlackUserNameStatement = "SELECT blackUsername FROM gameData WHERE gameID=?";
+            String blackUsername = queryDB(getBlackUserNameStatement, gameID);
+            String getGameNameStatement = "SELECT gameName FROM gameData WHERE gameID=?";
+            String gameName = queryDB(getGameNameStatement, gameID);
+            ChessGame game = getGame(gameID);
+            return new GameStorage(Integer.parseInt(gameID), whiteUsername, blackUsername, gameName, game);
+
+        }
+        catch (Exception ex) {
+            throw new DataAccessException(ex.getMessage());
+        }
+    }
+
+    public ChessGame getGame(String gameID) throws DataAccessException {
+        try {
+            //From chessGame
+            String getTeamTurnStatement = "SELECT teamTurn FROM chessGame WHERE gameID=?";
+            String teamTurnStr = queryDB(getTeamTurnStatement, gameID);
+            ChessGame.TeamColor teamTurn = (teamTurnStr == null) ? null : switch (teamTurnStr.toUpperCase()) {
+                case ("WHITE") -> ChessGame.TeamColor.WHITE;
+                case ("BLACK") -> ChessGame.TeamColor.BLACK;
+                default -> null;
+            };
+            String getStalemateStatement = "SELECT stalemate FROM chessGame WHERE gameID=?";
+            boolean stalemate = (Integer.parseInt(queryDB(getStalemateStatement, gameID)) != 0);
+            String getCheckmateStatement = "SELECT checkmate FROM chessGame WHERE gameID=?";
+            boolean checkmate = (Integer.parseInt(queryDB(getCheckmateStatement, gameID)) != 0);
+            String getWKRMStatement = "SELECT wKingRookMoved FROM chessGame WHERE gameID=?";
+            boolean wKingRookMoved = (Integer.parseInt(queryDB(getWKRMStatement, gameID)) != 0);
+            String getWQRMStatement = "SELECT wQueenRookMoved FROM chessGame WHERE gameID=?";
+            boolean wQueenRookMoved = (Integer.parseInt(queryDB(getWQRMStatement, gameID)) != 0);
+            String getWKMStatement = "SELECT wKingMoved FROM chessGame WHERE gameID=?";
+            boolean wKingMoved = (Integer.parseInt(queryDB(getWKMStatement, gameID)) != 0);
+            String getBKRMStatement = "SELECT bKingRookMoved FROM chessGame WHERE gameID=?";
+            boolean bKingRookMoved = (Integer.parseInt(queryDB(getBKRMStatement, gameID)) != 0);
+            String getBQRMStatement = "SELECT bQueenRookMoved FROM chessGame WHERE gameID=?";
+            boolean bQueenRookMoved = (Integer.parseInt(queryDB(getBQRMStatement, gameID)) != 0);
+            String getBKMStatement = "SELECT bKingMoved FROM chessGame WHERE gameID=?";
+            boolean bKingMoved = (Integer.parseInt(queryDB(getBKMStatement, gameID)) != 0);
+
+            //From chessBoard
+            ChessBoard board = getBoard((int) Double.parseDouble(gameID));
+            return new ChessGame(teamTurn, board, stalemate, checkmate, wKingRookMoved, wQueenRookMoved, wKingMoved, bKingRookMoved, bQueenRookMoved, bKingMoved);
+        }
+        catch (Exception ex) {
+            System.out.print(ex.getMessage());
             throw new DataAccessException(ex.getMessage());
         }
     }

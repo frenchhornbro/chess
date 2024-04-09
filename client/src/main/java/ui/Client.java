@@ -1,6 +1,11 @@
 package ui;
 
 import ServerFacade.ServerFacade;
+import chess.ChessBoard;
+import chess.ChessGame;
+import com.google.gson.Gson;
+import webSocketMessages.serverMessages.ServerMessage;
+import webSocketMessages.userCommands.UserGameCommand;
 import javax.websocket.*;
 import java.net.URI;
 import java.util.ArrayList;
@@ -48,7 +53,19 @@ public class Client extends Endpoint {
             this.session = container.connectToServer(this, uri);
             this.session.addMessageHandler(new MessageHandler.Whole<String>() {
                 public void onMessage(String message) {
-                    System.out.println(message);
+                    Gson serial = new Gson();
+                    ServerMessage serverMessage = serial.fromJson(message, ServerMessage.class);
+                    if (serverMessage.getGame() != null) {
+                        ChessGame chessGame = serverMessage.getGame();
+                        ChessBoard board = chessGame.getBoard();
+                        //TODO: Print the board from here, not in the GameplayUI
+                        //TODO: Get rid of the /board endpoint. We're going to get the chessboard from this WebSocket message. Probably.
+                        GameplayDrawer.draw(board, serverMessage.getMessage(), null);
+                        System.out.print("> ");
+                    }
+                    else {
+                        System.out.println("Message: " + serverMessage.getMessage());
+                    }
                 }
             });
         }
@@ -57,8 +74,14 @@ public class Client extends Endpoint {
         }
     }
 
-    public void send (String msg) throws Exception {
-        this.session.getBasicRemote().sendText(msg);
+    public void send (UserGameCommand command) {
+        try {
+            String msg = new Gson().toJson(command);
+            this.session.getBasicRemote().sendText(msg);
+        }
+        catch (Exception ex) {
+            System.out.print("Error: Message not sent");
+        }
     }
 
     public void onOpen(Session session, EndpointConfig endpointConfig) {}

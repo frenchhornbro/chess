@@ -26,6 +26,8 @@ public class GamesStorage {
             retStr.append(game.getBlackUsername());
             retStr.append("\", GameName: \"");
             retStr.append(game.getGameName());
+            retStr.append("\", Game: \"");
+            retStr.append(game.getGame().toString());
             retStr.append("\"]");
         }
         retStr.append("}");
