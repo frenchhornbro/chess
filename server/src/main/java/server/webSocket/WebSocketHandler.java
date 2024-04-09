@@ -4,6 +4,7 @@ import chess.ChessGame;
 import com.google.gson.Gson;
 import dataAccess.SQLAuthDAO;
 import dataAccess.SQLGameDAO;
+import dataStorage.GameStorage;
 import org.eclipse.jetty.websocket.api.annotations.*;
 import org.eclipse.jetty.websocket.api.Session;
 import webSocketMessages.serverMessages.ServerMessage;
@@ -19,19 +20,24 @@ public class WebSocketHandler {
         String authToken = (String) command.get("authToken");
         SQLAuthDAO authDAO = new SQLAuthDAO();
         if (authDAO.getAuth(authToken) == null) {
-            sendError(session, "Error: unauthorized");
+            sendError(session, "unauthorized");
+            return;
+        }
+        SQLGameDAO sqlGameDAO = new SQLGameDAO();
+        Object objGameID = command.get("gameID");
+        String gameID = String.valueOf(objGameID);
+        if (sqlGameDAO.gameIsNull((int) Double.parseDouble(gameID))) {
+            sendError(session, "invalid ID");
             return;
         }
         String username = authDAO.getUser(authToken);
-        Object objGameID = command.get("gameID");
-        String gameID = String.valueOf(objGameID);
-        SQLGameDAO sqlGameDAO = new SQLGameDAO();
-        ChessGame game = sqlGameDAO.getGame(gameID);
+        GameStorage gameData = sqlGameDAO.getGameData(gameID);
+        ChessGame game = gameData.getGame();
         String commandType = (String) command.get("commandType");
         String playerColor = (String) command.get("playerColor");
         switch (commandType) {
             case "JOIN_PLAYER":
-                join(session, username, game, playerColor);
+                join(session, username, game, playerColor, gameData);
                 break;
             case "JOIN_OBSERVER":
                 observe(session, username, game);
@@ -50,10 +56,10 @@ public class WebSocketHandler {
         }
     }
 
-    private void sendError(Session session, String errorMsg) {
+    private static void sendError(Session session, String errorMsg) {
         try {
             ServerMessage error = new ServerMessage(ServerMessage.ServerMessageType.ERROR);
-            error.setErrorMessage(errorMsg);
+            error.setErrorMessage("Error: " + errorMsg);
             session.getRemote().sendString(new Gson().toJson(error));
         }
         catch (Exception ex) {
@@ -61,7 +67,32 @@ public class WebSocketHandler {
         }
     }
 
-    private void join(Session session, String username, ChessGame game, String playerColor) {
+    private void join(Session session, String username, ChessGame game, String playerColor, GameStorage gameData) {
+        if (playerColor == null) {
+            sendError(session, "color not specified");
+            return;
+        }
+        if (playerColor.equalsIgnoreCase("WHITE")) {
+            if (gameData.getWhiteUsername() == null) {
+                sendError(session, "game wasn't joined");
+                return;
+            }
+            if (!gameData.getWhiteUsername().equals(username)) {
+                sendError(session, "WHITE is already taken");
+                return;
+            }
+        }
+        else {
+            if (gameData.getBlackUsername() == null) {
+                sendError(session, "game wasn't joined");
+                return;
+            }
+            if (!gameData.getBlackUsername().equals(username)) {
+                sendError(session, "BLACK is already taken");
+                return;
+            }
+        }
+
         ServerMessage userMsg = new ServerMessage(ServerMessage.ServerMessageType.LOAD_GAME);
         userMsg.setGame(game);
         userMsg.setMessage(playerColor);

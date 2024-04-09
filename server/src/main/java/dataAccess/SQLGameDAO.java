@@ -99,7 +99,8 @@ public class SQLGameDAO extends SQLDAO {
             String getGameNameStatement = "SELECT gameName FROM gameData WHERE gameID=?";
             String gameName = queryDB(getGameNameStatement, gameID);
             ChessGame game = getGame(gameID);
-            return new GameStorage(Integer.parseInt(gameID), whiteUsername, blackUsername, gameName, game);
+            int intGameID = (int) Double.parseDouble(gameID);
+            return new GameStorage(intGameID, whiteUsername, blackUsername, gameName, game);
 
         }
         catch (Exception ex) {
