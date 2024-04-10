@@ -15,6 +15,7 @@ public class ChessGame {
     private ChessBoard board;
     private boolean stalemate;
     private boolean checkmate;
+    private boolean gameOver;
     private boolean whiteKingsideRookHasMoved;
     private boolean blackKingsideRookHasMoved;
     private boolean whiteQueensideRookHasMoved;
@@ -26,10 +27,11 @@ public class ChessGame {
         setBoard(null);
     }
     public ChessGame(TeamColor turn, ChessBoard newBoard) {
-        this.teamTurn = turn;
+        this.teamTurn = (turn == null) ? TeamColor.WHITE : turn;
         this.board = newBoard;
         this.stalemate = isInStalemate(teamTurn);
         this.checkmate = isInCheckmate(teamTurn);
+        this.gameOver = stalemate || checkmate;
         this.whiteKingsideRookHasMoved = false;
         this.whiteQueensideRookHasMoved = false;
         this.whiteKingHasMoved = false;
@@ -38,13 +40,14 @@ public class ChessGame {
         this.blackKingHasMoved = false;
     }
 
-    public ChessGame(TeamColor turn, ChessBoard newBoard, boolean stalemate, boolean checkmate,
+    public ChessGame(TeamColor turn, ChessBoard newBoard, boolean stalemate, boolean checkmate, boolean gameOver,
                      boolean wKingRookMoved, boolean wQueenRookMoved, boolean wKingMoved,
                      boolean bKingRookMoved, boolean bQueenRookMoved, boolean bKingMoved) {
         this.teamTurn = turn;
         this.board = newBoard;
         this.stalemate = stalemate;
         this.checkmate = checkmate;
+        this.gameOver = gameOver;
         this.whiteKingsideRookHasMoved = wKingRookMoved;
         this.whiteQueensideRookHasMoved = wQueenRookMoved;
         this.whiteKingHasMoved = wKingMoved;
@@ -66,6 +69,10 @@ public class ChessGame {
 
     public int getCheckmate() {
         return (checkmate) ? 1 : 0;
+    }
+
+    public int getGameOver() {
+        return (gameOver) ? 1 : 0;
     }
 
     public int getWKingRookMoved() {
@@ -90,6 +97,10 @@ public class ChessGame {
 
     public int getBKingMoved() {
         return (blackKingHasMoved) ? 1 : 0;
+    }
+
+    public void setGameOver(boolean resign) {
+        this.gameOver = resign;
     }
 
     /**
@@ -153,23 +164,25 @@ public class ChessGame {
          */
         ChessGame.TeamColor queriedTurn = board.getPiece(move.getStartPosition()).getTeamColor();
         if (teamTurn == null) setTeamTurn(queriedTurn);
-        if (queriedTurn == teamTurn) {
-            Collection<ChessMove> validMoveCollection = validMoves(move.getStartPosition());
-            if (validMoveCollection.contains(move)) {
-                if (board.getPiece(move.getStartPosition()) != null) {
-                    if (!leavesKingInCheck(move)) {
-                        applyMove(move);        //This does nothing with the returned captured ChessPiece
-                        moveCastlingRook(move);
-                        updateTeamConditions(move);
+        if (!gameOver) {
+            if (queriedTurn == teamTurn) {
+                Collection<ChessMove> validMoveCollection = validMoves(move.getStartPosition());
+                if (validMoveCollection.contains(move)) {
+                    if (board.getPiece(move.getStartPosition()) != null) {
+                        if (!leavesKingInCheck(move)) {
+                            applyMove(move);        //This does nothing with the returned captured ChessPiece
+                            moveCastlingRook(move);
+                            updateTeamConditions(move);
+                        }
+                        else throw new InvalidMoveException(move + " leaves you in check");
                     }
-                    else throw new InvalidMoveException("This move " + move + " leaves you in check for the board:\n" + board);
+                    else throw new InvalidMoveException("piece is null");
                 }
-                else throw new InvalidMoveException("Piece is null");
+                else throw new InvalidMoveException("invalid move");
             }
-            else throw new InvalidMoveException("Move " + move + " not in valid move collection");
+            else throw new InvalidMoveException("moving out of turn");
         }
-        else throw new InvalidMoveException("It is not your turn " + queriedTurn.toString() + ", it's " + teamTurn +
-                                            "'S turn (move = " + move + ")");
+        else throw new InvalidMoveException("game is over");
     }
 
     private void updateTeamConditions(ChessMove lastMove) {
@@ -208,9 +221,15 @@ public class ChessGame {
         if (teamTurn == TeamColor.WHITE) teamTurn = TeamColor.BLACK;
         else teamTurn = TeamColor.WHITE;
         if (kingExists() && isInCheck(teamTurn)) {
-            if (isInCheckmate(teamTurn)) checkmate = true;
+            if (isInCheckmate(teamTurn)) {
+                checkmate = true;
+                gameOver = true;
+            }
         }
-        else if (isInStalemate(teamTurn)) stalemate = true;
+        else if (isInStalemate(teamTurn)) {
+            stalemate = true;
+            gameOver = true;
+        }
     }
 
     public ArrayList<ChessMove> castlingMoves(ChessPiece piece, ChessPosition startPos) {
@@ -286,7 +305,6 @@ public class ChessGame {
         if (!pawn.getPieceType().toString().equals("PAWN")) return;
         if (lastMove.getPromotionPiece() == null) return;
         board.addPiece(lastMove.getEndPosition(), new ChessPiece(pawn.getTeamColor(), lastMove.getPromotionPiece()));
-        deletePiece(pawn);
     }
     private boolean leavesKingInCheck(ChessMove move) {
         //Run applyMove. If the king is in check, undo it and return false, otherwise undo it and return true.
@@ -308,7 +326,6 @@ public class ChessGame {
         ChessPiece capturedPiece = board.getPiece(end);
         if (capturedPiece != null && capturedPiece.getTeamColor() == teamTurn) return null;
         board.addPiece(end, movingPiece);
-        deletePiece(board.getPiece(end));
         board.addPiece(start,null);
         return capturedPiece;
     }
@@ -461,6 +478,7 @@ public class ChessGame {
         this.board = board;
         this.stalemate = false;
         this.checkmate = false;
+        this.gameOver = false;
         this.whiteKingHasMoved = false;
         this.blackKingHasMoved = false;
 
@@ -501,10 +519,6 @@ public class ChessGame {
         return board;
     }
 
-    private void deletePiece(ChessPiece piece) {
-        piece = null;
-    }
-
     @Override
     public String toString() {
         StringBuilder retStr = new StringBuilder();
@@ -514,6 +528,8 @@ public class ChessGame {
         retStr.append(this.stalemate);
         retStr.append(", Checkmate: ");
         retStr.append(this.checkmate);
+        retStr.append(", GameOver: ");
+        retStr.append(this.gameOver);
         retStr.append(", White kingside rook has moved: ");
         retStr.append(whiteKingsideRookHasMoved);
         retStr.append(", White queenside rook has moved: ");

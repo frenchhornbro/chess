@@ -21,7 +21,7 @@ public class JoinGameService {
             if (storedAuthToken == null) throw new ServiceException("Error: unauthorized", 401);
 
             if (this.sqlGameDAO.gameIsNull(gameID)) throw new ServiceException("Error: bad request", 400);
-            this.sqlGameDAO.updateGame(gameID, playerColor, storedAuthToken);
+            this.sqlGameDAO.setGameValues(gameID, playerColor, storedAuthToken);
         }
         catch(DataAccessException exception) {
             if (exception.getMessage().equals("Error: already taken")) {

@@ -6,9 +6,7 @@ import chess.ChessPiece;
 import chess.ChessPosition;
 import dataStorage.GameStorage;
 import dataStorage.GamesStorage;
-
 import java.util.ArrayList;
-
 import static chess.ChessBoard.BOARDSIZE;
 
 public class SQLGameDAO extends SQLDAO {
@@ -34,13 +32,13 @@ public class SQLGameDAO extends SQLDAO {
             ChessGame chessGame = new ChessGame(null, chessBoard);
             String createGameStatement = """
                 INSERT INTO chessGame
-                (gameID, teamTurn, stalemate, checkmate,
+                (gameID, teamTurn, stalemate, checkmate, gameOver,
                 wKingRookMoved, wQueenRookMoved, wKingMoved,
                 bKingRookMoved, bQueenRookMoved, bKingMoved)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
                 """;
             updateDB(createGameStatement,
-                gameID, chessGame.getTeamTurn(), chessGame.getStalemate(), chessGame.getCheckmate(),
+                gameID, chessGame.getTeamTurn(), chessGame.getStalemate(), chessGame.getCheckmate(), chessGame.getGameOver(),
                 chessGame.getWKingRookMoved(), chessGame.getWQueenRookMoved(), chessGame.getWKingMoved(),
                 chessGame.getBKingRookMoved(), chessGame.getBQueenRookMoved(), chessGame.getBKingMoved()
                 );
@@ -122,6 +120,8 @@ public class SQLGameDAO extends SQLDAO {
             boolean stalemate = (Integer.parseInt(queryDB(getStalemateStatement, gameID)) != 0);
             String getCheckmateStatement = "SELECT checkmate FROM chessGame WHERE gameID=?";
             boolean checkmate = (Integer.parseInt(queryDB(getCheckmateStatement, gameID)) != 0);
+            String getGameOverStatement = "SELECT gameOver FROM chessGame WHERE gameID=?";
+            boolean gameOver = (Integer.parseInt(queryDB(getGameOverStatement, gameID)) != 0);
             String getWKRMStatement = "SELECT wKingRookMoved FROM chessGame WHERE gameID=?";
             boolean wKingRookMoved = (Integer.parseInt(queryDB(getWKRMStatement, gameID)) != 0);
             String getWQRMStatement = "SELECT wQueenRookMoved FROM chessGame WHERE gameID=?";
@@ -137,7 +137,8 @@ public class SQLGameDAO extends SQLDAO {
 
             //From chessBoard
             ChessBoard board = getBoard((int) Double.parseDouble(gameID));
-            return new ChessGame(teamTurn, board, stalemate, checkmate, wKingRookMoved, wQueenRookMoved, wKingMoved, bKingRookMoved, bQueenRookMoved, bKingMoved);
+            return new ChessGame(teamTurn, board, stalemate, checkmate, gameOver, wKingRookMoved, wQueenRookMoved,
+                                 wKingMoved, bKingRookMoved, bQueenRookMoved, bKingMoved);
         }
         catch (Exception ex) {
             System.out.print(ex.getMessage());
@@ -145,7 +146,7 @@ public class SQLGameDAO extends SQLDAO {
         }
     }
 
-    public void updateGame(int gameID, String playerColor, String authToken) throws DataAccessException {
+    public void setGameValues(int gameID, String playerColor, String authToken) throws DataAccessException {
         //If playerColor is  WHITE or BLACK (not already taken), set them accordingly
         //If playerColor is null or some other String, set them as an observer
         try {
@@ -214,6 +215,22 @@ public class SQLGameDAO extends SQLDAO {
             }
         }
         return new ChessBoard(squares);
+    }
+
+    public void updateGame(String gameID, ChessGame game) throws Exception {
+        String updateGameStatement = """
+            UPDATE chessGame
+            SET teamTurn=?, stalemate=?, checkmate=?, gameOver=?,
+            wKingRookMoved=?, wQueenRookMoved=?, wKingMoved=?,
+            bKingRookMoved=?, bQueenRookMoved=?, bKingMoved=?
+            WHERE gameID=?
+            """;
+        updateDB(updateGameStatement,
+                game.getTeamTurn(), game.getStalemate(), game.getCheckmate(), game.getGameOver(),
+                game.getWKingRookMoved(), game.getWQueenRookMoved(), game.getWKingMoved(),
+                game.getBKingRookMoved(), game.getBQueenRookMoved(), game.getBKingMoved(),
+                gameID
+        );
     }
 
     public void clear() throws Exception {

@@ -49,6 +49,7 @@ public class SQLDAO {
                 teamTurn CHAR(5),
                 stalemate TINYINT NOT NULL,
                 checkmate TINYINT NOT NULL,
+                gameOver TINYINT NOT NULL,
                 wKingRookMoved TINYINT NOT NULL,
                 wQueenRookMoved TINYINT NOT NULL,
                 wKingMoved TINYINT NOT NULL,

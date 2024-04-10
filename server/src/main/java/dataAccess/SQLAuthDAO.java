@@ -32,7 +32,7 @@ public class SQLAuthDAO extends SQLDAO {
 
     public String getUser(String authToken) throws DataAccessException {
         try {
-            String getStatement = "select username from authData where authToken=?";
+            String getStatement = "SELECT username FROM authData WHERE authToken=?";
             return queryDB(getStatement, authToken);
         }
         catch (Exception ex) {

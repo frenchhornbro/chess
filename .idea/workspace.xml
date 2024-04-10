@@ -9,10 +9,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - WS Error message sent for bad authToken">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/webSocket/WebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/webSocket/WebSocketHandler.java" afterDir="false" />
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Move and resign implemented">
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/webSocket/ConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/webSocket/ConnectionManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -220,12 +219,22 @@
     "JUnit.UserDAOTests.sqlUserGetFail.executor": "Run",
     "JUnit.UserDAOTests.sqlUserGetSuccess.executor": "Run",
     "JUnit.WebSocketTests.executor": "Run",
+    "JUnit.WebSocketTests.invalidMoveBadMove.executor": "Run",
+    "JUnit.WebSocketTests.invalidMoveGameOver.executor": "Debug",
+    "JUnit.WebSocketTests.invalidMoveObserver.executor": "Run",
+    "JUnit.WebSocketTests.invalidMoveOpponent.executor": "Run",
+    "JUnit.WebSocketTests.invalidMoveWrongTurn.executor": "Run",
+    "JUnit.WebSocketTests.invalidResignGameOver.executor": "Run",
+    "JUnit.WebSocketTests.invalidResignObserver.executor": "Debug",
     "JUnit.WebSocketTests.joinObserverGood.executor": "Run",
     "JUnit.WebSocketTests.joinPlayerBadAuthToken.executor": "Debug",
     "JUnit.WebSocketTests.joinPlayerBadGameID.executor": "Run",
     "JUnit.WebSocketTests.joinPlayerEmpty.executor": "Debug",
-    "JUnit.WebSocketTests.joinPlayerGood.executor": "Run",
+    "JUnit.WebSocketTests.joinPlayerGood.executor": "Debug",
     "JUnit.WebSocketTests.joinPlayerSteal.executor": "Run",
+    "JUnit.WebSocketTests.moveAfterResign.executor": "Run",
+    "JUnit.WebSocketTests.validMove.executor": "Run",
+    "JUnit.WebSocketTests.validResign.executor": "Run",
     "JUnit.dataAccessTests in server.executor": "Run",
     "JUnit.passoffTests in shared.executor": "Run",
     "JUnit.passoffTests.chessTests in shared.executor": "Debug",
@@ -262,7 +271,15 @@
       <command value="git add ." />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.WebSocketTests">
+  <component name="RunManager" selected="JUnit.All in shared">
+    <configuration name="All in shared" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shared" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="WebSocketTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
@@ -278,7 +295,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WebSocketTests.joinPlayerBadAuthToken" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WebSocketTests.invalidMoveObserver" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
@@ -288,13 +305,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
       <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.WebSocketTests" />
-      <option name="METHOD_NAME" value="joinPlayerBadAuthToken" />
+      <option name="METHOD_NAME" value="invalidMoveObserver" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WebSocketTests.joinPlayerBadGameID" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WebSocketTests.moveAfterResign" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
@@ -304,13 +321,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
       <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.WebSocketTests" />
-      <option name="METHOD_NAME" value="joinPlayerBadGameID" />
+      <option name="METHOD_NAME" value="moveAfterResign" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WebSocketTests.joinPlayerEmpty" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WebSocketTests.validResign" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="server" />
       <extension name="coverage">
         <pattern>
@@ -320,23 +337,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
       <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.WebSocketTests" />
-      <option name="METHOD_NAME" value="joinPlayerEmpty" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WebSocketTests.joinPlayerSteal" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="passoffTests.serverTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
-      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.WebSocketTests" />
-      <option name="METHOD_NAME" value="joinPlayerSteal" />
+      <option name="METHOD_NAME" value="validResign" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -344,11 +345,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.All in shared" />
         <item itemvalue="JUnit.WebSocketTests" />
-        <item itemvalue="JUnit.WebSocketTests.joinPlayerEmpty" />
-        <item itemvalue="JUnit.WebSocketTests.joinPlayerBadGameID" />
-        <item itemvalue="JUnit.WebSocketTests.joinPlayerSteal" />
-        <item itemvalue="JUnit.WebSocketTests.joinPlayerBadAuthToken" />
+        <item itemvalue="JUnit.WebSocketTests.moveAfterResign" />
+        <item itemvalue="JUnit.WebSocketTests.validResign" />
+        <item itemvalue="JUnit.WebSocketTests.invalidMoveObserver" />
       </list>
     </recent_temporary>
   </component>
@@ -367,22 +368,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702756436549</updated>
-    </task>
-    <task id="LOCAL-00039" summary="Phase 3 - Matched naming convention">
-      <option name="closed" value="true" />
-      <created>1709188220160</created>
-      <option name="number" value="00039" />
-      <option name="presentableId" value="LOCAL-00039" />
-      <option name="project" value="LOCAL" />
-      <updated>1709188220160</updated>
-    </task>
-    <task id="LOCAL-00040" summary="Phase 4 - Imported starter files">
-      <option name="closed" value="true" />
-      <created>1709686169567</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1709686169567</updated>
     </task>
     <task id="LOCAL-00041" summary="Phase 4 - Initial setup to implement SQL">
       <option name="closed" value="true" />
@@ -760,7 +745,23 @@
       <option name="project" value="LOCAL" />
       <updated>1712703570179</updated>
     </task>
-    <option name="localTasksCounter" value="88" />
+    <task id="LOCAL-00088" summary="Phase 6 - WS Errors thrown for illicit join / observe attempts">
+      <option name="closed" value="true" />
+      <created>1712706707010</created>
+      <option name="number" value="00088" />
+      <option name="presentableId" value="LOCAL-00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1712706707010</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Phase 6 - Move and resign implemented">
+      <option name="closed" value="true" />
+      <created>1712784868654</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1712784868655</updated>
+    </task>
+    <option name="localTasksCounter" value="90" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -776,8 +777,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Phase 5 - Logged In UI: Fixed create" />
-    <MESSAGE value="Phase 5 - Logged In UI: Partially implemented list" />
     <MESSAGE value="Phase 5 - Logged In UI: Implemented List" />
     <MESSAGE value="Phase 5 - Logged In UI: Implemented Join" />
     <MESSAGE value="Phase 5 - GameplayUI: Can draw Chessboard" />
@@ -801,18 +800,9 @@
     <MESSAGE value="Phase 6 - Client prints board from ServerMessage upon joining" />
     <MESSAGE value="Phase 6 - WS message sends for observers" />
     <MESSAGE value="Phase 6 - WS Error message sent for bad authToken" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - WS Error message sent for bad authToken" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/server/src/test/java/passoffTests/serverTests/WebSocketTests.java</url>
-          <line>704</line>
-          <option name="timeStamp" value="47" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Phase 6 - WS Errors thrown for illicit join / observe attempts" />
+    <MESSAGE value="Phase 6 - Move and resign implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Move and resign implemented" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
