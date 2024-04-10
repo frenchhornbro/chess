@@ -14,6 +14,7 @@ public class ServerMessage {
     ChessGame game;
     String message;
     String errorMessage;
+    String playerColor;
 
     public enum ServerMessageType {
         LOAD_GAME,
@@ -35,6 +36,14 @@ public class ServerMessage {
 
     public void setGame(ChessGame newGame) {
         this.game = newGame;
+    }
+
+    public String getPlayerColor() {
+        return this.playerColor;
+    }
+
+    public void setPlayerColor(String playerColor) {
+        this.playerColor = playerColor;
     }
 
     public String getMessage() {

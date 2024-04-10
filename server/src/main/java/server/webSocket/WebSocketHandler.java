@@ -53,23 +53,12 @@ public class WebSocketHandler {
             chessMove = new Gson().fromJson(command.get("move").toString().replace("=", ":"), ChessMove.class);
         }
         switch (commandType) {
-            case "JOIN_PLAYER":
-                join(session, username, playerColor, gameData);
-                break;
-            case "JOIN_OBSERVER":
-                observe(session, username, gameData);
-                break;
-            case "MAKE_MOVE":
-                move(session, gameID, username, chessMove, gameData);
-                break;
-            case "LEAVE":
-                System.out.println("Someone left");
-                break;
-            case "RESIGN":
-                resign(session, gameID, username, gameData);
-                break;
-            default:
-                System.out.println("Incorrect message sent: " + message);
+            case "JOIN_PLAYER" -> join(session, username, playerColor, gameData);
+            case "JOIN_OBSERVER" -> observe(session, username, gameData);
+            case "MAKE_MOVE" -> move(session, gameID, username, chessMove, gameData);
+            case "LEAVE" -> leave(session, username, gameData);
+            case "RESIGN" -> resign(session, gameID, username, gameData);
+            default -> System.out.println("Incorrect message sent: " + message);
         }
     }
 
@@ -149,7 +138,7 @@ public class WebSocketHandler {
             if (incorrectUser(session, gameData, playerColor, username)) return;
             ServerMessage userMsg = new ServerMessage(LOAD_GAME);
             userMsg.setGame(gameData.getGame());
-            userMsg.setMessage(playerColor); //FIXME: Figure out some other way to communicate playerColor (maybe another field)
+            userMsg.setPlayerColor(playerColor);
             ServerMessage broadcastMsg = new ServerMessage(NOTIFICATION);
             broadcastMsg.setMessage(username + " has joined as " + playerColor);
             connections.add(username, session);
