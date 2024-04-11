@@ -13,7 +13,7 @@ public class GameplayDrawer {
         blackSquare = true;
     }
 
-    public static void draw (ChessGame game, String playerColor, Collection<ChessMove> moves) {
+    public static void draw (ChessGame game, String playerColor, Collection<ChessMove> moves, boolean resigned) {
         ChessBoard board = game.getBoard();
         ChessGame.TeamColor turn = game.getTeamTurn();
 
@@ -23,9 +23,11 @@ public class GameplayDrawer {
         if (playerColor == null || playerColor.equalsIgnoreCase("WHITE")) printWhite(board, moves);
         else printBlack(board, moves);
 
-        if (game.getCheckmate() != 0) System.out.println("\tCheckmate");
-        else if (game.getStalemate() != 0) System.out.println("\tStalemate");
-        else if (game.getGameOver() != 0) System.out.println("\tGame Over");
+        if (game.getCheckmate() != 0) System.out.println("\tCHECKMATE");
+        else if (game.isInCheck(ChessGame.TeamColor.WHITE)) System.out.println("\tCHECK: WHITE");
+        else if (game.isInCheck(ChessGame.TeamColor.BLACK)) System.out.println("\tCHECK: BLACK");
+        else if (game.getStalemate() != 0) System.out.println("\tSTALEMATE");
+        else if (resigned) System.out.println("\tGAME OVER");
         else System.out.println("\tTurn: " + turn);
         if (moves!=null && moves.isEmpty()) System.out.println("\nNo valid moves");
         System.out.println();

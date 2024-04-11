@@ -9,11 +9,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Added promotion for making moves">
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Code cleanup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/GameplayUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/GameplayUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/GameplayDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/GameplayDrawer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/webSocket/WebSocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/webSocket/WebSocketClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/test/java/clientTests/ServerFacadeTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/test/java/clientTests/ServerFacadeTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/webSocket/Connection.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/webSocket/Connection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/webSocket/ConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/webSocket/ConnectionManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/server/webSocket/WebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/webSocket/WebSocketHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPosition.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessPosition.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -275,7 +279,7 @@
       <command value="git add ." />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in server">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="server.Server" />
       <module name="server" />
@@ -313,16 +317,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ServerFacadeTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="client" />
+    <configuration name="WebSocketTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="clientTests.*" />
+          <option name="PATTERN" value="passoffTests.serverTests.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="clientTests" />
-      <option name="MAIN_CLASS_NAME" value="clientTests.ServerFacadeTests" />
+      <option name="PACKAGE_NAME" value="passoffTests.serverTests" />
+      <option name="MAIN_CLASS_NAME" value="passoffTests.serverTests.WebSocketTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -330,11 +334,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Server" />
+        <item itemvalue="JUnit.WebSocketTests" />
+        <item itemvalue="JUnit.All in shared" />
         <item itemvalue="JUnit.All in server" />
         <item itemvalue="JUnit.All in client" />
-        <item itemvalue="JUnit.All in shared" />
-        <item itemvalue="Application.Server" />
-        <item itemvalue="JUnit.ServerFacadeTests" />
       </list>
     </recent_temporary>
   </component>
@@ -353,14 +357,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702756436549</updated>
-    </task>
-    <task id="LOCAL-00047" summary="Phase 4 - SQLGameDao updateGame works">
-      <option name="closed" value="true" />
-      <created>1710030959538</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1710030959538</updated>
     </task>
     <task id="LOCAL-00048" summary="Phase 4 - All Persistence Tests Pass">
       <option name="closed" value="true" />
@@ -746,7 +742,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712863927416</updated>
     </task>
-    <option name="localTasksCounter" value="96" />
+    <task id="LOCAL-00096" summary="Phase 6 - Code cleanup">
+      <option name="closed" value="true" />
+      <created>1712865797945</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1712865797946</updated>
+    </task>
+    <option name="localTasksCounter" value="97" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -762,7 +766,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Phase 5 - GameplayUI: Implemented test environment, refactored joining to fix bug" />
     <MESSAGE value="Phase 5 - GameplayUI: Renamed package to uiHandler for clarity" />
     <MESSAGE value="Phase 5 - Refactored to provide custom port" />
     <MESSAGE value="Phase 5 - Enabled a clear screen command" />
@@ -787,7 +790,8 @@
     <MESSAGE value="Phase 6 - Passed all tests" />
     <MESSAGE value="Phase 6 - Fixed chessboard being flipped" />
     <MESSAGE value="Phase 6 - Added promotion for making moves" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Added promotion for making moves" />
+    <MESSAGE value="Phase 6 - Code cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Code cleanup" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

@@ -200,7 +200,7 @@ public class ServerFacadeTests {
         //Draw a filled board
         ChessBoard board = new ChessBoard(true);
         ChessGame game = new ChessGame(ChessGame.TeamColor.WHITE, board);
-        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(game, "WHITE", null));
+        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(game, "WHITE", null, false));
     }
 
     @Test
@@ -208,7 +208,7 @@ public class ServerFacadeTests {
         //Draw a blank board
         ChessBoard board = new ChessBoard();
         ChessGame game = new ChessGame(ChessGame.TeamColor.WHITE, board);
-        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(game, "BLACK", null));
+        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(game, "BLACK", null, false));
     }
 
     @Test
@@ -218,8 +218,8 @@ public class ServerFacadeTests {
         ArrayList<String> coordinates = new ArrayList<>();
         coordinates.add("d2");
         Collection<ChessMove> moves = highlightHandler.highlight(coordinates, board);
-        GameplayDrawer.draw(game, "WHITE", moves);
-        GameplayDrawer.draw(game, "BLACK", moves);
+        GameplayDrawer.draw(game, "WHITE", moves, false);
+        GameplayDrawer.draw(game, "BLACK", moves, false);
     }
 
     private String registrationSetup() {

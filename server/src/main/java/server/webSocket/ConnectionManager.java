@@ -10,7 +10,7 @@ public class ConnectionManager {
     public void add (String username, String gameID, Session session) {
         Connection newConnection = new Connection(username, session);
         if (connections.get(gameID) == null) {
-            ConcurrentHashMap<String, Connection> newGameLobby = new ConcurrentHashMap<String, Connection>();
+            ConcurrentHashMap<String, Connection> newGameLobby = new ConcurrentHashMap<>();
             newGameLobby.put(username, newConnection);
             connections.put(gameID, newGameLobby);
         }
@@ -31,7 +31,6 @@ public class ConnectionManager {
             }
             else {
                 remove(connection.username, gameID);
-                System.out.println("A connection was removed for " + connection.username);
             }
         }
     }

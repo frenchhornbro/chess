@@ -47,20 +47,20 @@ public class GameplayUI {
                     return true;
                 case ("draw"):
                 case ("redraw"):
-                    GameplayDrawer.draw(client.webSocketClient.game, playerColor, null);
+                    GameplayDrawer.draw(client.webSocketClient.game, playerColor, null, client.webSocketClient.resigned);
                     break;
                 case ("move"):
                     moveHandler.move(params, client, storageGameID);
                     break;
                 case ("resign"):
                     client.webSocketClient.resign(client.getAuthToken(), storageGameID);
-                    GameplayDrawer.draw(client.webSocketClient.game, playerColor, null);
+                    GameplayDrawer.draw(client.webSocketClient.game, playerColor, null, client.webSocketClient.resigned);
                     break;
                 case ("highlight"):
                     Collection<ChessMove> moves = highlightHandler.highlight(params, client.webSocketClient.board);
                     if (moves != null) {
                         highlightHandler.clearScreen();
-                        GameplayDrawer.draw(client.webSocketClient.game, playerColor, moves);
+                        GameplayDrawer.draw(client.webSocketClient.game, playerColor, moves, client.webSocketClient.resigned);
                     }
                     break;
                 case ("clear"):

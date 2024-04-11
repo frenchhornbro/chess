@@ -15,8 +15,6 @@ public class Connection {
         try {
             session.getRemote().sendString(json);
         }
-        catch(Exception ex) {
-            System.out.println("Message failed to send to connection");
-        }
+        catch(Exception ex) {}
     }
 }

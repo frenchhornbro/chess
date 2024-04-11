@@ -16,6 +16,7 @@ public class WebSocketClient extends Endpoint {
     public ChessGame game;
     public ChessBoard board;
     public String playerColor;
+    public boolean resigned;
 
     public void instantiateWS(int port) {
         try {
@@ -36,12 +37,17 @@ public class WebSocketClient extends Endpoint {
                             if (serverMessage.getGame() != null) {
                                 game = serverMessage.getGame();
                                 board = serverMessage.getGame().getBoard();
-                                GameplayDrawer.draw(game, playerColor, null);
+                                resigned = (serverMessage.getGame().getGameOver() != 0);
+                                GameplayDrawer.draw(game, playerColor, null, resigned);
                             }
                             System.out.print("> ");
                             break;
                         case NOTIFICATION:
                         default:
+                            if (serverMessage.getMessage().contains("resign")) {
+                                resigned = true;
+                                GameplayDrawer.draw(game, playerColor, null, true);
+                            }
                             System.out.print(serverMessage.getMessage());
                     }
                 }

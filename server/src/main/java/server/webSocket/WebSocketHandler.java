@@ -23,14 +23,12 @@ public class WebSocketHandler {
             authDAO = new SQLAuthDAO();
         }
         catch (Exception ex) {
-            System.out.println(ex.getMessage());
         }
     }
 
     @OnWebSocketMessage
     public void onMessage(Session session, String message) throws Exception {
         HashMap<String, Object> command = new Gson().fromJson(message, HashMap.class);
-        System.out.println("Server received a message: " + message);
         String authToken = (String) command.get("authToken");
         if (authDAO.getAuth(authToken) == null) {
             sendError(session, "unauthorized");
@@ -43,13 +41,11 @@ public class WebSocketHandler {
             return;
         }
         String username = authDAO.getUser(authToken);
-        System.out.println("onMessage username = " + username);
         GameStorage gameData = gameDAO.getGameData(gameID, true);
         String commandType = (String) command.get("commandType");
         String playerColor = (String) command.get("playerColor");
         ChessMove chessMove = null;
         if (command.get("move") != null) {
-            System.out.println(command.get("move").toString().replace("=", ":"));
             chessMove = new Gson().fromJson(command.get("move").toString().replace("=", ":"), ChessMove.class);
         }
         switch (commandType) {
@@ -58,7 +54,6 @@ public class WebSocketHandler {
             case "MAKE_MOVE" -> move(session, gameID, username, chessMove, gameData);
             case "LEAVE" -> leave(session, gameID, username);
             case "RESIGN" -> resign(session, gameID, username, gameData);
-            default -> System.out.println("Incorrect message sent: " + message);
         }
     }
 
@@ -125,12 +120,9 @@ public class WebSocketHandler {
         try {
             ServerMessage error = new ServerMessage(ERROR);
             error.setErrorMessage("Error: " + errorMsg);
-            System.out.println(error.getErrorMessage());
             session.getRemote().sendString(new Gson().toJson(error));
         }
-        catch (Exception ex) {
-            System.out.println("Error: could not send error message to connection");
-        }
+        catch (Exception ex) {}
     }
 
     private void join(Session session, String gameID, String username, String playerColor, GameStorage gameData) {
@@ -143,7 +135,6 @@ public class WebSocketHandler {
             broadcastMsg.setMessage(username + " has joined as " + playerColor + "\n> ");
             connections.add(username, gameID, session);
             connections.broadcast(gameID, username, userMsg, broadcastMsg);
-            System.out.println(broadcastMsg.getMessage());
         }
         catch (Exception ex) {
             sendError(session, ex.getMessage());
@@ -158,7 +149,6 @@ public class WebSocketHandler {
             broadcastMsg.setMessage(username + " has joined as an observer\n> ");
             connections.add(username, gameID, session);
             connections.broadcast(gameID, username, userMsg, broadcastMsg);
-            System.out.println(broadcastMsg.getMessage());
         }
         catch (Exception ex) {
             sendError(session, ex.getMessage());
@@ -203,7 +193,6 @@ public class WebSocketHandler {
             ServerMessage resignMsg = new ServerMessage(NOTIFICATION);
             resignMsg.setMessage(username + " resigned\n> ");
             connections.broadcast(gameID, username, resignMsg, resignMsg);
-            System.out.println(resignMsg.getMessage());
         }
         catch (Exception ex) {
             sendError(session, ex.getMessage());
@@ -216,7 +205,6 @@ public class WebSocketHandler {
             ServerMessage leaveMsg = new ServerMessage(NOTIFICATION);
             leaveMsg.setMessage(username + " left\n> ");
             connections.broadcast(gameID, username, null, leaveMsg);
-            System.out.println(leaveMsg.getMessage());
         }
         catch (Exception ex) {
             sendError(session, ex.getMessage());
@@ -224,7 +212,5 @@ public class WebSocketHandler {
     }
 
     @OnWebSocketError
-    public void webSocketError(Session session, Throwable throwable) {
-        System.out.println("Session disconnected");
-    }
+    public void webSocketError(Session session, Throwable throwable) {}
 }
