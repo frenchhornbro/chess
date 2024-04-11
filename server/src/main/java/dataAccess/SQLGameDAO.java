@@ -2,12 +2,10 @@ package dataAccess;
 
 import chess.ChessBoard;
 import chess.ChessGame;
-import chess.ChessPiece;
-import chess.ChessPosition;
+import com.google.gson.Gson;
 import dataStorage.GameStorage;
 import dataStorage.GamesStorage;
 import java.util.ArrayList;
-import static chess.ChessBoard.BOARDSIZE;
 
 public class SQLGameDAO extends SQLDAO {
 
@@ -33,17 +31,8 @@ public class SQLGameDAO extends SQLDAO {
             String createGameStatement = "INSERT INTO chessGame (gameID, teamTurn, stalemate, checkmate, gameOver) VALUES (?, ?, ?, ?, ?);";
             updateDB(createGameStatement,
                 gameID, chessGame.getTeamTurn(), chessGame.getStalemate(), chessGame.getCheckmate(), chessGame.getGameOver());
-            for (int i = 0; i < BOARDSIZE; i++) {
-                for (int j = 0; j < BOARDSIZE; j++) {
-                    ChessPiece thisPiece = chessBoard.getPiece(new ChessPosition(i+1, j+1));
-                    ChessGame.TeamColor teamColor = (thisPiece == null) ? null : thisPiece.getTeamColor();
-                    ChessPiece.PieceType pieceType = (thisPiece == null) ? null : thisPiece.getPieceType();
-                    String createBoardStatement =
-                            "INSERT INTO chessBoard (gameID, rowNum, colNum, playerColor, pieceType) VALUES (?, ?, ?, ?, ?)";
-                    updateDB(createBoardStatement, gameID, i, j, teamColor, pieceType);
-                }
-            }
-
+            String createBoardStatement = "INSERT INTO chessBoard (gameID, boardText) VALUES (?, ?)";
+            updateDB(createBoardStatement, gameID, new Gson().toJson(chessBoard));
             return gameID;
         }
         catch (Exception ex) {
@@ -170,41 +159,14 @@ public class SQLGameDAO extends SQLDAO {
     }
 
     public ChessBoard getBoard(int gameID) throws Exception {
-        String playerColorStatement = "SELECT playerColor from chessBoard WHERE gameID=? AND rowNum=? AND colNum=?";
-        String pieceTypeStatement = "SELECT pieceType from chessBoard WHERE gameID=? AND rowNum=? AND colNum=?";
-        ChessPiece[][] squares = new ChessPiece[BOARDSIZE][BOARDSIZE];
-        for (int i = 0; i < BOARDSIZE; i++) {
-            for (int j = 0; j < BOARDSIZE; j++) {
-                String playerColorStr = queryDB(playerColorStatement, gameID, i, j);
-                String pieceTypeStr = queryDB(pieceTypeStatement, gameID, i, j);
-                if (playerColorStr != null && pieceTypeStr != null) {
-                    ChessGame.TeamColor playerColor =
-                            (playerColorStr.equals("WHITE")) ? ChessGame.TeamColor.WHITE: ChessGame.TeamColor.BLACK;
-                    ChessPiece.PieceType pieceType = switch (pieceTypeStr) {
-                        case "KING" -> ChessPiece.PieceType.KING;
-                        case "QUEEN" -> ChessPiece.PieceType.QUEEN;
-                        case "ROOK" -> ChessPiece.PieceType.ROOK;
-                        case "BISHOP" -> ChessPiece.PieceType.BISHOP;
-                        case "KNIGHT" -> ChessPiece.PieceType.KNIGHT;
-                        default -> ChessPiece.PieceType.PAWN;
-                    };
-                    squares[i][j] = new ChessPiece(playerColor, pieceType);
-                }
-            }
-        }
-        return new ChessBoard(squares);
+        String getBoardStatement = "SELECT boardText FROM chessBoard WHERE gameID=?";
+        String boardText = queryDB(getBoardStatement, gameID);
+        return new Gson().fromJson(boardText, ChessBoard.class);
     }
 
     public void updateBoard(String gameID, ChessBoard board) throws Exception {
-        for (int i = 0; i < BOARDSIZE; i++) {
-            for (int j = 0; j < BOARDSIZE; j++) {
-                String updateBoardStatement = "UPDATE chessBoard SET playerColor=?, pieceType=? WHERE gameID=? AND rowNum=? AND colNum=?";
-                ChessPiece piece = board.getPiece(new ChessPosition(i+1, j+1));
-                ChessGame.TeamColor teamColor = (piece == null) ? null : piece.getTeamColor();
-                ChessPiece.PieceType pieceType = (piece == null) ? null : piece.getPieceType();
-                updateDB(updateBoardStatement, teamColor, pieceType, gameID, i, j);
-            }
-        }
+        String updateBoardStatement = "UPDATE chessBoard SET boardText=? WHERE gameID=?";
+        updateDB(updateBoardStatement, new Gson().toJson(board), gameID);
     }
 
     public void updateGame(String gameID, ChessGame game) throws Exception {

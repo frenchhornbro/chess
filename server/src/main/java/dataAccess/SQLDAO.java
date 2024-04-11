@@ -2,7 +2,6 @@ package dataAccess;
 
 import chess.ChessGame;
 import chess.ChessPiece;
-
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -54,11 +53,8 @@ public class SQLDAO {
             """,
             """
             CREATE TABLE IF NOT EXISTS chessBoard(
-                gameID INTEGER NOT NULL,
-                rowNum INTEGER NOT NULL,
-                colNum INTEGER NOT NULL,
-                playerColor CHAR(5),
-                pieceType CHAR(6)
+                gameID INTEGER NOT NULL PRIMARY KEY,
+                boardText LONGTEXT
             );
             """
     };

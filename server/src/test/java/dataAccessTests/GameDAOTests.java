@@ -53,18 +53,6 @@ public class GameDAOTests extends DAOTests {
         Assertions.assertEquals(Integer.toString(0), performQuery(testStatement, gameIDString));
         testStatement = "select checkmate from chessGame where gameID=?";
         Assertions.assertEquals(Integer.toString(0), performQuery(testStatement, gameIDString));
-        testStatement = "select wKingRookMoved from chessGame where gameID=?";
-        Assertions.assertEquals(Integer.toString(0), performQuery(testStatement, gameIDString));
-        testStatement = "select wQueenRookMoved from chessGame where gameID=?";
-        Assertions.assertEquals(Integer.toString(0), performQuery(testStatement, gameIDString));
-        testStatement = "select wKingMoved from chessGame where gameID=?";
-        Assertions.assertEquals(Integer.toString(0), performQuery(testStatement, gameIDString));
-        testStatement = "select bKingRookMoved from chessGame where gameID=?";
-        Assertions.assertEquals(Integer.toString(0), performQuery(testStatement, gameIDString));
-        testStatement = "select bQueenRookMoved from chessGame where gameID=?";
-        Assertions.assertEquals(Integer.toString(0), performQuery(testStatement, gameIDString));
-        testStatement = "select bKingMoved from chessGame where gameID=?";
-        Assertions.assertEquals(Integer.toString(0), performQuery(testStatement, gameIDString));
     }
 
     @Test
@@ -162,7 +150,7 @@ public class GameDAOTests extends DAOTests {
     public void getBoardNegative() throws Exception {
         //A returned game for a false gameID has no attributes
         int gameID = 12345;
-        Assertions.assertEquals("", sqlGameDAO.getBoard(gameID).toString());
+        Assertions.assertNull(sqlGameDAO.getBoard(gameID));
     }
 
     @Test
