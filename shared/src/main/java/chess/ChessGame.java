@@ -16,12 +16,6 @@ public class ChessGame {
     private boolean stalemate;
     private boolean checkmate;
     private boolean gameOver;
-    private boolean whiteKingsideRookHasMoved;
-    private boolean blackKingsideRookHasMoved;
-    private boolean whiteQueensideRookHasMoved;
-    private boolean blackQueensideRookHasMoved;
-    private boolean whiteKingHasMoved;
-    private boolean blackKingHasMoved;
 
     public ChessGame () {
         setBoard(null);
@@ -32,28 +26,14 @@ public class ChessGame {
         this.stalemate = isInStalemate(teamTurn);
         this.checkmate = isInCheckmate(teamTurn);
         this.gameOver = stalemate || checkmate;
-        this.whiteKingsideRookHasMoved = false;
-        this.whiteQueensideRookHasMoved = false;
-        this.whiteKingHasMoved = false;
-        this.blackKingsideRookHasMoved = false;
-        this.blackQueensideRookHasMoved = false;
-        this.blackKingHasMoved = false;
     }
 
-    public ChessGame(TeamColor turn, ChessBoard newBoard, boolean stalemate, boolean checkmate, boolean gameOver,
-                     boolean wKingRookMoved, boolean wQueenRookMoved, boolean wKingMoved,
-                     boolean bKingRookMoved, boolean bQueenRookMoved, boolean bKingMoved) {
+    public ChessGame(TeamColor turn, ChessBoard newBoard, boolean stalemate, boolean checkmate, boolean gameOver) {
         this.teamTurn = turn;
         this.board = newBoard;
         this.stalemate = stalemate;
         this.checkmate = checkmate;
         this.gameOver = gameOver;
-        this.whiteKingsideRookHasMoved = wKingRookMoved;
-        this.whiteQueensideRookHasMoved = wQueenRookMoved;
-        this.whiteKingHasMoved = wKingMoved;
-        this.blackKingsideRookHasMoved = bKingRookMoved;
-        this.blackQueensideRookHasMoved = bQueenRookMoved;
-        this.blackKingHasMoved = bKingMoved;
     }
 
     /**
@@ -73,30 +53,6 @@ public class ChessGame {
 
     public int getGameOver() {
         return (gameOver) ? 1 : 0;
-    }
-
-    public int getWKingRookMoved() {
-        return (whiteKingsideRookHasMoved) ? 1 : 0;
-    }
-
-    public int getWQueenRookMoved() {
-        return (whiteQueensideRookHasMoved) ? 1 : 0;
-    }
-
-    public int getWKingMoved() {
-        return (whiteKingHasMoved) ? 1 : 0;
-    }
-
-    public int getBKingRookMoved() {
-        return (blackKingsideRookHasMoved) ? 1 : 0;
-    }
-
-    public int getBQueenRookMoved() {
-        return (blackQueensideRookHasMoved) ? 1 : 0;
-    }
-
-    public int getBKingMoved() {
-        return (blackKingHasMoved) ? 1 : 0;
     }
 
     public void setGameOver(boolean resign) {
@@ -140,7 +96,6 @@ public class ChessGame {
                 possibleMoves.add(move);
             }
         }
-        possibleMoves.addAll(castlingMoves(piece, startPosition));
         return possibleMoves;
     }
 
@@ -187,7 +142,6 @@ public class ChessGame {
 
     private void updateTeamConditions(ChessMove lastMove) {
         ChessPiece pieceMoved = board.getPiece(lastMove.getEndPosition());
-//        if (pieceMoved == null) throw new RuntimeException("Piece is now null from move " + lastMove);
         if (pieceMoved == null) return;
         /*
         TeamColor just finished their turn.
@@ -195,28 +149,6 @@ public class ChessGame {
         Then change whose turn it is
         Check, Checkmate, and Stalemate must be queried for the next team
         */
-        if (pieceMoved.getTeamColor() == TeamColor.WHITE) {
-            if (pieceMoved.getPieceType() == ChessPiece.PieceType.KING) {
-                whiteKingHasMoved = true;
-                whiteKingsideRookHasMoved = true;
-                whiteQueensideRookHasMoved = true;
-            }
-            else if (pieceMoved.getPieceType() == ChessPiece.PieceType.ROOK) {
-                if (lastMove.getStartPosition().getColumn() == 0) whiteQueensideRookHasMoved = true;
-                else if (lastMove.getStartPosition().getColumn() == 7) whiteKingsideRookHasMoved = true;
-            }
-        }
-        else if (pieceMoved.getTeamColor() == TeamColor.BLACK) {
-            if (pieceMoved.getPieceType() == ChessPiece.PieceType.KING) {
-                blackKingHasMoved = true;
-                blackKingsideRookHasMoved = true;
-                blackQueensideRookHasMoved = true;
-            }
-            else if (pieceMoved.getPieceType() == ChessPiece.PieceType.ROOK) {
-                if (lastMove.getStartPosition().getColumn() == 0) blackQueensideRookHasMoved = true;
-                else if (lastMove.getStartPosition().getColumn() == 7) blackKingsideRookHasMoved = true;
-            }
-        }
         if (shouldPromote(lastMove)) promote(lastMove);
         if (teamTurn == TeamColor.WHITE) teamTurn = TeamColor.BLACK;
         else teamTurn = TeamColor.WHITE;
@@ -231,65 +163,8 @@ public class ChessGame {
             gameOver = true;
         }
     }
-
-    public ArrayList<ChessMove> castlingMoves(ChessPiece piece, ChessPosition startPos) {
-        ArrayList<ChessMove> castleMoveArr = new ArrayList<>();
-        if (piece.getPieceType() != ChessPiece.PieceType.KING) return castleMoveArr;
-        switch (piece.getTeamColor()) {
-            case WHITE:
-                if (!whiteKingHasMoved) {
-                    if (!whiteKingsideRookHasMoved) {
-                        if (castlingIsValid(piece, startPos, true)) {
-                            castleMoveArr.add(new ChessMove(startPos, new ChessPosition(1,7)));
-                        }
-                    }
-                    if (!whiteQueensideRookHasMoved) {
-                        if (castlingIsValid(piece, startPos, false)) {
-                            castleMoveArr.add(new ChessMove(startPos, new ChessPosition(1,3)));
-                        }
-                    }
-                }
-                break;
-            case BLACK:
-                if (!blackKingHasMoved) {
-                    if (!blackKingsideRookHasMoved) {
-                        if (castlingIsValid(piece, startPos, true)) {
-                            castleMoveArr.add(new ChessMove(startPos, new ChessPosition(8,7)));
-                        }
-                    }
-                    if (!blackQueensideRookHasMoved) {
-                        if (castlingIsValid(piece, startPos, false)) {
-                            castleMoveArr.add(new ChessMove(startPos, new ChessPosition(8,3)));
-                        }
-                    }
-                }
-        }
-        return castleMoveArr;
-    }
-
-    private boolean castlingIsValid(ChessPiece piece, ChessPosition startPos, boolean kingSide) {
-        int row = startPos.getRow()+1;
-        if (isInCheck(piece.getTeamColor())) return false;
-        if (kingSide) {
-            for (int col = 6; col <= 7; col++) {
-                ChessPosition currPos = new ChessPosition(row, col);
-                if (board.getPiece(currPos) != null) return false;
-                if (leavesKingInCheck(new ChessMove(startPos, currPos))) return false;
-            }
-        }
-        else {
-            for (int col = 4; col >= 2; col--) {
-                ChessPosition currPos = new ChessPosition(row, col);
-                if (board.getPiece(currPos) != null) return false;
-                if (col != 2 && leavesKingInCheck(new ChessMove(startPos, currPos))) return false;
-            }
-        }
-        return true;
-    }
-
     private boolean shouldPromote(ChessMove lastMove) {
         ChessPiece pieceMoved = board.getPiece(lastMove.getEndPosition());
-//        if (pieceMoved == null) throw new RuntimeException("Move did not occur");
         if (pieceMoved == null) return false;
         if (!pieceMoved.getPieceType().toString().equals("PAWN")) return false;
         if (pieceMoved.getTeamColor() == TeamColor.WHITE) {
@@ -479,35 +354,6 @@ public class ChessGame {
         this.stalemate = false;
         this.checkmate = false;
         this.gameOver = false;
-        this.whiteKingHasMoved = false;
-        this.blackKingHasMoved = false;
-
-        this.whiteKingsideRookHasMoved = false;
-        this.whiteQueensideRookHasMoved = false;
-        this.blackKingsideRookHasMoved = false;
-        this.blackQueensideRookHasMoved = false;
-        if (board != null) {
-            ChessPosition testPos = new ChessPosition(1,1);
-            if (board.getPiece(testPos) != null &&board.getPiece(testPos).getPieceType() != ChessPiece.PieceType.ROOK) {
-                whiteQueensideRookHasMoved = true;
-            }
-            else if (board.getPiece(testPos) == null) whiteQueensideRookHasMoved = true;
-            testPos = new ChessPosition(8,1);
-            if (board.getPiece(testPos) != null && board.getPiece(testPos).getPieceType() != ChessPiece.PieceType.ROOK) {
-                blackQueensideRookHasMoved = true;
-            }
-            else if (board.getPiece(testPos) == null) blackQueensideRookHasMoved = true;
-            testPos = new ChessPosition(1,8);
-            if (board.getPiece(testPos) != null && board.getPiece(testPos).getPieceType() != ChessPiece.PieceType.ROOK) {
-                whiteKingsideRookHasMoved = true;
-            }
-            else if (board.getPiece(testPos) == null) whiteKingsideRookHasMoved = true;
-            testPos = new ChessPosition(8,8);
-            if (board.getPiece(testPos) != null && board.getPiece(testPos).getPieceType() != ChessPiece.PieceType.ROOK) {
-                blackKingsideRookHasMoved = true;
-            }
-            else if (board.getPiece(testPos) == null) blackKingsideRookHasMoved = true;
-        }
     }
 
     /**
@@ -522,10 +368,6 @@ public class ChessGame {
     @Override
     public String toString() {
         return "Team turn: " + this.teamTurn + ", Stalemate: " + this.stalemate + ", Checkmate: " + this.checkmate
-                + ", GameOver: " + this.gameOver + ", White kingside rook has moved: " + whiteKingsideRookHasMoved
-                + ", White queenside rook has moved: " + whiteQueensideRookHasMoved + ", White king has moved: "
-                + this.whiteKingHasMoved + ", Black kingside rook has moved: " + blackKingsideRookHasMoved
-                + ", Black queenside rook has moved: " + blackQueensideRookHasMoved + ", Black king has moved: "
-                + this.blackKingHasMoved + ", ChessBoard: " + ((this.board == null) ? "null" : this.board.toString());
+                + ", GameOver: " + this.gameOver + ", ChessBoard: " + ((this.board == null) ? "null" : this.board.toString());
     }
 }

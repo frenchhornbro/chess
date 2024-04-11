@@ -30,18 +30,9 @@ public class SQLGameDAO extends SQLDAO {
 
             ChessBoard chessBoard = new ChessBoard(true);
             ChessGame chessGame = new ChessGame(null, chessBoard);
-            String createGameStatement = """
-                INSERT INTO chessGame
-                (gameID, teamTurn, stalemate, checkmate, gameOver,
-                wKingRookMoved, wQueenRookMoved, wKingMoved,
-                bKingRookMoved, bQueenRookMoved, bKingMoved)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-                """;
+            String createGameStatement = "INSERT INTO chessGame (gameID, teamTurn, stalemate, checkmate, gameOver) VALUES (?, ?, ?, ?, ?);";
             updateDB(createGameStatement,
-                gameID, chessGame.getTeamTurn(), chessGame.getStalemate(), chessGame.getCheckmate(), chessGame.getGameOver(),
-                chessGame.getWKingRookMoved(), chessGame.getWQueenRookMoved(), chessGame.getWKingMoved(),
-                chessGame.getBKingRookMoved(), chessGame.getBQueenRookMoved(), chessGame.getBKingMoved()
-                );
+                gameID, chessGame.getTeamTurn(), chessGame.getStalemate(), chessGame.getCheckmate(), chessGame.getGameOver());
             for (int i = 0; i < BOARDSIZE; i++) {
                 for (int j = 0; j < BOARDSIZE; j++) {
                     ChessPiece thisPiece = chessBoard.getPiece(new ChessPosition(i+1, j+1));
@@ -122,23 +113,10 @@ public class SQLGameDAO extends SQLDAO {
             boolean checkmate = (Integer.parseInt(queryDB(getCheckmateStatement, gameID)) != 0);
             String getGameOverStatement = "SELECT gameOver FROM chessGame WHERE gameID=?";
             boolean gameOver = (Integer.parseInt(queryDB(getGameOverStatement, gameID)) != 0);
-            String getWKRMStatement = "SELECT wKingRookMoved FROM chessGame WHERE gameID=?";
-            boolean wKingRookMoved = (Integer.parseInt(queryDB(getWKRMStatement, gameID)) != 0);
-            String getWQRMStatement = "SELECT wQueenRookMoved FROM chessGame WHERE gameID=?";
-            boolean wQueenRookMoved = (Integer.parseInt(queryDB(getWQRMStatement, gameID)) != 0);
-            String getWKMStatement = "SELECT wKingMoved FROM chessGame WHERE gameID=?";
-            boolean wKingMoved = (Integer.parseInt(queryDB(getWKMStatement, gameID)) != 0);
-            String getBKRMStatement = "SELECT bKingRookMoved FROM chessGame WHERE gameID=?";
-            boolean bKingRookMoved = (Integer.parseInt(queryDB(getBKRMStatement, gameID)) != 0);
-            String getBQRMStatement = "SELECT bQueenRookMoved FROM chessGame WHERE gameID=?";
-            boolean bQueenRookMoved = (Integer.parseInt(queryDB(getBQRMStatement, gameID)) != 0);
-            String getBKMStatement = "SELECT bKingMoved FROM chessGame WHERE gameID=?";
-            boolean bKingMoved = (Integer.parseInt(queryDB(getBKMStatement, gameID)) != 0);
 
             //From chessBoard
             ChessBoard board = getBoard((int) Double.parseDouble(gameID));
-            return new ChessGame(teamTurn, board, stalemate, checkmate, gameOver, wKingRookMoved, wQueenRookMoved,
-                                 wKingMoved, bKingRookMoved, bQueenRookMoved, bKingMoved);
+            return new ChessGame(teamTurn, board, stalemate, checkmate, gameOver);
         }
         catch (Exception ex) {
             System.out.print(ex.getMessage());
@@ -220,11 +198,7 @@ public class SQLGameDAO extends SQLDAO {
     public void updateBoard(String gameID, ChessBoard board) throws Exception {
         for (int i = 0; i < BOARDSIZE; i++) {
             for (int j = 0; j < BOARDSIZE; j++) {
-                String updateBoardStatement = """
-                    UPDATE chessBoard
-                    SET playerColor=?, pieceType=?
-                    WHERE gameID=? AND rowNum=? AND colNum=?
-                    """;
+                String updateBoardStatement = "UPDATE chessBoard SET playerColor=?, pieceType=? WHERE gameID=? AND rowNum=? AND colNum=?";
                 ChessPiece piece = board.getPiece(new ChessPosition(i+1, j+1));
                 ChessGame.TeamColor teamColor = (piece == null) ? null : piece.getTeamColor();
                 ChessPiece.PieceType pieceType = (piece == null) ? null : piece.getPieceType();
@@ -234,19 +208,8 @@ public class SQLGameDAO extends SQLDAO {
     }
 
     public void updateGame(String gameID, ChessGame game) throws Exception {
-        String updateGameStatement = """
-            UPDATE chessGame
-            SET teamTurn=?, stalemate=?, checkmate=?, gameOver=?,
-            wKingRookMoved=?, wQueenRookMoved=?, wKingMoved=?,
-            bKingRookMoved=?, bQueenRookMoved=?, bKingMoved=?
-            WHERE gameID=?
-            """;
-        updateDB(updateGameStatement,
-                game.getTeamTurn(), game.getStalemate(), game.getCheckmate(), game.getGameOver(),
-                game.getWKingRookMoved(), game.getWQueenRookMoved(), game.getWKingMoved(),
-                game.getBKingRookMoved(), game.getBQueenRookMoved(), game.getBKingMoved(),
-                gameID
-        );
+        String updateGameStatement = "UPDATE chessGame SET teamTurn=?, stalemate=?, checkmate=?, gameOver=? WHERE gameID=?";
+        updateDB(updateGameStatement,game.getTeamTurn(), game.getStalemate(), game.getCheckmate(), game.getGameOver(), gameID);
     }
 
     public void clear() throws Exception {
