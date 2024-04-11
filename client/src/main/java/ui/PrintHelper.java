@@ -60,7 +60,7 @@ public class PrintHelper {
     }
 
     public static void printMove() {
-        System.out.println("\033[32mmove\033[39m \033[31m<COORDINATES>\033[39m - make a move");
+        System.out.println("\033[32mmove\033[39m \033[31m<START COORDINATE> <END COORDINATE>\033[39m - make a move");
     }
 
     public static void printResign() {

@@ -30,7 +30,7 @@ public class ChessBoard {
 
     /**
      * Adds a chess piece to the chessboard
-     *
+     * <p>
      * parameter position where to add the piece to
      * parameter piece    the piece to add
      */
@@ -57,7 +57,7 @@ public class ChessBoard {
      * (How the game of chess normally starts)
      */
     public void resetBoard() {
-        ChessPiece.PieceType[] resetPieces = new ChessPiece.PieceType[]{ROOK, KNIGHT, BISHOP, QUEEN, KING, BISHOP, KNIGHT, ROOK};
+        ChessPiece.PieceType[] resetPieces = new ChessPiece.PieceType[]{ROOK, KNIGHT, BISHOP, KING, QUEEN, BISHOP, KNIGHT, ROOK};
 
         for (int i = 1; i <= BOARDSIZE; i++) {
             addPiece(new ChessPosition(1,i),new ChessPiece(ChessGame.TeamColor.WHITE, resetPieces[i-1]));

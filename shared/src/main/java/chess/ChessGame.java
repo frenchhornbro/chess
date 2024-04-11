@@ -162,13 +162,13 @@ public class ChessGame {
         Else
         - throw InvalidMoveException
          */
-        ChessGame.TeamColor queriedTurn = board.getPiece(move.getStartPosition()).getTeamColor();
-        if (teamTurn == null) setTeamTurn(queriedTurn);
-        if (!gameOver) {
-            if (queriedTurn == teamTurn) {
-                Collection<ChessMove> validMoveCollection = validMoves(move.getStartPosition());
-                if (validMoveCollection.contains(move)) {
-                    if (board.getPiece(move.getStartPosition()) != null) {
+        if (board.getPiece(move.getStartPosition()) != null) {
+            ChessGame.TeamColor queriedTurn = board.getPiece(move.getStartPosition()).getTeamColor();
+            if (teamTurn == null) setTeamTurn(queriedTurn);
+            if (!gameOver) {
+                if (queriedTurn == teamTurn) {
+                    Collection<ChessMove> validMoveCollection = validMoves(move.getStartPosition());
+                    if (validMoveCollection.contains(move)) {
                         if (!leavesKingInCheck(move)) {
                             applyMove(move);        //This does nothing with the returned captured ChessPiece
                             moveCastlingRook(move);
@@ -176,13 +176,14 @@ public class ChessGame {
                         }
                         else throw new InvalidMoveException(move + " leaves you in check");
                     }
-                    else throw new InvalidMoveException("piece is null");
+                    else throw new InvalidMoveException("invalid move");
                 }
-                else throw new InvalidMoveException("invalid move");
+                else throw new InvalidMoveException("moving out of turn: " + board.getPiece(move.getStartPosition()).getTeamColor() +
+                        " has the turn, not " + queriedTurn);
             }
-            else throw new InvalidMoveException("moving out of turn");
+            else throw new InvalidMoveException("game is over");
         }
-        else throw new InvalidMoveException("game is over");
+        else throw new InvalidMoveException("can't move from a blank square");
     }
 
     private void updateTeamConditions(ChessMove lastMove) {

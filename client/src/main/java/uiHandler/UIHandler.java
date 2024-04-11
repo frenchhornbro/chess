@@ -60,6 +60,38 @@ public class UIHandler {
         return http;
     }
 
+    /** Convert a letter in a Chess coordinate for use in a ChessPosition object
+     * <p>
+     * (int) 'a' = 97
+     * */
+    public static int convertChar(char letter) {
+        return (int) letter - 96;
+    }
+
+    /** Convert a number in a Chess coordinate for use in a ChessPosition object
+     * <p>
+     * (int) '1' = 49
+     * */
+    public static int convertNum(char num) {
+        return (int) num - 48;
+    }
+
+    public static boolean validCoordinate(String coordinate) {
+        if (coordinate.length() != 2) {
+            System.out.println("Incorrect coordinate: " + coordinate);
+            return false;
+        }
+
+        // Convert params to ChessPosition: (int) a = 97, (int) 1 = 49
+        int letter = convertChar(coordinate.charAt(0));
+        int num = convertNum(coordinate.charAt(1));
+        if (letter < 1 || letter > 8 || num < 1 || num > 8) {
+            System.out.println("Incorrect coordinate: " + coordinate);
+            return false;
+        }
+        return true;
+    }
+
     protected void printError(String errorMsg) {
         String printStr = "Error";
         String testStr = "Server returned HTTP response code: ";

@@ -1,6 +1,7 @@
 package webSocket;
 
 import chess.ChessBoard;
+import chess.ChessGame;
 import chess.ChessMove;
 import com.google.gson.Gson;
 import ui.GameplayDrawer;
@@ -12,7 +13,9 @@ import static webSocketMessages.userCommands.UserGameCommand.CommandType.*;
 
 public class WebSocketClient extends Endpoint {
     private Session session;
+    public ChessGame game;
     public ChessBoard board;
+    public String playerColor;
 
     public void instantiateWS(int port) {
         try {
@@ -26,14 +29,20 @@ public class WebSocketClient extends Endpoint {
                     switch (serverMessage.getServerMessageType()) {
                         case ERROR:
                             System.out.println(serverMessage.getErrorMessage());
+                            System.out.print("> ");
+                            break;
                         case LOAD_GAME:
-                            board = serverMessage.getGame().getBoard();
-                            GameplayDrawer.draw(board, serverMessage.getPlayerColor(), null);
+                            if (serverMessage.getPlayerColor() != null) playerColor = serverMessage.getPlayerColor();
+                            if (serverMessage.getGame() != null) {
+                                game = serverMessage.getGame();
+                                board = serverMessage.getGame().getBoard();
+                                GameplayDrawer.draw(board, playerColor, game.getTeamTurn(), null);
+                            }
                             System.out.print("> ");
                             break;
                         case NOTIFICATION:
                         default:
-                            System.out.println("Message: " + serverMessage.getMessage());
+                            System.out.println(serverMessage.getMessage());
                     }
                 }
             });
@@ -42,7 +51,6 @@ public class WebSocketClient extends Endpoint {
             System.out.println("The client's WebSocket instantiation encountered an error: " + ex.getMessage());
         }
     }
-    //TODO: See if gameID needs to be converted into an int or a Double
 
     public void join(String authToken, String gameID, String playerColor) {
         send(new UserGameCommand(JOIN_PLAYER, authToken, gameID, playerColor));
@@ -66,7 +74,7 @@ public class WebSocketClient extends Endpoint {
             this.session.getBasicRemote().sendText(msg);
         }
         catch (Exception ex) {
-            System.out.print("Error: Message not sent");
+            System.out.println("Error: Message not sent");
         }
     }
 

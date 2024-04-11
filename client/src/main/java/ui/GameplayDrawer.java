@@ -1,9 +1,6 @@
 package ui;
 
-import chess.ChessBoard;
-import chess.ChessMove;
-import chess.ChessPiece;
-import chess.ChessPosition;
+import chess.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import static chess.ChessBoard.BOARDSIZE;
@@ -16,10 +13,14 @@ public class GameplayDrawer {
         blackSquare = true;
     }
 
-    public static void draw (ChessBoard board, String playerColor, Collection<ChessMove> moves) {
+    public static void draw (ChessBoard board, String playerColor, ChessGame.TeamColor turn, Collection<ChessMove> moves) {
         System.out.print(ERASE_SCREEN);
+        if (playerColor == null) System.out.println("\tObserving");
+        else System.out.println("\tPlaying: " + playerColor.toUpperCase());
         if (playerColor == null || playerColor.equalsIgnoreCase("WHITE")) printWhite(board, moves);
         else printBlack(board, moves);
+        System.out.println("\tTurn: " + turn);
+        if (moves!=null && moves.isEmpty()) System.out.println("\nNo valid moves");
         System.out.println();
     }
 
@@ -28,15 +29,15 @@ public class GameplayDrawer {
         for (int i = 0; i < BOARDSIZE; i++) num[i] = BOARDSIZE - i;
 
         printAlpha(false);
-        for (int i = 0; i < BOARDSIZE; i++) {
-            System.out.print(num[i] + "\u2003");
-            for (int j = 0; j < BOARDSIZE; j++) {
-                //TODO: Print the moves in one color, the current position in another, and the pieces that can be captured in a third
+        for (int i = BOARDSIZE-1; i >= 0; i--) {
+            System.out.print(BOARDSIZE+1-num[i] + "\u2003");
+            for (int j = BOARDSIZE-1; j >= 0; j--) {
                 ChessPiece piece = board.getPiece(new ChessPosition(i+1, j+1));
-                System.out.print(chessPiece(piece, moves, i, j));
+                System.out.print(chessPiece(piece, moves, board, i, j));
+                System.out.print(SET_TEXT_COLOR_WHITE);
             }
             System.out.print(RESET);
-            System.out.println(" " + num[i]);
+            System.out.println("\u2003" + (BOARDSIZE+1-num[i]));
             blackSquare = !blackSquare;
         }
         printAlpha(false);
@@ -47,57 +48,63 @@ public class GameplayDrawer {
         for (int i = 0; i < BOARDSIZE; i++) num[i] = BOARDSIZE - i;
 
         printAlpha(true);
-        for (int i = BOARDSIZE-1; i >= 0; i--) {
-            System.out.print(num[i] + " ");
-            for (int j = BOARDSIZE-1; j >= 0; j--) {
+        for (int i = 0; i < BOARDSIZE; i++) {
+            System.out.print(BOARDSIZE+1-num[i] + "\u2003");
+            for (int j = 0; j < BOARDSIZE; j++) {
                 ChessPiece piece = board.getPiece(new ChessPosition(i+1, j+1));
-                System.out.print(chessPiece(piece, moves, i, j));
+                System.out.print(chessPiece(piece, moves, board, i, j));
+                System.out.print(SET_TEXT_COLOR_WHITE);
             }
             System.out.print(RESET);
-            System.out.println(" " + num[i]);
+            System.out.println("\u2003" + (BOARDSIZE+1-num[i]));
             blackSquare = !blackSquare;
         }
         printAlpha(true);
     }
 
-    private static void printAlpha(boolean white) {
+    private static void printAlpha(boolean black) {
         String[] alpha = {"a", "b", "c", "d", "e", "f", "g", "h"};
         System.out.print(EMPTY);
-        if (!white) for (String letter : alpha) System.out.print(letter + "\u2003\u2003");
+        if (!black) for (String letter : alpha) System.out.print(letter + "\u2003\u2003");
         else for (int i = alpha.length; i > 0; i--) System.out.print(alpha[i-1] + "\u2003\u2003");
         System.out.println();
     }
 
-    private static String chessPiece(ChessPiece piece, Collection<ChessMove> collMoves, int row, int col) {
+    private static String chessPiece(ChessPiece piece, Collection<ChessMove> collMoves, ChessBoard board, int row, int col) {
         System.out.print(SET_TEXT_BOLD);
         if (blackSquare) {
             blackSquare = false;
-            System.out.print(SET_BG_COLOR_DARK_GREY);
+            System.out.print("\u001b[48;5;95m");
         }
         else {
             blackSquare = true;
-            System.out.print(SET_BG_COLOR_LIGHT_GREY);
+            System.out.print("\u001b[48;5;222m");
         }
         if (collMoves != null) {
             if (!collMoves.isEmpty()) {
                 //TODO: Consider only allowing querying moves for the person whose turn it is
-                row = BOARDSIZE - 1 - row;
                 ArrayList<ChessMove> moves = new ArrayList<>(collMoves);
                 ChessPosition startPos = moves.getFirst().getStartPosition();
                 if (startPos.getRow() == row && startPos.getColumn() == col) {
-                    System.out.print(SET_BG_COLOR_BLUE);
+                    System.out.print(SET_BG_COLOR_GREEN);
                 }
                 else {
                     for (ChessMove move : moves) {
                         ChessPosition endPos = move.getEndPosition();
                         if (endPos.getRow() == row && endPos.getColumn() == col) {
                             System.out.print(SET_BG_COLOR_YELLOW);
+                            if (piece != null && board.getPiece(endPos) != null &&
+                                    !piece.getTeamColor().equals(board.getPiece(startPos).getTeamColor())) {
+                                System.out.print(SET_BG_COLOR_RED);
+                            }
+                            break;
                         }
                     }
                 }
             }
         }
         if (piece == null) return EMPTY;
+        System.out.print(SET_TEXT_COLOR_MAGENTA);
         if (piece.getTeamColor().toString().equals("WHITE")) {
             return switch (piece.getPieceType().toString()) {
                 case ("KING") -> WHITE_KING;
@@ -109,6 +116,7 @@ public class GameplayDrawer {
             };
         }
         else {
+            System.out.print(SET_TEXT_COLOR_BLUE);
             return switch (piece.getPieceType().toString()) {
                 case ("KING") -> BLACK_KING;
                 case ("QUEEN") -> BLACK_QUEEN;

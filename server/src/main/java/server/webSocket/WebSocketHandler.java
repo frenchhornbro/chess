@@ -173,6 +173,7 @@ public class WebSocketHandler {
             }
             if (!actionValid(session, gameData, username)) return;
             gameData.getGame().makeMove(move);
+            gameDAO.updateBoard(gameID, gameData.getGame().getBoard());
             gameDAO.updateGame(gameID, gameData.getGame());
             ServerMessage reloadMsg = new ServerMessage(LOAD_GAME);
             reloadMsg.setGame(gameData.getGame());

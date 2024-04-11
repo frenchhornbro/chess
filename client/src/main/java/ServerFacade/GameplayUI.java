@@ -5,14 +5,18 @@ import ui.Client;
 import ui.GameplayDrawer;
 import uiHandler.UIHighlightHandler;
 import uiHandler.UIJoinHandler;
+import uiHandler.UIMoveHandler;
 import java.util.ArrayList;
 import java.util.Collection;
 import static ui.PrintHelper.*;
 
 public class GameplayUI {
     private final UIHighlightHandler highlightHandler;
+    private final UIMoveHandler moveHandler;
+
     public GameplayUI() {
         this.highlightHandler = new UIHighlightHandler();
+        this.moveHandler = new UIMoveHandler();
     }
     public boolean goToGameplayUI(int port, Client client, String displayGameID, ArrayList<Integer> storageIDs, String playerColor) {
         String storageGameID = String.valueOf(UIJoinHandler.convertID(displayGameID, storageIDs));
@@ -20,12 +24,12 @@ public class GameplayUI {
         else client.webSocketClient.join(client.getAuthToken(), storageGameID, playerColor);
         String input = "";
         while (!input.equalsIgnoreCase("leave")) {
+            System.out.print("> ");
             ArrayList<String> commands = PreLoginUI.getCommands();
             input = commands.getFirst();
             ArrayList<String> params = new ArrayList<>(commands);
             params.removeFirst();
             switch(input.toLowerCase()) {
-                //TODO: I doubt any of these commands should be available to just observers except help, draw, and leave
                 case ("help"):
                     printDraw();
                     printHighlight();
@@ -44,12 +48,10 @@ public class GameplayUI {
                 case ("draw"):
                 case ("redraw"):
                     highlightHandler.clearScreen();
-                    GameplayDrawer.draw(client.webSocketClient.board, playerColor, null);
+                    GameplayDrawer.draw(client.webSocketClient.board, playerColor, client.webSocketClient.game.getTeamTurn(), null);
                     break;
                 case ("move"):
-                    //TODO: Figure out how to get the move - maybe highlightHandler has some ideas?
-                    ChessMove move = null; //FIXME
-                    client.webSocketClient.move(client.getAuthToken(), storageGameID, move);
+                    moveHandler.move(params, client, storageGameID);
                     break;
                 case ("resign"):
                     //TODO: Send a notification of player resigning
@@ -58,7 +60,7 @@ public class GameplayUI {
                     Collection<ChessMove> moves = highlightHandler.highlight(params, client.webSocketClient.board);
                     if (moves != null) {
                         highlightHandler.clearScreen();
-                        GameplayDrawer.draw(client.webSocketClient.board, playerColor, moves);
+                        GameplayDrawer.draw(client.webSocketClient.board, playerColor, client.webSocketClient.game.getTeamTurn(), moves);
                     }
                     break;
                 case ("clear"):

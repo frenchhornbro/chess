@@ -217,6 +217,22 @@ public class SQLGameDAO extends SQLDAO {
         return new ChessBoard(squares);
     }
 
+    public void updateBoard(String gameID, ChessBoard board) throws Exception {
+        for (int i = 0; i < BOARDSIZE; i++) {
+            for (int j = 0; j < BOARDSIZE; j++) {
+                String updateBoardStatement = """
+                    UPDATE chessBoard
+                    SET playerColor=?, pieceType=?
+                    WHERE gameID=? AND rowNum=? AND colNum=?
+                    """;
+                ChessPiece piece = board.getPiece(new ChessPosition(i+1, j+1));
+                ChessGame.TeamColor teamColor = (piece == null) ? null : piece.getTeamColor();
+                ChessPiece.PieceType pieceType = (piece == null) ? null : piece.getPieceType();
+                updateDB(updateBoardStatement, teamColor, pieceType, gameID, i, j);
+            }
+        }
+    }
+
     public void updateGame(String gameID, ChessGame game) throws Exception {
         String updateGameStatement = """
             UPDATE chessGame
