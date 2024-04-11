@@ -199,24 +199,27 @@ public class ServerFacadeTests {
     public void drawPositive() {
         //Draw a filled board
         ChessBoard board = new ChessBoard(true);
-        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(board, "WHITE", ChessGame.TeamColor.WHITE, null));
+        ChessGame game = new ChessGame(ChessGame.TeamColor.WHITE, board);
+        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(game, "WHITE", null));
     }
 
     @Test
     public void drawNegative() {
         //Draw a blank board
         ChessBoard board = new ChessBoard();
-        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(board, "BLACK", ChessGame.TeamColor.BLACK, null));
+        ChessGame game = new ChessGame(ChessGame.TeamColor.WHITE, board);
+        Assertions.assertDoesNotThrow(() -> GameplayDrawer.draw(game, "BLACK", null));
     }
 
     @Test
     public void highlight() {
         ChessBoard board = new ChessBoard(true);
+        ChessGame game = new ChessGame(ChessGame.TeamColor.WHITE, board);
         ArrayList<String> coordinates = new ArrayList<>();
         coordinates.add("d2");
         Collection<ChessMove> moves = highlightHandler.highlight(coordinates, board);
-        GameplayDrawer.draw(board, "WHITE", ChessGame.TeamColor.WHITE, moves);
-        GameplayDrawer.draw(board, "BLACK", ChessGame.TeamColor.WHITE, moves);
+        GameplayDrawer.draw(game, "WHITE", moves);
+        GameplayDrawer.draw(game, "BLACK", moves);
     }
 
     private String registrationSetup() {

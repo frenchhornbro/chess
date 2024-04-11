@@ -22,7 +22,6 @@ public class UIHighlightHandler extends UIHandler {
         ChessPosition pos = new ChessPosition(num, BOARDSIZE+1-letter);
         ChessPiece piece = board.getPiece(pos);
         if (piece == null) return null;
-        System.out.print(piece.pieceMoves(board, pos));
         return piece.pieceMoves(board, pos);
     }
 }

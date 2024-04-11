@@ -36,7 +36,7 @@ public class WebSocketClient extends Endpoint {
                             if (serverMessage.getGame() != null) {
                                 game = serverMessage.getGame();
                                 board = serverMessage.getGame().getBoard();
-                                GameplayDrawer.draw(board, playerColor, game.getTeamTurn(), null);
+                                GameplayDrawer.draw(game, playerColor, null);
                             }
                             System.out.print("> ");
                             break;
@@ -66,6 +66,10 @@ public class WebSocketClient extends Endpoint {
 
     public void move(String authToken, String gameID, ChessMove move) {
         send(new UserGameCommand(MAKE_MOVE, authToken, gameID, move));
+    }
+
+    public void resign(String authToken, String gameID) {
+        send(new UserGameCommand(RESIGN, authToken, gameID));
     }
 
     private void send(UserGameCommand command) {

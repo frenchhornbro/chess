@@ -6,22 +6,31 @@ import webSocketMessages.serverMessages.ServerMessage;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ConnectionManager {
-    public final ConcurrentHashMap<String, Connection> connections = new ConcurrentHashMap<>();
-    public void add (String username, Session session) {
-        connections.put(username, new Connection(username, session));
+    public final ConcurrentHashMap<String, ConcurrentHashMap<String, Connection>> connections = new ConcurrentHashMap<>();
+    public void add (String username, String gameID, Session session) {
+        Connection newConnection = new Connection(username, session);
+        if (connections.get(gameID) == null) {
+            ConcurrentHashMap<String, Connection> newGameLobby = new ConcurrentHashMap<String, Connection>();
+            newGameLobby.put(username, newConnection);
+            connections.put(gameID, newGameLobby);
+        }
+        else connections.get(gameID).put(username, newConnection);
     }
-    public void broadcast (String originUser, ServerMessage userMessage, ServerMessage broadcastMessage) {
-        for (Connection connection : connections.values()) {
+
+    public void remove(String username, String gameID) {
+        connections.get(gameID).remove(username);
+    }
+
+    public void broadcast (String gameID, String originUser, ServerMessage userMessage, ServerMessage broadcastMessage) {
+        for (Connection connection : connections.get(gameID).values()) {
             if (connection.session.isOpen()) {
                 if (connection.username.equals(originUser)) {
                     if (userMessage != null) connection.send(new Gson().toJson(userMessage));
-                    else System.out.println("userMessage is null");
                 }
                 else if (broadcastMessage != null) connection.send(new Gson().toJson(broadcastMessage));
-                else System.out.println("broadcastMessage is null");
             }
             else {
-                connections.remove(connection.username);
+                remove(connection.username, gameID);
                 System.out.println("A connection was removed for " + connection.username);
             }
         }

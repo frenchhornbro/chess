@@ -13,13 +13,20 @@ public class GameplayDrawer {
         blackSquare = true;
     }
 
-    public static void draw (ChessBoard board, String playerColor, ChessGame.TeamColor turn, Collection<ChessMove> moves) {
+    public static void draw (ChessGame game, String playerColor, Collection<ChessMove> moves) {
+        ChessBoard board = game.getBoard();
+        ChessGame.TeamColor turn = game.getTeamTurn();
+
         System.out.print(ERASE_SCREEN);
         if (playerColor == null) System.out.println("\tObserving");
         else System.out.println("\tPlaying: " + playerColor.toUpperCase());
         if (playerColor == null || playerColor.equalsIgnoreCase("WHITE")) printWhite(board, moves);
         else printBlack(board, moves);
-        System.out.println("\tTurn: " + turn);
+
+        if (game.getCheckmate() != 0) System.out.println("Checkmate");
+        else if (game.getStalemate() != 0) System.out.println("Stalemate");
+        else if (game.getGameOver() != 0) System.out.println("Game Over");
+        else System.out.println("\tTurn: " + turn);
         if (moves!=null && moves.isEmpty()) System.out.println("\nNo valid moves");
         System.out.println();
     }
@@ -82,7 +89,6 @@ public class GameplayDrawer {
         }
         if (collMoves != null) {
             if (!collMoves.isEmpty()) {
-                //TODO: Consider only allowing querying moves for the person whose turn it is
                 ArrayList<ChessMove> moves = new ArrayList<>(collMoves);
                 ChessPosition startPos = moves.getFirst().getStartPosition();
                 if (startPos.getRow() == row && startPos.getColumn() == col) {

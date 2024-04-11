@@ -53,10 +53,10 @@ public class WebSocketHandler {
             chessMove = new Gson().fromJson(command.get("move").toString().replace("=", ":"), ChessMove.class);
         }
         switch (commandType) {
-            case "JOIN_PLAYER" -> join(session, username, playerColor, gameData);
-            case "JOIN_OBSERVER" -> observe(session, username, gameData);
+            case "JOIN_PLAYER" -> join(session, gameID, username, playerColor, gameData);
+            case "JOIN_OBSERVER" -> observe(session, gameID, username, gameData);
             case "MAKE_MOVE" -> move(session, gameID, username, chessMove, gameData);
-            case "LEAVE" -> leave(session, username, gameData);
+            case "LEAVE" -> leave(session, gameID, username, gameData);
             case "RESIGN" -> resign(session, gameID, username, gameData);
             default -> System.out.println("Incorrect message sent: " + message);
         }
@@ -133,7 +133,7 @@ public class WebSocketHandler {
         }
     }
 
-    private void join(Session session, String username, String playerColor, GameStorage gameData) {
+    private void join(Session session, String gameID, String username, String playerColor, GameStorage gameData) {
         try {
             if (incorrectUser(session, gameData, playerColor, username)) return;
             ServerMessage userMsg = new ServerMessage(LOAD_GAME);
@@ -141,8 +141,8 @@ public class WebSocketHandler {
             userMsg.setPlayerColor(playerColor);
             ServerMessage broadcastMsg = new ServerMessage(NOTIFICATION);
             broadcastMsg.setMessage(username + " has joined as " + playerColor);
-            connections.add(username, session);
-            connections.broadcast(username, userMsg, broadcastMsg);
+            connections.add(username, gameID, session);
+            connections.broadcast(gameID, username, userMsg, broadcastMsg);
             System.out.println(broadcastMsg.getMessage());
         }
         catch (Exception ex) {
@@ -150,14 +150,14 @@ public class WebSocketHandler {
         }
     }
 
-    private void observe(Session session, String username, GameStorage gameData) {
+    private void observe(Session session, String gameID, String username, GameStorage gameData) {
         try {
             ServerMessage userMsg = new ServerMessage(LOAD_GAME);
             userMsg.setGame(gameData.getGame());
             ServerMessage broadcastMsg = new ServerMessage(NOTIFICATION);
             broadcastMsg.setMessage(username + " has joined as an observer");
-            connections.add(username, session);
-            connections.broadcast(username, userMsg, broadcastMsg);
+            connections.add(username, gameID, session);
+            connections.broadcast(gameID, username, userMsg, broadcastMsg);
             System.out.println(broadcastMsg.getMessage());
         }
         catch (Exception ex) {
@@ -177,10 +177,10 @@ public class WebSocketHandler {
             gameDAO.updateGame(gameID, gameData.getGame());
             ServerMessage reloadMsg = new ServerMessage(LOAD_GAME);
             reloadMsg.setGame(gameData.getGame());
-            connections.broadcast(username, reloadMsg, reloadMsg);
+            connections.broadcast(gameID, username, reloadMsg, reloadMsg);
             ServerMessage notify = new ServerMessage(NOTIFICATION);
             notify.setMessage(username + "made a move: " + move);
-            connections.broadcast(username, null, notify);
+            connections.broadcast(gameID, username, null, notify);
         }
         catch (Exception ex) {
             sendError(session, ex.getMessage());
@@ -202,11 +202,29 @@ public class WebSocketHandler {
 
             ServerMessage resignMsg = new ServerMessage(NOTIFICATION);
             resignMsg.setMessage(username + " resigned");
-            connections.broadcast(username, resignMsg, resignMsg);
+            connections.broadcast(gameID, username, resignMsg, resignMsg);
             System.out.println(resignMsg.getMessage());
         }
         catch (Exception ex) {
             sendError(session, ex.getMessage());
         }
+    }
+
+    private void leave(Session session, String gameID, String username, GameStorage gameData) {
+        try {
+            connections.remove(username, gameID);
+            ServerMessage leaveMsg = new ServerMessage(NOTIFICATION);
+            leaveMsg.setMessage(username + " left");
+            connections.broadcast(gameID, username, null, leaveMsg);
+            System.out.println(leaveMsg.getMessage());
+        }
+        catch (Exception ex) {
+            sendError(session, ex.getMessage());
+        }
+    }
+
+    @OnWebSocketError
+    public void webSocketError(Session session, Throwable throwable) {
+        System.out.println("Session disconnected");
     }
 }
