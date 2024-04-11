@@ -18,7 +18,7 @@ public class GameplayUI {
         this.highlightHandler = new UIHighlightHandler();
         this.moveHandler = new UIMoveHandler();
     }
-    public boolean goToGameplayUI(int port, Client client, String displayGameID, ArrayList<Integer> storageIDs, String playerColor) {
+    public boolean goToGameplayUI(Client client, String displayGameID, ArrayList<Integer> storageIDs, String playerColor) {
         String storageGameID = String.valueOf(UIJoinHandler.convertID(displayGameID, storageIDs));
         if (playerColor == null) client.webSocketClient.observe(client.getAuthToken(), storageGameID);
         else client.webSocketClient.join(client.getAuthToken(), storageGameID, playerColor);

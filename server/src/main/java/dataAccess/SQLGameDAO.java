@@ -70,7 +70,7 @@ public class SQLGameDAO extends SQLDAO {
         }
     }
 
-    public GamesStorage getGames() throws DataAccessException {
+    public GamesStorage getGames(boolean includeAll) throws DataAccessException {
         //Get all the gameData, pack it into a GamesStorage Object, and return that
         try {
             String getGameIDsStatement = "SELECT gameID FROM gameData";
@@ -78,7 +78,7 @@ public class SQLGameDAO extends SQLDAO {
 
             ArrayList<GameStorage> games = new ArrayList<>();
             for (String gameID : gameIDs) {
-                games.add(getGameData(gameID));
+                games.add(getGameData(gameID, includeAll));
             }
             return new GamesStorage(games);
         }
@@ -87,7 +87,7 @@ public class SQLGameDAO extends SQLDAO {
         }
     }
 
-    public GameStorage getGameData(String gameID) throws DataAccessException {
+    public GameStorage getGameData(String gameID, boolean includeAll) throws DataAccessException {
         try {
             //From gameData
             String getWhiteUserNameStatement = "SELECT whiteUsername FROM gameData WHERE gameID=?";
@@ -96,7 +96,7 @@ public class SQLGameDAO extends SQLDAO {
             String blackUsername = queryDB(getBlackUserNameStatement, gameID);
             String getGameNameStatement = "SELECT gameName FROM gameData WHERE gameID=?";
             String gameName = queryDB(getGameNameStatement, gameID);
-            ChessGame game = getGame(gameID);
+            ChessGame game = (includeAll) ? getGame(gameID) : null;
             int intGameID = (int) Double.parseDouble(gameID);
             return new GameStorage(intGameID, whiteUsername, blackUsername, gameName, game);
 

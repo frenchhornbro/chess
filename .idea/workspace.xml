@@ -9,15 +9,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Passed all tests">
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Fixed chessboard being flipped">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/GameplayUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/GameplayUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PostLoginUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/PostLoginUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ServerFacade/ServerFacade.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ServerFacade/ServerFacade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/GameplayDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/GameplayDrawer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIHighlightHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIHighlightHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/PrintHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/PrintHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIMoveHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIMoveHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLGameDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/server/webSocket/WebSocketHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/server/webSocket/WebSocketHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/service/ListGamesService.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/service/ListGamesService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/GameDAOTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/test/java/dataAccessTests/GameDAOTests.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -279,7 +281,7 @@
       <command value="git add ." />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in shared">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ui.Client" />
       <module name="client" />
@@ -347,9 +349,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Server" />
+        <item itemvalue="JUnit.ServerFacadeTests" />
         <item itemvalue="JUnit.All in shared" />
         <item itemvalue="Application.Client" />
-        <item itemvalue="JUnit.ServerFacadeTests" />
         <item itemvalue="JUnit.WebSocketTests" />
       </list>
     </recent_temporary>
@@ -369,14 +371,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702756436549</updated>
-    </task>
-    <task id="LOCAL-00045" summary="Phase 4 - All UserDAO unit tests passed">
-      <option name="closed" value="true" />
-      <created>1709877414084</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1709877414084</updated>
     </task>
     <task id="LOCAL-00046" summary="Phase 4 - SQLGameDao createGame works">
       <option name="closed" value="true" />
@@ -762,7 +756,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712856376507</updated>
     </task>
-    <option name="localTasksCounter" value="94" />
+    <task id="LOCAL-00094" summary="Phase 6 - Fixed chessboard being flipped">
+      <option name="closed" value="true" />
+      <created>1712861196779</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1712861196780</updated>
+    </task>
+    <option name="localTasksCounter" value="95" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -778,7 +780,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Phase 5 - GameplayUI: Fixed observe and join bug" />
     <MESSAGE value="Phase 5 - GameplayUI: GameplayDrawer draws both boards" />
     <MESSAGE value="Phase 5 - GameplayUI: Implemented test environment, refactored joining to fix bug" />
     <MESSAGE value="Phase 5 - GameplayUI: Renamed package to uiHandler for clarity" />
@@ -803,7 +804,8 @@
     <MESSAGE value="Phase 6 - Implemented drawing the board, joining, and leaving for Client" />
     <MESSAGE value="Phase 6 - Implemented moving and fixed highlighting for Client" />
     <MESSAGE value="Phase 6 - Passed all tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Passed all tests" />
+    <MESSAGE value="Phase 6 - Fixed chessboard being flipped" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Fixed chessboard being flipped" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

@@ -1,5 +1,6 @@
 package uiHandler;
 
+import chess.ChessPiece;
 import com.google.gson.Gson;
 import ui.EscapeSequences;
 import java.io.InputStream;
@@ -9,6 +10,7 @@ import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import static chess.ChessPiece.PieceType.*;
 
 public class UIHandler {
     public void clearScreen() {
@@ -90,6 +92,23 @@ public class UIHandler {
             return false;
         }
         return true;
+    }
+
+    public static ChessPiece.PieceType toPieceType(String pieceType) {
+        return switch (pieceType.toUpperCase()) {
+            case "KING" -> KING;
+            case "QUEEN" -> QUEEN;
+            case "ROOK" -> ROOK;
+            case "BISHOP" -> BISHOP;
+            case "KNIGHT" -> KNIGHT;
+            default -> PAWN;
+        };
+    }
+
+    public static boolean validPromotionType(String pieceType) {
+        if (pieceType == null) return false;
+        return (pieceType.equalsIgnoreCase("QUEEN") || pieceType.equalsIgnoreCase("ROOK")
+                || pieceType.equalsIgnoreCase("BISHOP") || pieceType.equalsIgnoreCase("KNIGHT"));
     }
 
     protected void printError(String errorMsg) {

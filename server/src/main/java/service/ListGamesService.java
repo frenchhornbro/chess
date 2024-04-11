@@ -20,7 +20,7 @@ public class ListGamesService {
         try {
             String storedAuthToken = sqlAuthDAO.getAuth(authToken);
             if (storedAuthToken == null) throw new ServiceException("Error: unauthorized", 401);
-            return sqlGameDAO.getGames();
+            return sqlGameDAO.getGames(false);
         }
         catch (DataAccessException ex) {
             throw new ServiceException(ex.getMessage(), 500);

@@ -44,7 +44,7 @@ public class WebSocketHandler {
         }
         String username = authDAO.getUser(authToken);
         System.out.println("onMessage username = " + username);
-        GameStorage gameData = gameDAO.getGameData(gameID);
+        GameStorage gameData = gameDAO.getGameData(gameID, true);
         String commandType = (String) command.get("commandType");
         String playerColor = (String) command.get("playerColor");
         ChessMove chessMove = null;
@@ -56,7 +56,7 @@ public class WebSocketHandler {
             case "JOIN_PLAYER" -> join(session, gameID, username, playerColor, gameData);
             case "JOIN_OBSERVER" -> observe(session, gameID, username, gameData);
             case "MAKE_MOVE" -> move(session, gameID, username, chessMove, gameData);
-            case "LEAVE" -> leave(session, gameID, username, gameData);
+            case "LEAVE" -> leave(session, gameID, username);
             case "RESIGN" -> resign(session, gameID, username, gameData);
             default -> System.out.println("Incorrect message sent: " + message);
         }
@@ -140,7 +140,7 @@ public class WebSocketHandler {
             userMsg.setGame(gameData.getGame());
             userMsg.setPlayerColor(playerColor);
             ServerMessage broadcastMsg = new ServerMessage(NOTIFICATION);
-            broadcastMsg.setMessage(username + " has joined as " + playerColor);
+            broadcastMsg.setMessage(username + " has joined as " + playerColor + "\n> ");
             connections.add(username, gameID, session);
             connections.broadcast(gameID, username, userMsg, broadcastMsg);
             System.out.println(broadcastMsg.getMessage());
@@ -155,7 +155,7 @@ public class WebSocketHandler {
             ServerMessage userMsg = new ServerMessage(LOAD_GAME);
             userMsg.setGame(gameData.getGame());
             ServerMessage broadcastMsg = new ServerMessage(NOTIFICATION);
-            broadcastMsg.setMessage(username + " has joined as an observer");
+            broadcastMsg.setMessage(username + " has joined as an observer\n> ");
             connections.add(username, gameID, session);
             connections.broadcast(gameID, username, userMsg, broadcastMsg);
             System.out.println(broadcastMsg.getMessage());
@@ -179,7 +179,7 @@ public class WebSocketHandler {
             reloadMsg.setGame(gameData.getGame());
             connections.broadcast(gameID, username, reloadMsg, reloadMsg);
             ServerMessage notify = new ServerMessage(NOTIFICATION);
-            notify.setMessage(username + "made a move: " + move);
+            notify.setMessage(username + "made a move: " + move + "\n> ");
             connections.broadcast(gameID, username, null, notify);
         }
         catch (Exception ex) {
@@ -201,7 +201,7 @@ public class WebSocketHandler {
             gameDAO.updateGame(gameID, gameData.getGame());
 
             ServerMessage resignMsg = new ServerMessage(NOTIFICATION);
-            resignMsg.setMessage(username + " resigned");
+            resignMsg.setMessage(username + " resigned\n> ");
             connections.broadcast(gameID, username, resignMsg, resignMsg);
             System.out.println(resignMsg.getMessage());
         }
@@ -210,11 +210,11 @@ public class WebSocketHandler {
         }
     }
 
-    private void leave(Session session, String gameID, String username, GameStorage gameData) {
+    private void leave(Session session, String gameID, String username) {
         try {
             connections.remove(username, gameID);
             ServerMessage leaveMsg = new ServerMessage(NOTIFICATION);
-            leaveMsg.setMessage(username + " left");
+            leaveMsg.setMessage(username + " left\n> ");
             connections.broadcast(gameID, username, null, leaveMsg);
             System.out.println(leaveMsg.getMessage());
         }

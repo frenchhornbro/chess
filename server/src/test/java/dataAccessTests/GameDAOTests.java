@@ -141,13 +141,13 @@ public class GameDAOTests extends DAOTests {
         Assertions.assertDoesNotThrow(() -> sqlGameDAO.createGame("Game 1"));
         Assertions.assertDoesNotThrow(() -> sqlGameDAO.createGame("Game 2"));
         Assertions.assertDoesNotThrow(() -> sqlGameDAO.createGame("Game 3"));
-        Assertions.assertDoesNotThrow(sqlGameDAO::getGames);
+        Assertions.assertDoesNotThrow(() -> sqlGameDAO.getGames(false));
     }
 
     @Test
     public void getGamesNegative() throws Exception {
         //When no games are added, a blank array is returned
-        Assertions.assertEquals("{}", sqlGameDAO.getGames().toString());
+        Assertions.assertEquals("{}", sqlGameDAO.getGames(false).toString());
     }
 
     @Test
