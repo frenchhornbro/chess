@@ -179,7 +179,7 @@ public class WebSocketHandler {
             reloadMsg.setGame(gameData.getGame());
             connections.broadcast(gameID, username, reloadMsg, reloadMsg);
             ServerMessage notify = new ServerMessage(NOTIFICATION);
-            notify.setMessage(username + "made a move: " + move + "\n> ");
+            notify.setMessage(username + " made a move: " + move + "\n> ");
             connections.broadcast(gameID, username, null, notify);
         }
         catch (Exception ex) {

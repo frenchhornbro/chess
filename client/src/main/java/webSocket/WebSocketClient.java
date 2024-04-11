@@ -42,7 +42,7 @@ public class WebSocketClient extends Endpoint {
                             break;
                         case NOTIFICATION:
                         default:
-                            System.out.println(serverMessage.getMessage());
+                            System.out.print(serverMessage.getMessage());
                     }
                 }
             });
