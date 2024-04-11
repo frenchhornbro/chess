@@ -178,8 +178,7 @@ public class ChessGame {
                     }
                     else throw new InvalidMoveException("invalid move");
                 }
-                else throw new InvalidMoveException("moving out of turn: " + board.getPiece(move.getStartPosition()).getTeamColor() +
-                        " has the turn, not " + queriedTurn);
+                else throw new InvalidMoveException("moving out of turn");
             }
             else throw new InvalidMoveException("game is over");
         }
@@ -522,29 +521,11 @@ public class ChessGame {
 
     @Override
     public String toString() {
-        StringBuilder retStr = new StringBuilder();
-        retStr.append("Team turn: ");
-        retStr.append(this.teamTurn);
-        retStr.append(", Stalemate: ");
-        retStr.append(this.stalemate);
-        retStr.append(", Checkmate: ");
-        retStr.append(this.checkmate);
-        retStr.append(", GameOver: ");
-        retStr.append(this.gameOver);
-        retStr.append(", White kingside rook has moved: ");
-        retStr.append(whiteKingsideRookHasMoved);
-        retStr.append(", White queenside rook has moved: ");
-        retStr.append(whiteQueensideRookHasMoved);
-        retStr.append(", White king has moved: ");
-        retStr.append(this.whiteKingHasMoved);
-        retStr.append(", Black kingside rook has moved: ");
-        retStr.append(blackKingsideRookHasMoved);
-        retStr.append(", Black queenside rook has moved: ");
-        retStr.append(blackQueensideRookHasMoved);
-        retStr.append(", Black king has moved: ");
-        retStr.append(this.blackKingHasMoved);
-        retStr.append(", ChessBoard: ");
-        retStr.append((this.board == null) ? "null" : this.board.toString());
-        return retStr.toString();
+        return "Team turn: " + this.teamTurn + ", Stalemate: " + this.stalemate + ", Checkmate: " + this.checkmate
+                + ", GameOver: " + this.gameOver + ", White kingside rook has moved: " + whiteKingsideRookHasMoved
+                + ", White queenside rook has moved: " + whiteQueensideRookHasMoved + ", White king has moved: "
+                + this.whiteKingHasMoved + ", Black kingside rook has moved: " + blackKingsideRookHasMoved
+                + ", Black queenside rook has moved: " + blackQueensideRookHasMoved + ", Black king has moved: "
+                + this.blackKingHasMoved + ", ChessBoard: " + ((this.board == null) ? "null" : this.board.toString());
     }
 }

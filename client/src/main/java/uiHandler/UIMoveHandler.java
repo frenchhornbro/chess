@@ -4,7 +4,6 @@ import chess.ChessMove;
 import chess.ChessPosition;
 import ui.Client;
 import java.util.ArrayList;
-import static chess.ChessGame.BOARDSIZE;
 import static ui.PrintHelper.printMove;
 
 public class UIMoveHandler extends UIHandler {
@@ -21,10 +20,9 @@ public class UIMoveHandler extends UIHandler {
             printMove();
             return;
         }
-        ChessPosition startPos = new ChessPosition(convertNum(strStartPos.charAt(1)), BOARDSIZE + 1 - convertChar(strStartPos.charAt(0)));
-        ChessPosition endPos = new ChessPosition(convertNum(strEndPos.charAt(1)), BOARDSIZE + 1 - convertChar(strEndPos.charAt(0)));
+        ChessPosition startPos = new ChessPosition(convertNum(strStartPos.charAt(1)), convertChar(strStartPos.charAt(0)));
+        ChessPosition endPos = new ChessPosition(convertNum(strEndPos.charAt(1)), convertChar(strEndPos.charAt(0)));
         ChessMove move = new ChessMove(startPos, endPos);
-        System.out.println("move = " + move);
         //TODO: Figure out how to specify promotion
         client.webSocketClient.move(client.getAuthToken(), storageGameID, move);
     }

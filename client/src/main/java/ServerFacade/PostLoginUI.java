@@ -2,6 +2,7 @@ package ServerFacade;
 
 import dataStorage.GameStorage;
 import ui.Client;
+import ui.EscapeSequences;
 import uiHandler.UICreateHandler;
 import uiHandler.UIJoinHandler;
 import uiHandler.UIListHandler;
@@ -26,6 +27,7 @@ public class PostLoginUI {
 
     /** Runs the Logged In UI. Returns true if it wants to fully quit and false otherwise.*/
     public boolean goToPostLogin(int port, Client client, String username) {
+        System.out.print(EscapeSequences.ERASE_SCREEN);
         printPostLoginUI();
         String input = "";
         while (!input.equalsIgnoreCase("logout")) {

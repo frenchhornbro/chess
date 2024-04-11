@@ -23,9 +23,9 @@ public class GameplayDrawer {
         if (playerColor == null || playerColor.equalsIgnoreCase("WHITE")) printWhite(board, moves);
         else printBlack(board, moves);
 
-        if (game.getCheckmate() != 0) System.out.println("Checkmate");
-        else if (game.getStalemate() != 0) System.out.println("Stalemate");
-        else if (game.getGameOver() != 0) System.out.println("Game Over");
+        if (game.getCheckmate() != 0) System.out.println("\tCheckmate");
+        else if (game.getStalemate() != 0) System.out.println("\tStalemate");
+        else if (game.getGameOver() != 0) System.out.println("\tGame Over");
         else System.out.println("\tTurn: " + turn);
         if (moves!=null && moves.isEmpty()) System.out.println("\nNo valid moves");
         System.out.println();
@@ -38,7 +38,7 @@ public class GameplayDrawer {
         printAlpha(false);
         for (int i = BOARDSIZE-1; i >= 0; i--) {
             System.out.print(BOARDSIZE+1-num[i] + "\u2003");
-            for (int j = BOARDSIZE-1; j >= 0; j--) {
+            for (int j = 0; j < BOARDSIZE; j++) {
                 ChessPiece piece = board.getPiece(new ChessPosition(i+1, j+1));
                 System.out.print(chessPiece(piece, moves, board, i, j));
                 System.out.print(SET_TEXT_COLOR_WHITE);
@@ -57,7 +57,7 @@ public class GameplayDrawer {
         printAlpha(true);
         for (int i = 0; i < BOARDSIZE; i++) {
             System.out.print(BOARDSIZE+1-num[i] + "\u2003");
-            for (int j = 0; j < BOARDSIZE; j++) {
+            for (int j = BOARDSIZE-1; j >= 0; j--) {
                 ChessPiece piece = board.getPiece(new ChessPosition(i+1, j+1));
                 System.out.print(chessPiece(piece, moves, board, i, j));
                 System.out.print(SET_TEXT_COLOR_WHITE);
