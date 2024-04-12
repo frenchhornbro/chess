@@ -9,23 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Code cleanup">
-      <change afterPath="$PROJECT_DIR$/server/src/main/java/handler/Handler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/MovesCalculator.java" afterDir="false" />
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Simplified duplicate code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/CreateGameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/CreateGameHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/JoinGameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/JoinGameHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/ListGamesHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/ListGamesHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/main/java/webSocket/WebSocketClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/webSocket/WebSocketClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/Handler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/LoginHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/LoginHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/LogoutHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/LogoutHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/RegistrationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/RegistrationHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/BishopMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/BishopMovesCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/KingMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/KingMovesCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/PieceMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/PieceMovesCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/QueenMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/QueenMovesCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/RookMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/RookMovesCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/MovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/MovesCalculator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +74,7 @@
     "Application.WebSocketServer.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.All in client.executor": "Run",
-    "JUnit.All in server.executor": "Debug",
+    "JUnit.All in server.executor": "Run",
     "JUnit.All in shared.executor": "Run",
     "JUnit.AuthDAOTests.executor": "Run",
     "JUnit.AuthDAOTests.sqlAuthClearSuccess.executor": "Run",
@@ -369,14 +359,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702756436549</updated>
-    </task>
-    <task id="LOCAL-00053" summary="Phase 5 - Logged Out UI: implemented help and quit">
-      <option name="closed" value="true" />
-      <created>1710968131298</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1710968131299</updated>
     </task>
     <task id="LOCAL-00054" summary="Phase 5 - Logged Out UI: implemented register">
       <option name="closed" value="true" />
@@ -762,7 +744,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712888457636</updated>
     </task>
-    <option name="localTasksCounter" value="102" />
+    <task id="LOCAL-00102" summary="Phase 6 - Simplified duplicate code">
+      <option name="closed" value="true" />
+      <created>1712890812882</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1712890812882</updated>
+    </task>
+    <option name="localTasksCounter" value="103" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -778,7 +768,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Phase 5 - Refactored server to be independent of the client" />
     <MESSAGE value="Phase 5 - Client can join the same game as their same color if they left" />
     <MESSAGE value="Phase 6 - Imported starter code" />
     <MESSAGE value="Phase 6 - Board drawn based on color" />
@@ -803,7 +792,8 @@
     <MESSAGE value="Phase 6 - Removed unnecessary fields in SQLDAO" />
     <MESSAGE value="Phase 6 - Refactored chessBoard for efficiency" />
     <MESSAGE value="Phase 6 - Code cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Code cleanup" />
+    <MESSAGE value="Phase 6 - Simplified duplicate code" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Simplified duplicate code" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

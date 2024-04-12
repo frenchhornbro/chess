@@ -6,7 +6,7 @@ import chess.ChessPosition;
 import java.util.ArrayList;
 
 public class MovesCalculator {
-    public static int BOARDSIZE = 8;
+    public final static int BOARDSIZE = 8;
     protected void rookMoves(ArrayList<ChessMove> possibleMoves, ChessPosition startPos, ChessBoard board, boolean isRow, boolean isAdd) {
         int x = startPos.getRow();
         int y = startPos.getColumn();

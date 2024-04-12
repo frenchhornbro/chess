@@ -24,6 +24,7 @@ public class WebSocketClient extends Endpoint {
             WebSocketContainer container = ContainerProvider.getWebSocketContainer();
             this.session = container.connectToServer(this, uri);
             this.session.addMessageHandler(new MessageHandler.Whole<String>() {
+                @Override
                 public void onMessage(String message) {
                     Gson serial = new Gson();
                     ServerMessage serverMessage = serial.fromJson(message, ServerMessage.class);
@@ -88,5 +89,6 @@ public class WebSocketClient extends Endpoint {
         }
     }
 
+    @Override
     public void onOpen(Session session, EndpointConfig endpointConfig) {}
 }
