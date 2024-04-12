@@ -1,11 +1,7 @@
 package chess;
 
-import static chess.ChessPiece.PieceType.ROOK;
-import static chess.ChessPiece.PieceType.BISHOP;
-import static chess.ChessPiece.PieceType.KNIGHT;
-import static chess.ChessPiece.PieceType.QUEEN;
-import static chess.ChessPiece.PieceType.KING;
-import static chess.ChessPiece.PieceType.PAWN;
+import static chess.ChessPiece.PieceType.*;
+import static chess.piecemovescalculators.MovesCalculator.BOARDSIZE;
 
 /**
  * A chessboard that can hold and rearrange chess pieces.
@@ -14,7 +10,6 @@ import static chess.ChessPiece.PieceType.PAWN;
  * signature of the existing methods.
  */
 public class ChessBoard {
-    public final static int BOARDSIZE = 8;
     private ChessPiece[][] squares = new ChessPiece[BOARDSIZE][BOARDSIZE];
     public ChessBoard() {
 

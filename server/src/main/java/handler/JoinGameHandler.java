@@ -7,7 +7,7 @@ import spark.Request;
 import spark.Response;
 import java.util.Map;
 
-public class JoinGameHandler {
+public class JoinGameHandler extends Handler {
     public Object joinGame(Request request, Response response) {
         //Add the user as the specified player color (or an observer)
         Gson serial = new Gson();
@@ -25,9 +25,7 @@ public class JoinGameHandler {
             response.body("{}");
         }
         catch(ServiceException exception) {
-            ErrorCarrier responder = new ErrorCarrier(exception.getMessage(), exception.getErrorNum());
-            response.status(responder.getErrorNum());
-            response.body(serial.toJson(responder));
+            response = handleServiceEx(exception, response, serial);
         }
         catch(Exception otherException) {
             response.status(500);

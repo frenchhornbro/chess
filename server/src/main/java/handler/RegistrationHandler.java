@@ -7,7 +7,7 @@ import spark.Request;
 import spark.Response;
 import java.util.Map;
 
-public class RegistrationHandler {
+public class RegistrationHandler extends Handler {
     public Object register(Request request, Response response) {
         //Add UserData to a database (given nothing is null and the username isn't already taken)
         Gson serial = new Gson();
@@ -21,9 +21,7 @@ public class RegistrationHandler {
             response.status(200);
         }
         catch (ServiceException exception) {
-            ErrorCarrier responder = new ErrorCarrier(exception.getMessage(), exception.getErrorNum());
-            response.status(responder.getErrorNum());
-            response.body(serial.toJson(responder));
+            response = handleServiceEx(exception, response, serial);
         }
         catch (Exception otherException) {
             response.status(500);

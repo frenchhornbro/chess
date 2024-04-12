@@ -2,6 +2,7 @@ package chess;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import static chess.piecemovescalculators.MovesCalculator.BOARDSIZE;
 
 /**
  * For a class that can manage a chess game, making moves on a board
@@ -10,7 +11,6 @@ import java.util.Collection;
  * signature of the existing methods.
  */
 public class ChessGame {
-    public final static int BOARDSIZE = 8;
     private TeamColor teamTurn;
     private ChessBoard board;
     private boolean stalemate;

@@ -3,9 +3,9 @@ package chess.piecemovescalculators;
 import chess.ChessBoard;
 import chess.ChessMove;
 import chess.ChessPosition;
-
 import java.util.ArrayList;
 import java.util.Collection;
+import static chess.piecemovescalculators.MovesCalculator.BOARDSIZE;
 
 public class KingMovesCalculator implements PieceMovesCalculator {
     public KingMovesCalculator() {

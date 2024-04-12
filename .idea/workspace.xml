@@ -9,18 +9,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Refactored chessBoard for efficiency">
+    <list default="true" id="da512ee9-0e35-4cc9-b52d-e9af9f5dfe9a" name="Changes" comment="Phase 6 - Code cleanup">
+      <change afterPath="$PROJECT_DIR$/server/src/main/java/handler/Handler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/MovesCalculator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/ui/GameplayDrawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/ui/GameplayDrawer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/uiHandler/UICreateHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UICreateHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/uiHandler/UILoginHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UILoginHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/uiHandler/UILogoutHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UILogoutHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIRegisterHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/main/java/uiHandler/UIRegisterHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/dataAccess/SQLDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/model/AuthData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/model/GameData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shared/src/main/java/model/UserData.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/CreateGameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/CreateGameHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/JoinGameHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/JoinGameHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/ListGamesHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/ListGamesHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/LoginHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/LoginHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/LogoutHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/LogoutHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/main/java/handler/RegistrationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/main/java/handler/RegistrationHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/ChessGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/BishopMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/BishopMovesCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/KingMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/KingMovesCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/PieceMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/PieceMovesCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/QueenMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/QueenMovesCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/RookMovesCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shared/src/main/java/chess/piecemovescalculators/RookMovesCalculator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +84,7 @@
     "Application.WebSocketServer.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.All in client.executor": "Run",
-    "JUnit.All in server.executor": "Run",
+    "JUnit.All in server.executor": "Debug",
     "JUnit.All in shared.executor": "Run",
     "JUnit.AuthDAOTests.executor": "Run",
     "JUnit.AuthDAOTests.sqlAuthClearSuccess.executor": "Run",
@@ -260,12 +265,13 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/htdur/CS-240/chess/server/src/test/java/passoffTests/serverTests",
+    "last_opened_file_path": "C:/Users/htdur/CS-240/chess/shared/src/main/java/chess/piecemovescalculators/BishopMovesCalculator.java",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.34252873",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.General"
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.General",
+    "two.files.diff.last.used.file": "C:/Users/htdur/CS-240/chess/shared/src/main/java/chess/piecemovescalculators/BishopMovesCalculator.java"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -283,7 +289,7 @@
       <command value="git add ." />
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.All in server">
+  <component name="RunManager" selected="JUnit.All in client">
     <configuration name="All in client" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="client" />
       <option name="PACKAGE_NAME" value="" />
@@ -340,11 +346,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.All in client" />
         <item itemvalue="JUnit.All in server" />
+        <item itemvalue="JUnit.All in shared" />
         <item itemvalue="JUnit.WebSocketTests" />
         <item itemvalue="JUnit.ServerFacadeTests" />
-        <item itemvalue="JUnit.All in shared" />
-        <item itemvalue="JUnit.All in client" />
       </list>
     </recent_temporary>
   </component>
@@ -363,14 +369,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1702756436549</updated>
-    </task>
-    <task id="LOCAL-00052" summary="Phase 5 - Imported starter code">
-      <option name="closed" value="true" />
-      <created>1710801864642</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1710801864642</updated>
     </task>
     <task id="LOCAL-00053" summary="Phase 5 - Logged Out UI: implemented help and quit">
       <option name="closed" value="true" />
@@ -756,7 +754,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712876871662</updated>
     </task>
-    <option name="localTasksCounter" value="101" />
+    <task id="LOCAL-00101" summary="Phase 6 - Code cleanup">
+      <option name="closed" value="true" />
+      <created>1712888457636</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1712888457636</updated>
+    </task>
+    <option name="localTasksCounter" value="102" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -792,12 +798,12 @@
     <MESSAGE value="Phase 6 - Passed all tests" />
     <MESSAGE value="Phase 6 - Fixed chessboard being flipped" />
     <MESSAGE value="Phase 6 - Added promotion for making moves" />
-    <MESSAGE value="Phase 6 - Code cleanup" />
     <MESSAGE value="Phase 6 - Displaying king in check" />
     <MESSAGE value="Phase 6 - Removed castling for optimization" />
     <MESSAGE value="Phase 6 - Removed unnecessary fields in SQLDAO" />
     <MESSAGE value="Phase 6 - Refactored chessBoard for efficiency" />
-    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Refactored chessBoard for efficiency" />
+    <MESSAGE value="Phase 6 - Code cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Phase 6 - Code cleanup" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/chess$BishopMoveTests_bishopMoveUntilEdge.ic" NAME="BishopMoveTests.bishopMoveUntilEdge Coverage Results" MODIFIED="1705970966386" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

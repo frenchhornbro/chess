@@ -4,9 +4,9 @@ import chess.ChessBoard;
 import chess.ChessMove;
 import chess.ChessPiece;
 import chess.ChessPosition;
-
 import java.util.ArrayList;
 import java.util.Collection;
+import static chess.piecemovescalculators.MovesCalculator.BOARDSIZE;
 
 public class PawnMovesCalculator implements PieceMovesCalculator {
     public PawnMovesCalculator() {

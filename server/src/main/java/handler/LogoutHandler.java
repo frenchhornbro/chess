@@ -6,7 +6,7 @@ import service.ServiceException;
 import spark.Request;
 import spark.Response;
 
-public class LogoutHandler {
+public class LogoutHandler extends Handler {
     public Object logout(Request request, Response response) {
         // Verify authToken is correct and delete authData
         Gson serial = new Gson();
@@ -19,9 +19,7 @@ public class LogoutHandler {
             response.body("{}");
         }
         catch (ServiceException exception) {
-            ErrorCarrier responder = new ErrorCarrier(exception.getMessage(), exception.getErrorNum());
-            response.status(responder.getErrorNum());
-            response.body(serial.toJson(responder));
+            response = handleServiceEx(exception, response, serial);
         }
         catch (Exception otherException) {
             response.status(500);

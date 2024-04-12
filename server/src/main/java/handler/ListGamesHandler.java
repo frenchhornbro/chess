@@ -7,7 +7,7 @@ import service.ServiceException;
 import spark.Request;
 import spark.Response;
 
-public class ListGamesHandler {
+public class ListGamesHandler extends Handler {
     public Object listGames(Request request, Response response) {
         //Return a GamesStorage object
         Gson serial = new Gson();
@@ -20,9 +20,7 @@ public class ListGamesHandler {
             response.body(serial.toJson(games));
         }
         catch(ServiceException exception) {
-            ErrorCarrier responder = new ErrorCarrier(exception.getMessage(), exception.getErrorNum());
-            response.status(responder.getErrorNum());
-            response.body(serial.toJson(responder));
+            response = handleServiceEx(exception, response, serial);
         }
         catch(Exception otherException) {
             response.status(500);

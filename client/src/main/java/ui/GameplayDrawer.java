@@ -3,7 +3,7 @@ package ui;
 import chess.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import static chess.ChessBoard.BOARDSIZE;
+import static chess.piecemovescalculators.MovesCalculator.BOARDSIZE;
 import static ui.EscapeSequences.*;
 
 public class GameplayDrawer {

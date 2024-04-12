@@ -7,7 +7,7 @@ import spark.Request;
 import spark.Response;
 import java.util.Map;
 
-public class CreateGameHandler {
+public class CreateGameHandler extends Handler {
     public Object createGame(Request request, Response response) {
         //Create a new game and return the gameID
         Gson serial = new Gson();
@@ -23,9 +23,7 @@ public class CreateGameHandler {
             response.body(serial.toJson(gameIDStorage));
         }
         catch (ServiceException exception) {
-            ErrorCarrier responder = new ErrorCarrier(exception.getMessage(), exception.getErrorNum());
-            response.status(responder.getErrorNum());
-            response.body(serial.toJson(responder));
+            response = handleServiceEx(exception, response, serial);
         }
         catch (Exception otherException) {
             response.status(500);
