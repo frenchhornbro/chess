@@ -1,13 +1,9 @@
 package uiHandler;
 
-import com.google.gson.Gson;
 import ui.PrintHelper;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class UIRegisterHandler extends UIHandler {
 
@@ -27,11 +23,7 @@ public class UIRegisterHandler extends UIHandler {
                                         null, titles, params);
 
             //Process request
-            try (InputStream response = http.getInputStream()) {
-                InputStreamReader reader = new InputStreamReader(response);
-                Map<String, String> responseBody = new Gson().fromJson(reader, Map.class);
-                return responseBody.get("authToken");
-            }
+            return processRequest(http);
         }
         catch (Exception ex) {
             printError(ex.getMessage());

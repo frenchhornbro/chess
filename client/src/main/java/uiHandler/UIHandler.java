@@ -4,12 +4,14 @@ import chess.ChessPiece;
 import com.google.gson.Gson;
 import ui.EscapeSequences;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import static chess.ChessPiece.PieceType.*;
 
 public class UIHandler {
@@ -62,11 +64,35 @@ public class UIHandler {
         return http;
     }
 
+    protected String processRequest(HttpURLConnection http) throws Exception {
+        try (InputStream response = http.getInputStream()) {
+            InputStreamReader reader = new InputStreamReader(response);
+            Map<String, String> responseBody = new Gson().fromJson(reader, Map.class);
+            return responseBody.get("authToken");
+        }
+    }
+
+    protected boolean processRequestWithError(HttpURLConnection http) throws Exception {
+        try (InputStream response = http.getInputStream()) {
+            InputStreamReader reader = new InputStreamReader(response);
+            Map<String, String> responseBody = new Gson().fromJson(reader, Map.class);
+            String errorNum = responseBody.get("errorNum");
+            if (errorNum != null ) {
+                System.out.print("Error" + errorNum + ": ");
+                String message = responseBody.get("message");
+                if (message != null) System.out.println(message);
+                else System.out.println("error body not found");
+                return false;
+            }
+            return true;
+        }
+    }
+
     /** Convert a letter in a Chess coordinate for use in a ChessPosition object
      * <p>
      * (int) 'a' = 97
      * */
-    public static int convertChar(char letter) {
+    protected static int convertChar(char letter) {
         return (int) letter - 96;
     }
 
@@ -74,11 +100,11 @@ public class UIHandler {
      * <p>
      * (int) '1' = 49
      * */
-    public static int convertNum(char num) {
+    protected static int convertNum(char num) {
         return (int) num - 48;
     }
 
-    public static boolean validCoordinate(String coordinate) {
+    protected static boolean validCoordinate(String coordinate) {
         if (coordinate.length() != 2) {
             System.out.println("Incorrect coordinate: " + coordinate);
             return false;
@@ -94,7 +120,7 @@ public class UIHandler {
         return true;
     }
 
-    public static ChessPiece.PieceType toPieceType(String pieceType) {
+    protected static ChessPiece.PieceType toPieceType(String pieceType) {
         return switch (pieceType.toUpperCase()) {
             case "KING" -> KING;
             case "QUEEN" -> QUEEN;
@@ -105,7 +131,7 @@ public class UIHandler {
         };
     }
 
-    public static boolean validPromotionType(String pieceType) {
+    protected static boolean validPromotionType(String pieceType) {
         if (pieceType == null) return false;
         return (pieceType.equalsIgnoreCase("QUEEN") || pieceType.equalsIgnoreCase("ROOK")
                 || pieceType.equalsIgnoreCase("BISHOP") || pieceType.equalsIgnoreCase("KNIGHT"));

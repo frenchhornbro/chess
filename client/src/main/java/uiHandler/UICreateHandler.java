@@ -1,13 +1,9 @@
 package uiHandler;
 
-import com.google.gson.Gson;
 import ui.PrintHelper;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class UICreateHandler extends UIHandler {
 
@@ -37,22 +33,10 @@ public class UICreateHandler extends UIHandler {
                     "authorization", authToken, titles, gameName);
 
             //Process request
-            try (InputStream response = http.getInputStream()) {
-                InputStreamReader reader = new InputStreamReader(response);
-                Map<String, String> responseBody = new Gson().fromJson(reader, Map.class);
-                String errorNum = responseBody.get("errorNum");
-                if (errorNum != null ) {
-                    System.out.print("Error" + errorNum + ": ");
-                    String message = responseBody.get("message");
-                    if (message != null) System.out.println(message);
-                    else System.out.println("error body not found");
-                    return false;
-                }
-                return true;
-            }
+            return processRequestWithError(http);
         }
-        catch (Exception ex) {
-            printError(ex.getMessage());
+        catch (Exception exception) {
+            printError(exception.getMessage());
             return false;
         }
     }

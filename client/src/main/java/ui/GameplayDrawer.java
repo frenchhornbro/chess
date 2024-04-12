@@ -41,9 +41,7 @@ public class GameplayDrawer {
         for (int i = BOARDSIZE-1; i >= 0; i--) {
             System.out.print(BOARDSIZE+1-num[i] + "\u2003");
             for (int j = 0; j < BOARDSIZE; j++) {
-                ChessPiece piece = board.getPiece(new ChessPosition(i+1, j+1));
-                System.out.print(chessPiece(piece, moves, board, i, j));
-                System.out.print(SET_TEXT_COLOR_WHITE);
+                printSquare(board, moves, i, j);
             }
             System.out.print(RESET);
             System.out.println("\u2003" + (BOARDSIZE+1-num[i]));
@@ -60,15 +58,19 @@ public class GameplayDrawer {
         for (int i = 0; i < BOARDSIZE; i++) {
             System.out.print(BOARDSIZE+1-num[i] + "\u2003");
             for (int j = BOARDSIZE-1; j >= 0; j--) {
-                ChessPiece piece = board.getPiece(new ChessPosition(i+1, j+1));
-                System.out.print(chessPiece(piece, moves, board, i, j));
-                System.out.print(SET_TEXT_COLOR_WHITE);
+                printSquare(board, moves, i, j);
             }
             System.out.print(RESET);
             System.out.println("\u2003" + (BOARDSIZE+1-num[i]));
             blackSquare = !blackSquare;
         }
         printAlpha(true);
+    }
+
+    private static void printSquare(ChessBoard board, Collection<ChessMove> moves, int i, int j) {
+        ChessPiece piece = board.getPiece(new ChessPosition(i+1, j+1));
+        System.out.print(chessPiece(piece, moves, board, i, j));
+        System.out.print(SET_TEXT_COLOR_WHITE);
     }
 
     private static void printAlpha(boolean black) {
